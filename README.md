@@ -1,6 +1,6 @@
 # L'echappee d'Emma
 
-Site vitrine pour L'echappee d'Emma, une agence de voyage sur mesure a Sucy-en-Brie. Le projet presente les offres, l'approche personnalisee, les destinations et les moyens de contact.
+Site vitrine pour L'echappee d'Emma, un Travel Planer sur mesure à Sucy-en-Brie. Le projet présente les offres, l'approche personnalisée, les destinations et les moyens de contact.
 
 ## Technologies
 

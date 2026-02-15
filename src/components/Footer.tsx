@@ -24,7 +24,7 @@ const Footer = () => {
             </button>
             <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAbout ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
-                L'échappée d'Emma est une agence de voyage sur mesure spécialisée dans les destinations nordiques.
+                L'échappée d'Emma est un Travel Planer sur mesure spécialisé dans les destinations nordiques.
                 Passionnés par les grands espaces scandinaves, nous créons des itinéraires uniques et authentiques
                 pour vous faire vivre des expériences inoubliables en Islande, Norvège, Suède et Finlande.
               </p>
