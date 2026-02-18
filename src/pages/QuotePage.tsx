@@ -105,7 +105,7 @@ const QuotePage = () => {
 
               {/* Titre Mr / Mme */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Titre *</label>
+                <label className="text-sm font-semibold text-foreground">Titre </label>
                 <div className="flex items-center gap-6">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -186,14 +186,29 @@ const QuotePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Date de départ *</label>
+                  <label className="text-sm font-semibold text-foreground">Date de départ</label>
                   <input
                     type="date"
-                    value={departDate}
+                    value={departDate === 'flexible' || departDate === '' ? '' : departDate}
                     onChange={(e) => setDepartDate(e.target.value)}
-                    required
                     className="w-full p-4 bg-muted border-none rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
                   />
+                  <div className="flex gap-3 mt-3">
+                    <button
+                      type="button"
+                      className={`px-4 py-2 rounded-full font-semibold text-sm transition border ${departDate === '' ? 'bg-accent text-accent-foreground border-accent' : 'bg-muted text-muted-foreground border-border hover:bg-accent/10'} focus:outline-none`}
+                      onClick={() => setDepartDate('')}
+                    >
+                      Je ne sais pas
+                    </button>
+                    <button
+                      type="button"
+                      className={`px-4 py-2 rounded-full font-semibold text-sm transition border ${departDate === 'flexible' ? 'bg-accent text-accent-foreground border-accent' : 'bg-muted text-muted-foreground border-border hover:bg-accent/10'} focus:outline-none`}
+                      onClick={() => setDepartDate('flexible')}
+                    >
+                      Je suis flexible
+                    </button>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-foreground">Date de retour</label>
@@ -283,12 +298,11 @@ const QuotePage = () => {
               </div>
 
               <div className="space-y-2 pt-6 border-t border-border">
-                <label className="text-sm font-semibold text-foreground">Décrivez vos envies</label>
+                {/* Bloc état d'esprit actuel */}
+                <label className="text-sm font-semibold text-foreground">Votre état d'esprit actuel</label>
                 <textarea
-                  rows={4}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Activités souhaitées, type d'hébergement, rythme du voyage..."
+                  rows={2}
+                  placeholder="En un mot ou une phrase, comment vous sentez-vous aujourd'hui et qu'attendez-vous de ce voyage ?"
                   className="w-full p-4 bg-muted border-none rounded-xl outline-none resize-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
@@ -313,23 +327,23 @@ const QuotePage = () => {
           >
             <div className="bg-primary text-primary-foreground p-8 rounded-3xl">
               <Heart className="text-accent mb-4" size={32} />
-              <h3 className="text-xl font-bold font-serif mb-4">Pourquoi nous choisir ?</h3>
+              <h3 className="text-xl font-bold font-serif mb-4">Pourquoi choisir L'Échappée d'Emma ?</h3>
               <ul className="space-y-4 text-sm text-primary-foreground/80">
                 <li className="flex items-start gap-2">
                   <span className="text-accent mt-0.5">•</span>
-                  Co-construction de votre voyage idéal
+                  Écoute structurée : questionnaire approfondi pour respecter votre énergie.
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-accent mt-0.5">•</span>
-                  Modifications illimitées et gratuites
+                  Force du vécu : je connais les chemins qui aident à se retrouver.
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-accent mt-0.5">•</span>
-                  Assistance francophone 24h/7j
+                  Itinéraire cousu main : chaque étape adaptée à votre besoin de souffle.
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-accent mt-0.5">•</span>
-                  Engagés pour un tourisme responsable
+                  Sérénité à la carte : guides ou hébergements francophones selon disponibilité.
                 </li>
               </ul>
             </div>
@@ -337,7 +351,6 @@ const QuotePage = () => {
             <div className="bg-card p-6 rounded-3xl border">
               <p className="text-sm text-muted-foreground mb-2">Une question ?</p>
               <p className="font-bold text-foreground text-lg">06 78 21 88 23</p>
-              <p className="text-sm text-muted-foreground mt-1">Du lundi au samedi, 9h-19h</p>
             </div>
           </motion.div>
         </div>

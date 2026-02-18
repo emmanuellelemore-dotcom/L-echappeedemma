@@ -70,10 +70,10 @@ const ContactPage = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-serif text-foreground mb-4">
-            Contactez nos <span className="italic text-accent">conseillers</span>
+            Contactez <span className="italic text-accent">Moi</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Une question ? Un projet de voyage ? Notre équipe est à votre écoute.
+            Une question ? Un projet de voyage ? Je suis à votre écoute.
           </p>
         </motion.div>
 
@@ -105,7 +105,7 @@ const ContactPage = () => {
         >
           <div className="flex items-center gap-3 text-accent font-bold border-b border-border pb-4">
             <Send size={20} />
-            <h2 className="text-lg font-serif">Envoyez-nous un message</h2>
+            <h2 className="text-lg font-serif">Envoyez-moi un message</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -163,7 +163,7 @@ const ContactPage = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              placeholder="Décrivez votre projet ou posez-nous vos questions..."
+              placeholder="Décrivez votre projet ou posez-moi vos questions..."
               className="w-full p-4 bg-muted border-none rounded-xl outline-none resize-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
             />
           </div>

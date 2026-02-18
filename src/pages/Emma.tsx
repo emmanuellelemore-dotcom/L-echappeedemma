@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PortraitChinois from '../components/PortraitChinois';
+import { Button } from '../components/ui/button';
 
 const challenges = [
   "Ne plus avoir l'énergie pour soi ni pour les autres.",
@@ -77,18 +79,34 @@ const Emma = () => {
             <motion.div variants={slideRight}>
               <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6">Qui suis-je ?</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Après 25 ans d'une carrière intense et une période d'épreuves personnelles, je me suis
-                retrouvée à devoir réinventer mon quotidien. Le voyage m'a alors offert un souffle
-                nouveau : celui de la nature, du silence et de la liberté.
+                Bonjour, moi c’est Emma.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                C'est de cette renaissance qu'est née L'échappée d'Emma. Mon rôle : accompagner celles
-                et ceux qui traversent un tournant de vie en leur créant une expérience sur mesure,
-                douce et authentique.
+                Après 25 ans d'une carrière intense,  puis une année  d’épreuves particulièrement éprouvantes,  je me suis totalement perdue.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                J’ai alors compris une chose fondamentale : le voyage n’est plus un luxe, c’est une nécessité pour l’âme.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                C’est l’appel des grands espaces qui m’a permis de retrouver mon cap et, surtout, le sentiment de liberté nécessaire pour me projeter à nouveau.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                De cette renaissance est née ”L’Échappée d’Emma”.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Mon rôle est d’accompagner ceux qui traversent un tournant de vie,  qu’ils célèbrent un nouveau départ ou qu’ils aient besoin de reprendre leur souffle.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Je conçois pour vous des itinéraires où la logistique s'efface pour vous offrir le luxe de vous réapproprier votre temps. En vous libérant de chaque contrainte, je crée l'espace nécessaire pour ralentir,
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                savourer la simplicité des lieux et redevenir l'acteur principal de votre propre histoire. En tant qu’architecte de voyage, je dessine une parenthèse sur-mesure, fluide et sereine.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Je vous décharge totalement de l'organisation car la vraie liberté, c’est de n’avoir rien d'autre à vivre que l'instant présent.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Mon approche est simple : beaucoup d'écoute, des conseils clairs, une logistique prise
-                en charge et un itinéraire qui vous ressemble.
+                Il est temps de vous reconnecter à ce qui compte vraiment.
               </p>
             </motion.div>
 
@@ -106,6 +124,13 @@ const Emma = () => {
           </div>
         </motion.section>
 
+        {/* Portrait chinois */}
+        <section className="px-6">
+          <div className="max-w-6xl mx-auto">
+            <PortraitChinois />
+          </div>
+        </section>
+
         {/* Moi aussi */}
         <motion.section
           className="bg-secondary/60 px-6 py-20"
@@ -114,7 +139,7 @@ const Emma = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
         >
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
             <motion.h2 variants={fadeDown} className="text-3xl md:text-4xl font-serif text-foreground mb-6">
               Moi aussi je suis passée par là...
             </motion.h2>
@@ -152,6 +177,7 @@ const Emma = () => {
             <p className="text-muted-foreground text-lg mb-8">
               Racontez-moi votre besoin de souffle, je m'occupe du reste.
             </p>
+                {/* CTA supprimée */}
           </div>
         </motion.section>
       </main>

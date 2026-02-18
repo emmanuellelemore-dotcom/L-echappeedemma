@@ -21,6 +21,8 @@ const Navbar = () => {
   const links = [
     { to: '/', label: 'Accueil' },
     { to: '/emma', label: 'Emma' },
+    { to: '/mes-prestations', label: 'Prestations' },
+    { to: '/#offres', label: 'Mes offres' },
     { to: '/contact', label: 'Contact' },
   ];
 

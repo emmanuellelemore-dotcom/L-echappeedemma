@@ -19,14 +19,14 @@ const Footer = () => {
               onClick={() => setShowAbout(!showAbout)}
               className="text-primary-foreground/70 text-sm font-semibold mb-3 flex items-center gap-1.5 hover:text-accent transition-colors"
             >
-              Qui sommes-nous ?
+              Qui suis-je ?
               <ChevronDown size={14} className={`transition-transform duration-300 ${showAbout ? 'rotate-180' : ''}`} />
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAbout ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAbout ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
-                L'échappée d'Emma est un Travel Planer sur mesure spécialisé dans les destinations nordiques.
-                Passionnés par les grands espaces scandinaves, nous créons des itinéraires uniques et authentiques
-                pour vous faire vivre des expériences inoubliables en Islande, Norvège, Suède et Finlande.
+                Je suis Emma, fondatrice de l'Échappée d'Emma, Créatrice d'itinéraires sur-mesure I Travel planner.<br />
+                Je suis convaincue qu'à un tournant de vie, on a besoin de ralentir pour se retrouver.<br />
+                C’est pour ça que je crée des itinéraires sur-mesure en Islande, Norvège, Suède et Finlande, où je m'occupe de toute la logistique pour vous laisser simplement, reprendre votre souffle.
               </p>
             </div>
           </div>
@@ -63,22 +63,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Paiements */}
-          <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider">Paiements</h4>
-            <div className="border-t border-dashed border-primary-foreground/20 mb-4" />
-            <div className="flex items-center gap-3">
-              <div className="border border-primary-foreground/30 rounded px-2 py-1">
-                <span className="text-[10px] font-bold text-primary-foreground tracking-wider">VISA</span>
-              </div>
-              <div className="border border-primary-foreground/30 rounded px-2 py-1">
-                <span className="text-[10px] font-bold text-primary-foreground">MasterCard</span>
-              </div>
-              <div className="border border-primary-foreground/30 rounded px-1.5 py-1">
-                <span className="text-[9px] font-bold text-primary-foreground leading-tight block">AMERICAN<br/>EXPRESS</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="border-t border-primary-foreground/10 pt-8 text-center text-xs text-primary-foreground/40">

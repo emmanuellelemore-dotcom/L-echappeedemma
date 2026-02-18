@@ -12,6 +12,7 @@ import QuotePage from "./pages/QuotePage";
 import ContactPage from "./pages/ContactPage";
 import Emma from "./pages/Emma";
 import NotFound from "./pages/NotFound";
+import MesPrestations from "./pages/MesPrestations";
 const Islande = React.lazy(() => import("./pages/galleries/Islande"));
 const Norvege = React.lazy(() => import("./pages/galleries/Norvege"));
 const Suede = React.lazy(() => import("./pages/galleries/Suede"));
@@ -30,12 +31,13 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/emma" element={<Emma />} />
+            <Route path="/mes-prestations" element={<MesPrestations />} />
             <Route path="/devis" element={<QuotePage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/galerie/islande" element={<Islande />} />
-            <Route path="/galerie/norvege" element={<Norvege />} />
-            <Route path="/galerie/suede" element={<Suede />} />
-            <Route path="/galerie/finlande" element={<Finlande />} />
+            <Route path="/gallery/islande" element={<Islande />} />
+            <Route path="/gallery/norvege" element={<Norvege />} />
+            <Route path="/gallery/suede" element={<Suede />} />
+            <Route path="/gallery/finlande" element={<Finlande />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
