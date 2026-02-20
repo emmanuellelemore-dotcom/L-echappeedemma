@@ -85,7 +85,7 @@ const FeedbackWidget = () => {
             className="fixed bottom-6 right-6 z-[60] cursor-pointer group"
             onClick={openModal}
           >
-            <div className="relative bg-white rounded-2xl shadow-lg border border-amber-200 overflow-hidden flex flex-col items-center hover:shadow-xl transition-shadow w-[130px]">
+            <div className="relative bg-white rounded-2xl shadow-lg border border-accent bg-accent/10 overflow-hidden flex flex-col items-center hover:shadow-xl transition-shadow w-[130px]">
               {/* Close button */}
               <button
                 onClick={(e) => {

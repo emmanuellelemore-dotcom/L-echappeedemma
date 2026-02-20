@@ -1,13 +1,12 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { motion } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
-import { TextRoll } from '../components/core/text-roll';
 import { MesPrestationsTitle } from './MesPrestationsTitle';
 import { TextEffect } from '../components/core/text-effect';
-import {
-  HandHeart, Hourglass, Sparkles, BadgeCheck, Sun, Compass, Phone, PenTool, Calendar, Mountain, Footprints, Sun as SunIcon, ChevronDown
-} from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { HandHeart, Hourglass, Sparkles, BadgeCheck, Sun, Compass, Phone, PenTool, Calendar, Mountain, Footprints, Sun as SunIcon, ChevronDown } from 'lucide-react';
+
+import FlipCard from '../components/FlipCard';
 
 // Copie des données et animations depuis Index.tsx
 const reasons = [
@@ -31,7 +30,7 @@ const processSteps = [
 const breathNeeds = [
   { number: '1', title: "L'Éclat (Islande)", subtitle: "Le souffle de l’émerveillement", spirit: "Saturer ses sens de beauté pour ne plus laisser de place aux pensées parasites.", experience: "Un roadtrip intense entre volcans et glaciers pour ceux qui ont besoin d’un 'choc visuel' pour se sentir à nouveau vibrer.", icon: 'montagne' },
   { number: '2', title: "L'Horizon (Norvège)", subtitle: "Le souffle de la liberté", spirit: "Reprendre les commandes de sa vie. Ne plus subir aucun horaire ni aucune contrainte extérieure.", experience: "La vie en van le long des fjords. Changer d’avis, changer de route, et s’arrêter là où le cœur nous dit de rester.", icon: 'van' },
-  { number: '3', title: "Le Cocon (Finlande)", subtitle: "Le souffle de la douceur", spirit: "Mettre le monde sur 'pause'. Ralentir et s’autoriser enfin à ne rien faire, sans culpabiliser.", experience: "Un chalet sous la nuit polaire. Le crépitement du feu et la chaleur du sauna. Avec accès au choix (contemplative ou sportive) ou la liberté d’un temps sans programme.", icon: 'maison_bois' },
+  { number: '3', title: "Le Cocon (Finlande)", subtitle: "Le souffle de la douceur", spirit: "Mettre le monde sur 'pause'. Ralentir et s’autoriser enfin à ne rien faire, sans culpabiliser.", experience: "Un chalet sous la nuit polaire. Le crépitement du feu et la chaleur du sauna. Avec accès au choix, la liberté d’un temps sans programme.", icon: 'maison_bois' },
   { number: '4', title: "La Source (Suède)", subtitle: "Le souffle de l’essentiel", spirit: "Une 'digital detox' profonde pour s’entendre à nouveau réfléchir.", experience: "Canoë-trip sur les lacs sauvages. Un confort minimaliste pour se reconnecter à la simplicité de l’eau, du bois et du feu et réfléchir.", icon: 'feuille' },
   { number: '5', title: "L'Éveil (Scandinavie)", subtitle: "Le souffle du dépassement", spirit: "Retrouver confiance en ses capacités et se prouver que l’on peut encore franchir des montagnes.", experience: "Une itinérance à pied, de refuge en refuge. Porter son sac, passer un col et sortir grandi de chaque pas.", icon: 'empreinte' },
   { number: '6', title: "L'Infini (Lofoten)", subtitle: "Le souffle hors du temps", spirit: "Perdre ses repères habituels pour mieux se retrouver. S’affranchir de la dictature de la montre.", experience: "Vivre le Soleil de Minuit. Randonner ou lire à 2h du matin sous une lumière dorée éternelle. Un voyage où 'l’heure qu’il est' n’a plus aucune importance.", icon: 'soleil' },
@@ -52,6 +51,7 @@ const MesPrestations = () => {
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [activeReasonStep, setActiveReasonStep] = useState(0);
 
+  // Scroll progressif pour Mon processus
   useEffect(() => {
     const root = processSectionRef.current;
     if (!root) return;
@@ -61,7 +61,7 @@ const MesPrestations = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const step = Number((entry.target as HTMLElement).dataset.processStep || '0');
+            const step = Number(entry.target.getAttribute('data-process-step'));
             setActiveProcessStep(step);
           }
         });
@@ -72,6 +72,7 @@ const MesPrestations = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Scroll progressif pour 6 raisons
   useEffect(() => {
     const root = reasonsSectionRef.current;
     if (!root) return;
@@ -81,7 +82,7 @@ const MesPrestations = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const step = Number((entry.target as HTMLElement).dataset.reasonStep || '0');
+            const step = Number(entry.target.getAttribute('data-reason-step'));
             setActiveReasonStep(step);
           }
         });
@@ -91,7 +92,6 @@ const MesPrestations = () => {
     triggers.forEach((trigger) => observer.observe(trigger));
     return () => observer.disconnect();
   }, []);
-
   const processProgress = processSteps.length > 1 ? activeProcessStep / (processSteps.length - 1) : 0;
 
   return (
@@ -146,7 +146,7 @@ const MesPrestations = () => {
           </div>
         </div>
       </motion.section>
-      {/* Besoin de souffle déplacé ici */}
+      {/* Besoin de souffle */}
       <motion.section className="bg-background py-24 px-4 sm:px-6 relative overflow-hidden" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
@@ -157,37 +157,42 @@ const MesPrestations = () => {
           <div className="grid grid-cols-3 gap-4 sm:gap-8 mb-8">
             {breathNeeds.map((need, index) => (
               <motion.div key={need.number} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, delay: index * 0.1 }} className="flex flex-col items-center relative">
-                <div className="bg-[#1e3a5f] text-white rounded-2xl p-6 w-full max-w-xs mx-auto shadow-lg flex flex-col h-[520px]">
-                  <h3 className="text-lg font-bold mb-2 text-center">{need.title}</h3>
-                  <p className="text-base text-center mb-4 text-white/90 font-medium">{need.subtitle}</p>
-                  <ul className="space-y-2 text-sm mb-4 flex-grow">
-                    <li>
-                      <span className="font-semibold">• L'esprit :</span>
-                      <span className="block text-white/80 leading-relaxed text-xs">{need.spirit}</span>
-                    </li>
-                    <li>
-                      <span className="font-semibold">• L'expérience :</span>
-                      <span className="block text-white/80 leading-relaxed text-xs">{need.experience}</span>
-                    </li>
-                  </ul>
-                  <div className="flex justify-center mb-4">
-                    {need.icon === 'maison_bois' ? (
-                      <img src="/logo/maison_bois.webp" alt="Chalet Finlande" className="w-[250px] h-[250px] object-contain" />
-                    ) : need.icon === 'van' ? (
-                      <img src="/logo/van.webp" alt="Van Norvège" className="w-[250px] h-[250px] object-contain" />
-                    ) : need.icon === 'montagne' ? (
-                      <img src="/logo/montagne.webp" alt="Montagne Islande" className="w-[250px] h-[250px] object-contain" />
-                    ) : need.icon === 'soleil' ? (
-                      <img src="/logo/soleil.webp" alt="Soleil Lofoten" className="w-[250px] h-[250px] object-contain" />
-                    ) : need.icon === 'feuille' ? (
-                      <img src="/logo/feuille.webp" alt="Feuille Suède" className="w-[250px] h-[250px] object-contain" />
-                    ) : need.icon === 'empreinte' ? (
-                      <img src="/logo/empreinte.webp" alt="Empreinte Scandinavie" className="w-[250px] h-[250px] object-contain" />
-                    ) : (
-                      null
-                    )}
-                  </div>
-                </div>
+                <FlipCard
+                  recto={
+                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center w-full h-full">
+                      <h3 className="text-lg font-bold mb-2 text-center">{need.title}</h3>
+                      <p className="text-base text-center mb-4 text-white/90 font-medium">{need.subtitle}</p>
+                    </div>
+                  }
+                  verso={
+                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center w-full h-full">
+                      <div className="mb-4">
+                        <span className="font-semibold block mb-2">L'esprit :</span>
+                        <span className="block text-white/80 leading-relaxed text-sm mb-4">{need.spirit}</span>
+                        <span className="font-semibold block mb-2">L'expérience :</span>
+                        <span className="block text-white/80 leading-relaxed text-sm">{need.experience}</span>
+                      </div>
+                      <div className={`flex justify-center ${need.icon === 'maison_bois' ? 'mt-2' : 'mt-2'}`}>
+                        {need.icon === 'maison_bois' ? (
+                          <img src="/logo/maison_bois.webp" alt="Chalet Finlande" className="w-[250px] h-[250px] object-contain" />
+                        ) : need.icon === 'van' ? (
+                          <img src="/logo/van.webp" alt="Van Norvège" className="w-[250px] h-[250px] object-contain" />
+                        ) : need.icon === 'montagne' ? (
+                          <img src="/logo/montagne.webp" alt="Montagne Islande" className="w-[250px] h-[250px] object-contain" />
+                        ) : need.icon === 'soleil' ? (
+                          <img src="/logo/soleil.webp" alt="Soleil Lofoten" className="w-[250px] h-[250px] object-contain" />
+                        ) : need.icon === 'feuille' ? (
+                          <img src="/logo/feuille.webp" alt="Feuille Suède" className="w-[250px] h-[250px] object-contain" />
+                        ) : need.icon === 'empreinte' ? (
+                          <img src="/logo/empreinte.webp" alt="Empreinte Scandinavie" className="w-[250px] h-[250px] object-contain" />
+                        ) : (
+                          null
+                        )}
+                      </div>
+                    </div>
+                  }
+                  className="w-full max-w-xs mx-auto h-[520px]"
+                />
               </motion.div>
             ))}
           </div>
@@ -196,7 +201,7 @@ const MesPrestations = () => {
           </div>
         </div>
       </motion.section>
-      {/* Mon processus déplacé après besoin de souffle */}
+      {/* Mon processus */}
       <motion.section ref={processSectionRef} id="processus" className="py-24 px-6 min-h-[80vh]" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
         <div className="max-w-6xl mx-auto relative">
           <div className="sticky top-24">
@@ -210,39 +215,24 @@ const MesPrestations = () => {
                   <ChevronDown size={36} className="animate-bounce text-accent" />
                 </motion.div>
               </div>
+              {/* Bandeau bleu "En construction" */}
+              <div className="w-full bg-primary text-primary-foreground rounded-2xl py-8 px-4 mt-8 shadow-lg flex items-center justify-center text-2xl font-bold">
+                🚧 En construction 🚧
+              </div>
             </div>
-            <motion.div variants={stagger} className="grid md:grid-cols-5 gap-6">
-              {processSteps.map((step, index) => {
-                const isActive = activeProcessStep >= index;
-                return (
-                  <motion.div key={step.step} variants={fadeUp} animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.85, y: isActive ? 0 : 12 }} transition={{ duration: 0.4, ease: 'easeOut' }} className={`rounded-3xl p-6 text-center transition-all duration-300 ${isActive ? 'bg-secondary/50 border border-border' : 'bg-transparent border-transparent pointer-events-none'}`} whileHover={{ y: -6 }}>
-                    <motion.div animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="w-12 h-12 rounded-full font-bold flex items-center justify-center mx-auto mb-4 bg-accent text-accent-foreground" aria-hidden={!isActive}>{step.step}</motion.div>
-                    <motion.div animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.9 }} transition={{ duration: 0.35, ease: 'easeOut', delay: 0.05 }} className="w-10 h-10 rounded-2xl bg-background flex items-center justify-center mx-auto mb-3" aria-hidden={!isActive}><step.icon className="text-accent" size={18} /></motion.div>
-                    <motion.div animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="min-h-[64px]" aria-hidden={!isActive}><h3 className="font-semibold text-foreground mb-2 text-sm">{step.title}</h3><p className="text-muted-foreground text-xs leading-relaxed">{step.description}</p></motion.div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </div>
-          {/* Ajout pour scroll progressif */}
-          <div className="mt-24" aria-hidden="true">
-            {processSteps.map((step, index) => (
-              <div key={step.step} data-process-step={index} className="h-[24vh]" />
-            ))}
-            <div className="h-[60vh]" />
           </div>
         </div>
       </motion.section>
       {/* Offres */}
-      <motion.section className="py-24 px-6" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+      <motion.section className="bg-secondary/40 py-24 px-6" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <motion.h2 variants={fadeDown} className="text-3xl md:text-4xl font-serif text-foreground">Investir dans votre sérénité</motion.h2>
-            <motion.p variants={fadeUp} className="text-muted-foreground mt-4 text-lg">Deux formats d'accompagnement, selon votre besoin de soutien et l'énergie que vous souhaitez y consacrer.</motion.p>
+            <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="text-3xl md:text-4xl font-serif text-foreground mb-4">Les offres d'accompagnement</motion.h2>
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base">Choisissez l'accompagnement qui vous correspond.</motion.p>
           </div>
-          <motion.div variants={stagger} className="grid lg:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {offers.map((offer) => (
-              <motion.div key={offer.title} variants={fadeUp} className="border border-border rounded-[32px] p-8 bg-secondary/40" whileHover={{ y: -6 }}>
+              <motion.div key={offer.title} variants={fadeUp} className="border border-border rounded-[32px] p-8 bg-background" whileHover={{ y: -6 }}>
                 <h3 className="text-xl font-serif text-foreground mb-2">{offer.title}</h3>
                 <p className="text-muted-foreground mb-4">{offer.subtitle}</p>
                 <span className="inline-flex bg-accent/20 text-accent text-sm font-semibold px-4 py-2 rounded-full mb-6">{offer.price}</span>
@@ -253,7 +243,7 @@ const MesPrestations = () => {
                 </ul>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </motion.section>
       <Footer />
