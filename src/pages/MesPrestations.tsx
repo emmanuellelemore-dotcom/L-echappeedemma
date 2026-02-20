@@ -29,9 +29,12 @@ const processSteps = [
 ];
 
 const breathNeeds = [
-  { number: '1', title: "L'Étincelle (Islande)", subtitle: 'Le souffle du renouveau', spirit: "Pour celles et ceux qui ont besoin d’un choc visuel pour se sentir à nouveau vibrer. Saturer ses sens de beauté pour ne plus laisser de place aux parasites.", experience: "Un roadtrip intense entre volcans et glaciers, pour retrouver l’étincelle.", icon: Mountain },
-  { number: '2', title: "L'Éveil (Scandinavie)", subtitle: 'Le souffle du dépassement', spirit: "Pour celles et ceux qui veulent retrouver confiance en leur force intérieure. Se prouver que l’on peut encore devenir celui/celle que l’on veut.", experience: "Porter son sac, passer un col, gravir une montagne et sortir grandi de chaque pas.", icon: Footprints },
-  { number: '3', title: "L'Infini (Lofoten)", subtitle: 'Le souffle hors du temps', spirit: "Pour celles et ceux qui veulent perdre leurs repères pour mieux se retrouver. S’affranchir de la dictature de la montre.", experience: "Vivre le Soleil de Minuit, randonner OU lire à 3h du matin sous une lumière dorée.", icon: SunIcon },
+  { number: '1', title: "L'Éclat (Islande)", subtitle: "Le souffle de l’émerveillement", spirit: "Saturer ses sens de beauté pour ne plus laisser de place aux pensées parasites.", experience: "Un roadtrip intense entre volcans et glaciers pour ceux qui ont besoin d’un 'choc visuel' pour se sentir à nouveau vibrer.", icon: 'montagne' },
+  { number: '2', title: "L'Horizon (Norvège)", subtitle: "Le souffle de la liberté", spirit: "Reprendre les commandes de sa vie. Ne plus subir aucun horaire ni aucune contrainte extérieure.", experience: "La vie en van le long des fjords. Changer d’avis, changer de route, et s’arrêter là où le cœur nous dit de rester.", icon: 'van' },
+  { number: '3', title: "Le Cocon (Finlande)", subtitle: "Le souffle de la douceur", spirit: "Mettre le monde sur 'pause'. Ralentir et s’autoriser enfin à ne rien faire, sans culpabiliser.", experience: "Un chalet sous la nuit polaire. Le crépitement du feu et la chaleur du sauna. Avec accès au choix (contemplative ou sportive) ou la liberté d’un temps sans programme.", icon: 'maison_bois' },
+  { number: '4', title: "La Source (Suède)", subtitle: "Le souffle de l’essentiel", spirit: "Une 'digital detox' profonde pour s’entendre à nouveau réfléchir.", experience: "Canoë-trip sur les lacs sauvages. Un confort minimaliste pour se reconnecter à la simplicité de l’eau, du bois et du feu et réfléchir.", icon: 'feuille' },
+  { number: '5', title: "L'Éveil (Scandinavie)", subtitle: "Le souffle du dépassement", spirit: "Retrouver confiance en ses capacités et se prouver que l’on peut encore franchir des montagnes.", experience: "Une itinérance à pied, de refuge en refuge. Porter son sac, passer un col et sortir grandi de chaque pas.", icon: 'empreinte' },
+  { number: '6', title: "L'Infini (Lofoten)", subtitle: "Le souffle hors du temps", spirit: "Perdre ses repères habituels pour mieux se retrouver. S’affranchir de la dictature de la montre.", experience: "Vivre le Soleil de Minuit. Randonner ou lire à 2h du matin sous une lumière dorée éternelle. Un voyage où 'l’heure qu’il est' n’a plus aucune importance.", icon: 'soleil' },
 ];
 
 const offers = [
@@ -144,33 +147,52 @@ const MesPrestations = () => {
         </div>
       </motion.section>
       {/* Besoin de souffle déplacé ici */}
-      <motion.section className="bg-background py-24 px-6 relative overflow-hidden" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+      <motion.section className="bg-background py-24 px-4 sm:px-6 relative overflow-hidden" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }} className="text-3xl md:text-4xl font-serif text-foreground mb-6">Quel est votre besoin de souffle ?</motion.h2>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-sm mb-4">Parce que chaque tourment de vie demande une énergie différente, j'ai conçu una approche pour vous aider à retrouver votre cap.</motion.p>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }} className="text-muted-foreground text-sm">C'est vous qui choisissez l'intensité de votre déconnexion.</motion.p>
+          <div className="text-center mb-10">
+            <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }} className="text-3xl md:text-4xl font-serif text-foreground mb-4">Quel est votre besoin de souffle ?</motion.h2>
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base mb-2">Parce que chaque tournant de vie demande une énergie différente, j'ai conçu cinq approches pour vous aider à retrouver votre cap.</motion.p>
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }} className="text-muted-foreground text-base">C'est vous qui choisissez l'intensité de votre déconnexion.</motion.p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-x-12 lg:gap-y-16 relative">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 mb-8">
             {breathNeeds.map((need, index) => (
               <motion.div key={need.number} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, delay: index * 0.1 }} className="flex flex-col items-center relative">
-                <motion.div className="bg-[#1e3a5f] text-white rounded-2xl p-6 w-full shadow-lg relative h-[420px] flex flex-col" whileHover={{ y: -8, scale: 1.02 }} transition={{ duration: 0.3 }}>
+                <div className="bg-[#1e3a5f] text-white rounded-2xl p-6 w-full max-w-xs mx-auto shadow-lg flex flex-col h-[520px]">
                   <h3 className="text-lg font-bold mb-2 text-center">{need.title}</h3>
-                  <p className="text-sm text-center mb-6 text-white/90 font-medium">{need.subtitle}</p>
-                  <div className="space-y-4 text-sm mb-6 flex-grow">
-                    <div>
-                      <p className="font-semibold mb-1">• L'esprit :</p>
-                      <p className="text-white/80 leading-relaxed text-xs">{need.spirit}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold mb-1">• L'expérience :</p>
-                      <p className="text-white/80 leading-relaxed text-xs">{need.experience}</p>
-                    </div>
+                  <p className="text-base text-center mb-4 text-white/90 font-medium">{need.subtitle}</p>
+                  <ul className="space-y-2 text-sm mb-4 flex-grow">
+                    <li>
+                      <span className="font-semibold">• L'esprit :</span>
+                      <span className="block text-white/80 leading-relaxed text-xs">{need.spirit}</span>
+                    </li>
+                    <li>
+                      <span className="font-semibold">• L'expérience :</span>
+                      <span className="block text-white/80 leading-relaxed text-xs">{need.experience}</span>
+                    </li>
+                  </ul>
+                  <div className="flex justify-center mb-4">
+                    {need.icon === 'maison_bois' ? (
+                      <img src="/logo/maison_bois.webp" alt="Chalet Finlande" className="w-[250px] h-[250px] object-contain" />
+                    ) : need.icon === 'van' ? (
+                      <img src="/logo/van.webp" alt="Van Norvège" className="w-[250px] h-[250px] object-contain" />
+                    ) : need.icon === 'montagne' ? (
+                      <img src="/logo/montagne.webp" alt="Montagne Islande" className="w-[250px] h-[250px] object-contain" />
+                    ) : need.icon === 'soleil' ? (
+                      <img src="/logo/soleil.webp" alt="Soleil Lofoten" className="w-[250px] h-[250px] object-contain" />
+                    ) : need.icon === 'feuille' ? (
+                      <img src="/logo/feuille.webp" alt="Feuille Suède" className="w-[250px] h-[250px] object-contain" />
+                    ) : need.icon === 'empreinte' ? (
+                      <img src="/logo/empreinte.webp" alt="Empreinte Scandinavie" className="w-[250px] h-[250px] object-contain" />
+                    ) : (
+                      null
+                    )}
                   </div>
-                  <div className="flex justify-center"><need.icon className="text-white/60" size={40} strokeWidth={1.5} /></div>
-                </motion.div>
+                </div>
               </motion.div>
             ))}
+          </div>
+          <div className="flex justify-center mt-4">
+            <a href="/devis" className="bg-accent hover:bg-accent/80 text-accent-foreground font-bold py-3 px-10 rounded-full text-lg shadow transition">Prendre son souffle</a>
           </div>
         </div>
       </motion.section>
