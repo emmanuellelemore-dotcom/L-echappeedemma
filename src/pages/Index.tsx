@@ -20,7 +20,7 @@ import destIslande from '../assets/dest-islande.jpg';
 import destNorvege from '../assets/dest-norvege.jpg';
 import destSuede from '../assets/dest-suede.jpg';
 import destFinlande from '../assets/dest-finlande.jpg';
-import bureauTableEspace from '../../public/bureau-table-espace-travaille.webp';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import DestinationCard from '../components/DestinationCard';
@@ -248,7 +248,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-screen flex items-center justify-center">
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-10 sm:pt-24 sm:pb-16">
         <div className="absolute inset-0 overflow-hidden">
           {heroImages.length > 0 ? (
             <img
@@ -263,8 +263,8 @@ const Index = () => {
           )}
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl">
-          <div className="mb-4">
+        <div className="relative z-10 text-center px-2 w-full max-w-xl mx-auto">
+          <div className="mb-3">
             <GradualSpacing
               text="Faisons l'Echappée ensemble"
               renderChar={(char, i) => {
@@ -283,22 +283,22 @@ const Index = () => {
               }}
             />
           </div>
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-6">
             <Link
               to="/devis"
-              className="bg-accent hover:bg-accent/80 text-accent-foreground px-10 py-4 rounded-full font-bold text-lg shadow-lg flex items-center gap-2 transition-colors duration-200"
+              className="bg-accent hover:bg-accent/80 text-accent-foreground px-6 py-3 rounded-full font-bold text-base shadow-lg flex items-center gap-2 transition-colors duration-200 w-full max-w-xs justify-center"
             >
               Créer mon voyage
-              <span><svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='none' viewBox='0 0 24 24'><path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/></svg></span>
+              <span><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 24 24'><path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/></svg></span>
             </Link>
           </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link to="/gallery/norvege" className="border border-white/80 text-white px-5 py-2 rounded-full text-base hover:bg-white/10 transition opacity-60 hover:opacity-80">Norvège</Link>
-            <Link to="/gallery/islande" className="border border-white/80 text-white px-5 py-2 rounded-full text-base hover:bg-white/10 transition opacity-60 hover:opacity-80">Islande</Link>
-            <Link to="/gallery/suede" className="border border-white/80 text-white px-5 py-2 rounded-full text-base hover:bg-white/10 transition opacity-60 hover:opacity-80">Suède</Link>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link to="/gallery/norvege" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Norvège</Link>
+            <Link to="/gallery/islande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Islande</Link>
+            <Link to="/gallery/suede" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Suède</Link>
             <button
               onClick={() => setShowExtraDests(v => !v)}
-              className="border border-white/80 text-white px-5 py-2 rounded-full text-base flex items-center gap-2 hover:bg-white/10 transition focus:outline-none opacity-60 hover:opacity-80"
+              className="border border-white/80 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-white/10 transition focus:outline-none opacity-70 hover:opacity-90"
               aria-expanded={showExtraDests}
               aria-controls="extra-dests"
             >
@@ -306,10 +306,10 @@ const Index = () => {
               <span className={`transition-transform duration-200 ${showExtraDests ? 'rotate-90' : ''}`}>{showExtraDests ? '▲' : '▼'}</span>
             </button>
             {showExtraDests && (
-              <div id="extra-dests" className="flex flex-wrap justify-center gap-3 animate-fade-in">
-                <Link to="/gallery/egypte" className="border border-white/80 text-white px-5 py-2 rounded-full text-base hover:bg-white/10 transition opacity-60 hover:opacity-80">Égypte</Link>
-                <Link to="/gallery/thailande" className="border border-white/80 text-white px-5 py-2 rounded-full text-base hover:bg-white/10 transition opacity-60 hover:opacity-80">Thaïlande</Link>
-                <Link to="/gallery/polynesie" className="border border-white/80 text-white px-5 py-2 rounded-full text-base hover:bg-white/10 transition opacity-60 hover:opacity-80">Polynésie FR</Link>
+              <div id="extra-dests" className="flex flex-wrap justify-center gap-2 animate-fade-in mt-2">
+                <Link to="/gallery/egypte" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Égypte</Link>
+                <Link to="/gallery/thailande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Thaïlande</Link>
+                <Link to="/gallery/polynesie" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Polynésie FR</Link>
               </div>
             )}
           </div>
@@ -389,7 +389,7 @@ const Index = () => {
           <div>
             <div className="rounded-[32px] border border-border bg-gradient-to-br from-secondary via-background to-secondary/40 p-8 shadow-sm">
               <img
-                src={bureauTableEspace}
+                src="/bureau-table-espace-travaille.webp"
                 alt="Emma, travel planner, à son bureau de travail."
                 className="h-80 w-full max-w-xl object-cover rounded-2xl mx-auto"
               />

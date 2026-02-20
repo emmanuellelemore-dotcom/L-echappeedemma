@@ -1,7 +1,10 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { TextRoll } from '../components/core/text-roll';
+import { MesPrestationsTitle } from './MesPrestationsTitle';
+import { TextEffect } from '../components/core/text-effect';
 import {
   HandHeart, Hourglass, Sparkles, BadgeCheck, Sun, Compass, Phone, PenTool, Calendar, Mountain, Footprints, Sun as SunIcon, ChevronDown
 } from 'lucide-react';
@@ -92,8 +95,12 @@ const MesPrestations = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <section className="py-24 px-6">
-        <h1 className="text-4xl font-serif text-center mb-10">Mes Prestations</h1>
-        <p className="text-center text-lg mb-16">Retrouvez ici toutes les raisons de faire appel à moi, mon processus, les besoins de souffle et les offres d'accompagnement.</p>
+        <MesPrestationsTitle />
+        <p className="text-center text-lg mb-16">
+          <TextEffect per="char" preset="fade">
+            Retrouvez ici toutes les raisons de faire appel à moi, mon processus, les besoins de souffle et les offres d'accompagnement.
+          </TextEffect>
+        </p>
       </section>
       {/* 6 raisons */}
       <motion.section ref={reasonsSectionRef} id="reasons" className="bg-secondary/60 py-24 px-6 min-h-[80vh]" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>

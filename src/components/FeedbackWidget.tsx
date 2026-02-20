@@ -101,7 +101,7 @@ const FeedbackWidget = () => {
               {/* Image fills the entire top */}
               <div className="w-full bg-pink-50">
                 <img
-                  src="/lion-avis.webp"
+                  src="/chouette_avis.webp"
                   alt="Donnez votre avis"
                   className="w-full h-auto object-cover"
                 />

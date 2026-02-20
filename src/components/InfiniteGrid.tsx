@@ -327,7 +327,8 @@ const InfiniteGrid: React.FC<InfiniteGridProps> = ({ sources, data, originalSize
         <div
           ref={overlayRef}
           onClick={() => setPopup(null)}
-          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center cursor-pointer"
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center"
+          style={{ cursor: "url('/star_brillante.webp') 0 0, pointer" }}
         >
           <div className="gallery-popup" onClick={e => e.stopPropagation()}>
             <img

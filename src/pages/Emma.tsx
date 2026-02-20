@@ -45,7 +45,7 @@ const stagger = {
 
 const Emma = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-x-hidden max-w-full">
       <Navbar />
 
       <main className="pt-28 relative">
@@ -69,14 +69,14 @@ const Emma = () => {
 
         {/* Qui suis-je */}
         <motion.section
-          className="px-6 py-20"
+          className="px-2 sm:px-6 py-10 pt-8 sm:pt-20 text-black overflow-x-hidden"
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0 }}
         >
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div variants={slideRight}>
+          <div className="max-w-6xl mx-auto flex flex-col lg:flex-row lg:gap-32 gap-8 items-center px-2 sm:px-6">
+            <motion.div variants={slideRight} className="w-full lg:w-3/5">
               <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6">Qui suis-je ?</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Bonjour, moi c’est Emma.
@@ -95,11 +95,7 @@ const Emma = () => {
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Mon rôle est d’accompagner ceux qui traversent un tournant de vie,  qu’ils célèbrent un nouveau départ ou qu’ils aient besoin de reprendre leur souffle.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
                 Je conçois pour vous des itinéraires où la logistique s'efface pour vous offrir le luxe de vous réapproprier votre temps. En vous libérant de chaque contrainte, je crée l'espace nécessaire pour ralentir,
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
                 savourer la simplicité des lieux et redevenir l'acteur principal de votre propre histoire. En tant qu’architecte de voyage, je dessine une parenthèse sur-mesure, fluide et sereine.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -112,13 +108,18 @@ const Emma = () => {
 
             <motion.div
               variants={slideLeft}
-              className="rounded-[32px] border border-border bg-gradient-to-br from-primary/10 via-background to-accent/10 p-8"
-              whileHover={{ y: -6, rotate: 0.3 }}
+              className="rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 flex flex-col items-center w-full max-w-sm mx-auto lg:w-2/5"
             >
-              <div className="h-72 rounded-3xl bg-gradient-to-br from-primary/20 via-secondary to-accent/20" />
-              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mt-6">Portrait d'Emma</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Photo à venir. Une image lumineuse, nature, qui vous parle de sérénité.
+              <img
+                src="/Emma.JPG"
+                alt="Portrait d'Emma"
+                className="h-72 w-auto max-w-full rounded-3xl object-cover shadow-md mb-4"
+                loading="lazy"
+              />
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mt-2">Portrait d'Emma</p>
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                Ma passion pour cette liberté de mouvement est telle que je recevrai mon propre van cet été.<br />
+                Je prendrai la route à la fin de la saison pour continuer de dénicher de nouveaux spots secrets, afin de nourrir vos futures échappées.
               </p>
             </motion.div>
           </div>

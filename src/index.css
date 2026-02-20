@@ -135,3 +135,11 @@ html {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
+
+#images {
+  cursor: url('/camera-cursor.webp') 0 0, pointer;
+}
+
+#images:active {
+  cursor: url('/van_life.webp') 0 0, pointer;
+}
