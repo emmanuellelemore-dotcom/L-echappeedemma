@@ -268,9 +268,9 @@ const Index = () => {
             <GradualSpacing
               text="Faisons l'Echappée ensemble"
               renderChar={(char, i) => {
-                // Highlight 'l\'Echappée' in site accent color
-                const start = 8; // index where 'l\'Echappée' starts
-                const end = 18; // index where 'l\'Echappée' ends
+                // ...existing code...
+                const start = 8;
+                const end = 18;
                 const isAccent = i >= start && i < end;
                 return (
                   <span
@@ -334,6 +334,13 @@ const Index = () => {
         </motion.div>
       </section>
 
+
+      {/* Texte de bienvenue entre hero et Introduction */}
+      <div className="w-full my-1">
+        <span className="block w-full text-sm md:text-base font-serif font-bold text-blue-900 px-4 py-3 text-center whitespace-nowrap overflow-x-auto">
+          Je conçois des parenthèses de sérénité sur-mesure dans le Grand Nord. Pour ralentir, se réapproprier son temps et, enfin, reprendre son souffle.
+        </span>
+      </div>
 
       {/* Introduction - Bienvenue et histoire */}
       <section className="py-24 px-6">
