@@ -23,7 +23,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ recto, verso, className }) => {
       <motion.div
         className="absolute w-full h-full"
         animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: [0.4, 2, 0.6, 1] }}
+        transition={{ duration: 1.2, ease: [0.4, 2, 0.6, 1] }}
         style={{ backfaceVisibility: 'hidden', zIndex: 2 }}
       >
         {recto}
@@ -31,7 +31,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ recto, verso, className }) => {
       <motion.div
         className="absolute w-full h-full"
         animate={{ rotateY: flipped ? 0 : -180 }}
-        transition={{ duration: 0.6, ease: [0.4, 2, 0.6, 1] }}
+        transition={{ duration: 1.2, ease: [0.4, 2, 0.6, 1] }}
         style={{ backfaceVisibility: 'hidden', zIndex: 1 }}
       >
         {verso}

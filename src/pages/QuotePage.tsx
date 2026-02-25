@@ -16,6 +16,7 @@ const QuotePage = () => {
   const [departDate, setDepartDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
   const [description, setDescription] = useState('');
+  const [mindset, setMindset] = useState('');
   const [title, setTitle] = useState<'Mr' | 'Mme' | ''>('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,8 +27,16 @@ const QuotePage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !destination || !departDate) {
-      toast.error('Veuillez remplir les champs obligatoires.');
+    // Champs obligatoires : nom et email
+    if (!name || !email) {
+      toast.error('Veuillez remplir les champs obligatoires (nom et email).');
+      return;
+    }
+
+    // Dates obligatoires seulement si pas flexible/je ne sais pas
+    const departIsRequired = departDate !== 'flexible' && departDate !== '';
+    if (departIsRequired && !departDate) {
+      toast.error('Veuillez indiquer la date de départ ou choisir "Je suis flexible"/"Je ne sais pas".');
       return;
     }
 
@@ -42,15 +51,16 @@ const QuotePage = () => {
           client_name: name,
           client_email: email,
           client_phone: phone || 'Non renseigné',
-          destination: destination,
-          depart_date: departDate,
+          destination: destination || 'Non précisée',
+          depart_date: departDate || 'Non précisée',
           return_date: returnDate || 'Non précisée',
           budget: `${budget}€`,
           adults: adults,
-          children: children,
-          duration: `${duration} jours`,
+          children: children === 0 ? 'Non renseigné' : children,
+          duration: duration === 0 ? 'Non précisée' : `${duration} jours`,
           travel_party: travelParty || 'Non renseigné',
           description: description || 'Aucune description',
+          mindset: mindset || 'Non renseigné',
         }
       );
 
@@ -105,7 +115,7 @@ const QuotePage = () => {
 
               {/* Titre Mr / Mme */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Titre </label>
+                <label className="text-sm font-semibold text-foreground">Titre *</label>
                 <div className="flex items-center gap-6">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -156,7 +166,7 @@ const QuotePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Téléphone</label>
+                  <label className="text-sm font-semibold text-foreground">Téléphone *</label>
                   <input
                     type="tel"
                     value={phone}
@@ -175,13 +185,12 @@ const QuotePage = () => {
 
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Destination *</label>
+                  <label className="text-sm font-semibold text-foreground">Destination </label>
                   <input
                     type="text"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    placeholder="Ex: Islande, Suède..."
-                    required
+                    placeholder="Ex: Islande, Suède... (optionnel)"
                     className="w-full p-4 bg-muted border-none rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
@@ -263,13 +272,14 @@ const QuotePage = () => {
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-foreground">Durée (jours)</label>
                   <div className="flex items-center gap-4 bg-muted p-2 rounded-xl">
-                    <button type="button" onClick={() => setDuration(Math.max(1, duration - 1))} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">−</button>
-                    <span className="flex-1 text-center font-bold text-foreground">{duration}</span>
+                    <button type="button" onClick={() => setDuration(Math.max(0, duration - 1))} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">−</button>
+                    <span className="flex-1 text-center font-bold text-foreground">{duration === 0 ? 'Non précisé' : duration}</span>
                     <button type="button" onClick={() => setDuration(duration + 1)} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">+</button>
                   </div>
+                  <div className="text-xs text-muted-foreground mt-1">Laisser à zéro si vous ne savez pas.</div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Adultes</label>
+                  <label className="text-sm font-semibold text-foreground">Adultes *</label>
                   <div className="flex items-center gap-4 bg-muted p-2 rounded-xl">
                     <button type="button" onClick={() => setAdults(Math.max(0, adults - 1))} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">−</button>
                     <span className="flex-1 text-center font-bold text-foreground">{adults}</span>
@@ -280,9 +290,10 @@ const QuotePage = () => {
                   <label className="text-sm font-semibold text-foreground">Enfants</label>
                   <div className="flex items-center gap-4 bg-muted p-2 rounded-xl">
                     <button type="button" onClick={() => setChildren(Math.max(0, children - 1))} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">−</button>
-                    <span className="flex-1 text-center font-bold text-foreground">{children}</span>
+                    <span className="flex-1 text-center font-bold text-foreground">{children === 0 ? 'Aucun' : children}</span>
                     <button type="button" onClick={() => setChildren(children + 1)} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">+</button>
                   </div>
+                  <div className="text-xs text-muted-foreground mt-1">Laisser à zéro si aucun enfant.</div>
                 </div>
               </div>
 
@@ -302,7 +313,9 @@ const QuotePage = () => {
                 <label className="text-sm font-semibold text-foreground">Votre état d'esprit actuel</label>
                 <textarea
                   rows={2}
-                  placeholder="En un mot ou une phrase, comment vous sentez-vous aujourd'hui et qu'attendez-vous de ce voyage ?"
+                  value={mindset}
+                  onChange={e => setMindset(e.target.value)}
+                  placeholder="En un mot ou une phrase, comment vous sentez-vous aujourd'hui et qu'attendez-vous de ce voyage ? (optionnel)"
                   className="w-full p-4 bg-muted border-none rounded-xl outline-none resize-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>

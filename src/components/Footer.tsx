@@ -37,9 +37,28 @@ const Footer = () => {
             <div className="border-t border-dashed border-primary-foreground/20 mb-4" />
             <div className="space-y-3">
               <Link to="/" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Accueil</Link>
+              <Link to="/mes-prestations" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Prestations</Link>
+              <Link to="/#offres" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mes offres</Link>
               <Link to="/emma" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Emma</Link>
               <Link to="/contact" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Contact</Link>
-              <Link to="/devis" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Créer mon voyage</Link>
+              <Link to="/devis" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Débuter mon échappée</Link>
+              <a href="/mentions-legales" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mentions légales</a>
+            </div>
+          </div>
+
+          {/* Newsletter & Réseaux sociaux */}
+          <div>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider">Newsletter & Réseaux</h4>
+            <div className="border-t border-dashed border-primary-foreground/20 mb-4" />
+            <div className="space-y-3 text-sm text-primary-foreground/70">
+              <form className="flex mb-3">
+                <input type="email" placeholder="Votre email" className="rounded-l px-3 py-1 text-primary w-full focus:outline-none" />
+                <button type="submit" className="bg-accent text-accent-foreground px-4 py-1 rounded-r font-semibold hover:opacity-90 transition-opacity">OK</button>
+              </form>
+              <div className="flex gap-4 mt-2">
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-accent transition-colors">LinkedIn</a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-accent transition-colors">Instagram</a>
+              </div>
             </div>
           </div>
 
@@ -59,6 +78,9 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <MapPin size={16} className="text-accent" />
                 <span>94370 Sucy-en-Brie, France</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <a href="/contact" className="underline hover:text-accent transition-colors">Formulaire de contact</a>
               </div>
             </div>
           </div>

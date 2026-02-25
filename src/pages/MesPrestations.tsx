@@ -1,3 +1,4 @@
+import { useAnimation } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { MesPrestationsTitle } from './MesPrestationsTitle';
@@ -42,14 +43,13 @@ const offers = [
 ];
 
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
-const fadeDown = { hidden: { opacity: 0, y: -18 }, show: { opacity: 1, y: 0, transition: { duration: 0.55 } } };
+const fadeDown = { hidden: { opacity: 0, y: -18 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
 const MesPrestations = () => {
   const processSectionRef = useRef<HTMLElement | null>(null);
   const reasonsSectionRef = useRef<HTMLElement | null>(null);
   const [activeProcessStep, setActiveProcessStep] = useState(0);
-  const [activeReasonStep, setActiveReasonStep] = useState(0);
 
   // Scroll progressif pour Mon processus
   useEffect(() => {
@@ -73,25 +73,62 @@ const MesPrestations = () => {
   }, []);
 
   // Scroll progressif pour 6 raisons
+  // Carrousel horizontal infini pour les 6 raisons
+  const [isPaused, setIsPaused] = useState(false);
+  const controls = useAnimation();
+  // On duplique la liste pour couvrir au moins 3x la largeur d'écran (effet ruban)
+  const reasonsList = Array(4).fill(reasons).flat();
+  const xRef = useRef(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const totalDuration = 32; // durée totale pour parcourir toute la liste (plus lent)
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Mesure la largeur du carrousel pour l'infini
   useEffect(() => {
-    const root = reasonsSectionRef.current;
-    if (!root) return;
-    const triggers = Array.from(root.querySelectorAll('[data-reason-step]')) as HTMLElement[];
-    if (!triggers.length) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const step = Number(entry.target.getAttribute('data-reason-step'));
-            setActiveReasonStep(step);
-          }
-        });
-      },
-      { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-    );
-    triggers.forEach((trigger) => observer.observe(trigger));
-    return () => observer.disconnect();
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.scrollWidth / 2); // 2x la liste de base
+    }
   }, []);
+
+  useEffect(() => {
+    let isCancelled = false;
+    let animationPromise: Promise<any> | null = null;
+    const animate = async () => {
+      if (isPaused || !containerWidth) return;
+      let currentX = xRef.current;
+      if (currentX <= -containerWidth) {
+        xRef.current = 0;
+        await controls.set({ x: 0 });
+        currentX = 0;
+      }
+      const endX = -containerWidth;
+      const remaining = Math.abs(endX - currentX);
+      const duration = (remaining / Math.abs(endX)) * totalDuration;
+      animationPromise = controls.start({
+        x: endX,
+        transition: {
+          x: {
+            duration,
+            ease: 'linear',
+          },
+        },
+      });
+      await animationPromise;
+      if (!isCancelled && !isPaused) animate();
+    };
+    if (!isPaused) animate();
+    return () => {
+      isCancelled = true;
+      controls.stop();
+    };
+  }, [isPaused, controls, containerWidth]);
+
+  const handlePause = () => {
+    setIsPaused(true);
+  };
+  const handleResume = () => {
+    setIsPaused(false);
+  };
   const processProgress = processSteps.length > 1 ? activeProcessStep / (processSteps.length - 1) : 0;
 
   return (
@@ -110,39 +147,44 @@ const MesPrestations = () => {
         <div className="max-w-6xl mx-auto relative">
           <div className="sticky top-24">
             <div className="text-center mb-14">
-              <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.55, ease: 'easeOut' }} className="text-3xl md:text-4xl font-serif text-foreground">6 raisons de faire appel à moi</motion.h2>
-              <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-muted-foreground mt-4 text-lg">Un accompagnement humain pour un voyage qui a du sens.</motion.p>
-              {/* Flèche scroll SOUS la zone de texte 6 raisons */}
-              <div className="flex flex-col items-center mt-2 mb-4">
-                <span className="text-accent text-sm font-semibold mb-1">scroll</span>
-                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
-                  <ChevronDown size={36} className="animate-bounce text-accent" />
-                </motion.div>
-              </div>
+              <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.08, ease: 'easeOut' }} className="text-3xl md:text-4xl font-serif text-foreground">6 raisons de faire appel à moi</motion.h2>
+              <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.08, ease: 'easeOut' }} className="text-muted-foreground mt-4 text-lg">Un accompagnement humain pour un voyage qui a du sens.</motion.p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {reasons.map((reason, index) => {
-                const isActive = activeReasonStep >= index;
-                return (
-                  <motion.div key={reason.title} initial={{ opacity: 0, scale: 0.85, y: 12 }} animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.85, y: isActive ? 0 : 12 }} transition={{ duration: 0.4, ease: 'easeOut' }} className="bg-background border border-border rounded-3xl p-6 shadow-sm" whileHover={{ y: -6, rotate: -0.3 }}>
-                    <motion.div animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center mb-4">
+            {/* Ajout pour scroll progressif : déclencheurs juste après le sous-titre */}
+            <div className="overflow-x-hidden w-screen relative left-1/2 -translate-x-1/2">
+              <motion.div
+                className="flex gap-6 py-4"
+                ref={containerRef}
+                animate={controls}
+                style={{ width: 'max-content' }}
+                onUpdate={(latest) => {
+                  if (typeof latest.x === 'number') xRef.current = latest.x;
+                }}
+              >
+                {reasonsList.map((reason, idx) => (
+                  <div
+                    key={reason.title + idx}
+                    className="bg-background border border-border rounded-3xl p-6 shadow-sm min-w-[320px] max-w-xs flex-shrink-0 cursor-pointer"
+                    onMouseEnter={handlePause}
+                    onMouseLeave={handleResume}
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center mb-4">
                       <reason.icon className="text-accent" size={22} />
-                    </motion.div>
-                    <motion.div animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }} transition={{ duration: 0.3, ease: 'easeOut' }}>
+                    </div>
+                    <div>
                       <h3 className="font-semibold text-foreground mb-2">{reason.title}</h3>
                       <p className="text-muted-foreground text-sm leading-relaxed">{reason.description}</p>
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
             </div>
-          </div>
-          {/* Ajout pour scroll progressif */}
-          <div className="mt-24" aria-hidden="true">
-            {reasons.map((reason, index) => (
-              <div key={reason.title} data-reason-step={index} className="h-[24vh]" />
-            ))}
-            <div className="h-[60vh]" />
+            {/* Scroll triggers pour animation progressive, sans trou */}
+            <div className="sr-only" aria-hidden="true">
+              {reasons.map((reason, index) => (
+                <div key={reason.title} data-reason-step={index} />
+              ))}
+            </div>
           </div>
         </div>
       </motion.section>

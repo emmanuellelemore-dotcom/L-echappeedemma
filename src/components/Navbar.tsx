@@ -20,9 +20,9 @@ const Navbar = () => {
 
   const links = [
     { to: '/', label: 'Accueil' },
-    { to: '/emma', label: 'Emma' },
     { to: '/mes-prestations', label: 'Prestations' },
     { to: '/#offres', label: 'Mes offres' },
+    { to: '/emma', label: 'Emma' },
     { to: '/contact', label: 'Contact' },
   ];
 
@@ -34,7 +34,7 @@ const Navbar = () => {
           : 'bg-background/95 backdrop-blur-md shadow-sm py-4 border-b border-border'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div className="w-full px-6 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <img src="/logo.png" alt="Logo L'échappée d'Emma" className="w-8 h-8 object-contain" loading="lazy" width="32" height="32" />
           <Link
@@ -81,7 +81,7 @@ const Navbar = () => {
             to="/devis"
             className="bg-accent text-accent-foreground px-6 py-2.5 rounded-full text-sm font-bold hover:opacity-90 transition-opacity"
           >
-            Créer mon voyage
+            Débuter mon échappée
           </Link>
         </div>
 
@@ -135,7 +135,7 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(false)}
                 className="block bg-accent text-accent-foreground px-6 py-3 rounded-full text-center font-bold"
               >
-                Créer mon voyage
+                Débuter mon échappée
               </Link>
             </div>
           </motion.div>
