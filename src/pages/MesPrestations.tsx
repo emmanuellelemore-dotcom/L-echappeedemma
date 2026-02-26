@@ -164,7 +164,8 @@ const MesPrestations = () => {
                 {reasonsList.map((reason, idx) => (
                   <div
                     key={reason.title + idx}
-                    className="bg-background border border-border rounded-3xl p-6 shadow-sm min-w-[320px] max-w-xs flex-shrink-0 cursor-pointer"
+                    className="bg-background border border-border rounded-3xl p-6 shadow-sm min-w-[220px] max-w-[90vw] sm:min-w-[320px] sm:max-w-xs flex-shrink-0 cursor-pointer"
+                    onClick={() => setIsPaused((prev) => !prev)}
                     onMouseEnter={handlePause}
                     onMouseLeave={handleResume}
                   >
@@ -196,37 +197,37 @@ const MesPrestations = () => {
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base mb-2">Parce que chaque tournant de vie demande une énergie différente, j'ai conçu cinq approches pour vous aider à retrouver votre cap.</motion.p>
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }} className="text-muted-foreground text-base">C'est vous qui choisissez l'intensité de votre déconnexion.</motion.p>
           </div>
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mb-8">
             {breathNeeds.map((need, index) => (
               <motion.div key={need.number} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, delay: index * 0.1 }} className="flex flex-col items-center relative">
                 <FlipCard
                   recto={
-                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center w-full h-full">
-                      <h3 className="text-lg font-bold mb-2 text-center">{need.title}</h3>
-                      <p className="text-base text-center mb-4 text-white/90 font-medium">{need.subtitle}</p>
+                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px]">
+                      <h3 className="text-base sm:text-lg font-bold mb-2 text-center break-words">{need.title}</h3>
+                      <p className="text-xs sm:text-base text-center mb-4 text-white/90 font-medium break-words">{need.subtitle}</p>
                     </div>
                   }
                   verso={
-                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center w-full h-full">
-                      <div className="mb-4">
-                        <span className="font-semibold block mb-2">L'esprit :</span>
-                        <span className="block text-white/80 leading-relaxed text-sm mb-4">{need.spirit}</span>
-                        <span className="font-semibold block mb-2">L'expérience :</span>
-                        <span className="block text-white/80 leading-relaxed text-sm">{need.experience}</span>
+                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px]">
+                      <div className="mb-4 w-full flex flex-col items-center">
+                        <span className="font-semibold block mb-2 text-center">L'esprit :</span>
+                        <span className="block text-white/80 leading-relaxed text-xs sm:text-sm mb-4 text-center break-words">{need.spirit}</span>
+                        <span className="font-semibold block mb-2 text-center">L'expérience :</span>
+                        <span className="block text-white/80 leading-relaxed text-xs sm:text-sm text-center break-words">{need.experience}</span>
                       </div>
-                      <div className={`flex justify-center ${need.icon === 'maison_bois' ? 'mt-2' : 'mt-2'}`}>
+                      <div className={`flex justify-center ${need.icon === 'maison_bois' ? 'mt-2' : 'mt-2'}`}> 
                         {need.icon === 'maison_bois' ? (
-                          <img src="/logo/maison_bois.webp" alt="Chalet Finlande" className="w-[250px] h-[250px] object-contain" />
+                          <img src="/logo/maison_bois.webp" alt="Chalet Finlande" className="w-[120px] sm:w-[250px] h-[120px] sm:h-[250px] object-contain" />
                         ) : need.icon === 'van' ? (
-                          <img src="/logo/van.webp" alt="Van Norvège" className="w-[250px] h-[250px] object-contain" />
+                          <img src="/logo/van.webp" alt="Van Norvège" className="w-[120px] sm:w-[250px] h-[120px] sm:h-[250px] object-contain" />
                         ) : need.icon === 'montagne' ? (
-                          <img src="/logo/montagne.webp" alt="Montagne Islande" className="w-[250px] h-[250px] object-contain" />
+                          <img src="/logo/montagne.webp" alt="Montagne Islande" className="w-[120px] sm:w-[250px] h-[120px] sm:h-[250px] object-contain" />
                         ) : need.icon === 'soleil' ? (
-                          <img src="/logo/soleil.webp" alt="Soleil Lofoten" className="w-[250px] h-[250px] object-contain" />
+                          <img src="/logo/soleil.webp" alt="Soleil Lofoten" className="w-[120px] sm:w-[250px] h-[120px] sm:h-[250px] object-contain" />
                         ) : need.icon === 'feuille' ? (
-                          <img src="/logo/feuille.webp" alt="Feuille Suède" className="w-[250px] h-[250px] object-contain" />
+                          <img src="/logo/feuille.webp" alt="Feuille Suède" className="w-[120px] sm:w-[250px] h-[120px] sm:h-[250px] object-contain" />
                         ) : need.icon === 'empreinte' ? (
-                          <img src="/logo/empreinte.webp" alt="Empreinte Scandinavie" className="w-[250px] h-[250px] object-contain" />
+                          <img src="/logo/empreinte.webp" alt="Empreinte Scandinavie" className="w-[120px] sm:w-[250px] h-[120px] sm:h-[250px] object-contain" />
                         ) : (
                           null
                         )}
@@ -235,6 +236,10 @@ const MesPrestations = () => {
                   }
                   className="w-full max-w-xs mx-auto h-[520px]"
                 />
+                {/* Indication mobile : flèche circulaire + texte */}
+                <div className="block sm:hidden mt-2 text-center text-xs font-semibold text-pink-500 animate-pulse">
+                  Touchez pour retourner
+                </div>
               </motion.div>
             ))}
           </div>

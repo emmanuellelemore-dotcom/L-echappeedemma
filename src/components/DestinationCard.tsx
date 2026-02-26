@@ -16,20 +16,21 @@ const DestinationCard = ({ name, tag, image, index, to }: DestinationCardProps) 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.6 }}
-      className="group relative h-[450px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow"
+      className="group relative md:h-[450px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow"
     >
       <img
         src={image}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         alt={name}
         loading="lazy"
+        style={{ maxHeight: '320px', minHeight: '180px', objectFit: 'cover' }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
-      <div className="absolute bottom-0 p-8 w-full text-center">
-        <span className="text-xs font-semibold tracking-[0.2em] text-primary-foreground/60 mb-2 block uppercase">
+      <div className="absolute w-full text-center pb-2 md:p-4 bottom-0 md:top-0 md:bottom-auto">
+        <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] text-primary-foreground/60 mb-1 block uppercase">
           {tag}
         </span>
-        <h2 className="text-2xl text-primary-foreground font-serif">{name}</h2>
+        <h2 className="text-lg md:text-2xl text-primary-foreground font-serif">{name}</h2>
       </div>
     </motion.div>
   );

@@ -110,71 +110,84 @@ const InfiniteGrid: React.FC<InfiniteGridProps> = ({ sources, data, originalSize
 
       el.innerHTML = '';
 
-      baseItems.forEach((base) => {
-        repsX.forEach((offsetX) => {
-          repsY.forEach((offsetY) => {
-            const itemEl = document.createElement('div');
-            itemEl.className = 'item absolute top-0 left-0';
-            itemEl.style.width = `${base.w}px`;
+      // Préchargement des images
+      const preloadImages = baseItems.map((base) => {
+        const img = new Image();
+        img.src = `${basePath}/${base.src}`;
+        return img;
+      });
+      Promise.all(preloadImages.map(img => {
+        return new Promise(resolve => {
+          if (img.complete) resolve(true);
+          else img.onload = () => resolve(true);
+        });
+      })).then(() => {
+        baseItems.forEach((base) => {
+          repsX.forEach((offsetX) => {
+            repsY.forEach((offsetY) => {
+              const itemEl = document.createElement('div');
+              itemEl.className = 'item absolute top-0 left-0';
+              itemEl.style.width = `${base.w}px`;
 
-            const wrapper = document.createElement('div');
-            wrapper.className = 'item-wrapper will-change-transform';
+              const wrapper = document.createElement('div');
+              wrapper.className = 'item-wrapper will-change-transform';
 
-            const itemImage = document.createElement('div');
-            itemImage.className = 'item-image overflow-hidden';
-            itemImage.style.width = `${base.w}px`;
-            itemImage.style.height = `${base.h}px`;
+              const itemImage = document.createElement('div');
+              itemImage.className = 'item-image overflow-hidden';
+              itemImage.style.width = `${base.w}px`;
+              itemImage.style.height = `${base.h}px`;
 
-            const img = new Image();
-            img.src = `${basePath}/${base.src}`;
-            img.className = 'w-full h-full object-cover will-change-transform custom-shadow opacity-0 scale-95';
-            img.addEventListener('click', () => {
-              setPopup({ src: base.src, caption: base.caption });
-            });
+              const img = new Image();
+              img.src = `${basePath}/${base.src}`;
+              img.className = 'w-full h-full object-cover will-change-transform custom-shadow opacity-0 scale-95';
+              img.addEventListener('click', () => {
+                setPopup({ src: base.src, caption: base.caption });
+              });
 
-            itemImage.appendChild(img);
-            wrapper.appendChild(itemImage);
+              itemImage.appendChild(img);
+              wrapper.appendChild(itemImage);
 
-            const caption = document.createElement('small');
-            caption.className = 'caption';
-            caption.innerHTML = base.caption;
-            wrapper.appendChild(caption);
+              const caption = document.createElement('small');
+              caption.className = 'caption';
+              caption.innerHTML = base.caption;
+              wrapper.appendChild(caption);
 
-            itemEl.appendChild(wrapper);
-            el.appendChild(itemEl);
+              itemEl.appendChild(wrapper);
+              el.appendChild(itemEl);
 
-            const split = new SplitText(caption, { type: 'lines', linesClass: 'line' });
-            gsap.set(split.lines, { opacity: 0, y: 2 });
-            gsap.to(split.lines, {
-              opacity: 1,
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.out',
-              stagger: 0.1,
-              delay: 0.1,
-            });
+              const split = new SplitText(caption, { type: 'lines', linesClass: 'line' });
+              gsap.set(split.lines, { opacity: 0, y: 2 });
+              gsap.to(split.lines, {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                ease: 'power2.out',
+                stagger: 0.1,
+                delay: 0.1,
+              });
 
-            gsap.to(img, {
-              opacity: 1,
-              scale: 1,
-              duration: 0.6,
-              ease: 'power2.out',
-              delay: 0.1 + Math.random() * 0.3,
-            });
+              gsap.to(img, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: 'power2.out',
+                delay: 0.1 + Math.random() * 0.3,
+              });
 
-            observer.observe(caption);
+              observer.observe(caption);
 
-            items.push({
-              el: itemEl,
-              img,
-              x: base.x + offsetX,
-              y: base.y + offsetY,
-              w: base.w,
-              h: base.h,
-              extraX: 0,
-              extraY: 0,
-              rect: itemEl.getBoundingClientRect(),
-              ease: Math.random() * 0.5 + 0.5,
+              items.push({
+                el: itemEl,
+                img,
+                x: base.x + offsetX,
+                y: base.y + offsetY,
+                w: base.w,
+                h: base.h,
+                extraX: 0,
+                extraY: 0,
+                rect: itemEl.getBoundingClientRect(),
+                ease: Math.random() * 0.5 + 0.5,
+              });
             });
           });
         });

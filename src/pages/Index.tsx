@@ -1,3 +1,5 @@
+// ...existing code...
+// Place these lines inside the Index component, after all imports
 const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12 } },
@@ -243,6 +245,15 @@ const Index = () => {
     ? activeProcessStep / (processSteps.length - 1)
     : 0;
 
+  const [showWelcome, setShowWelcome] = useState(true);
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowWelcome(window.scrollY < 30);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -268,7 +279,6 @@ const Index = () => {
             <GradualSpacing
               text="Faisons l'Echappée ensemble"
               renderChar={(char, i) => {
-                // ...existing code...
                 const start = 8;
                 const end = 18;
                 const isAccent = i >= start && i < end;
@@ -337,7 +347,11 @@ const Index = () => {
 
       {/* Texte de bienvenue entre hero et Introduction */}
       <div className="w-full my-1">
-        <span className="block w-full text-sm md:text-base font-serif font-bold text-blue-900 px-4 py-3 text-center whitespace-nowrap overflow-x-auto">
+        <span
+          className={
+            `block w-full text-xs sm:text-sm md:text-base lg:text-lg font-serif font-bold text-blue-900 px-4 py-3 text-center whitespace-nowrap overflow-x-auto transition-opacity duration-500 ${showWelcome ? 'opacity-100' : 'opacity-0'}`
+          }
+        >
           Je conçois des parenthèses de sérénité sur-mesure dans le Grand Nord. Pour ralentir, se réapproprier son temps et, enfin, reprendre son souffle.
         </span>
       </div>
@@ -347,11 +361,11 @@ const Index = () => {
         <div className="max-w-4xl mx-auto text-center">
           <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-serif text-2xl mb-10">Bienvenue</button>
           <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-8">Comment est née L'Échappée d'Emma?</h2>
-          <p className="font-bold mb-6">Je suis convaincue qu'à un tournant de vie, on a besoin de ralentir pour se retrouver.</p>
-          <p className="mb-2">C'est de cette conviction qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>
-          <p className="mb-2">Après avoir moi-même cherché ce souffle dans les grands espaces nordiques,</p>
-          <p className="mb-2">je conçois aujourd'hui pour vous des itinéraires où je m'occupe de toute la logistique.</p>
-          <p>Mon objectif : vous laisser, simplement, respirer et vous reconnecter à l'essentiel.</p>
+          <p className="font-sans font-bold text-muted-foreground text-base md:text-lg mb-6">Je suis convaincue qu'à un tournant de vie, on a besoin de ralentir pour se retrouver.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">C'est de cette conviction qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">Après avoir moi-même cherché ce souffle dans les grands espaces nordiques,</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">je conçois aujourd'hui pour vous des itinéraires où je m'occupe de toute la logistique.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg">Mon objectif : vous laisser, simplement, respirer et vous reconnecter à l'essentiel.</p>
         </div>
       </section>
 
@@ -361,7 +375,7 @@ const Index = () => {
           <div>
             <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-5">Je suis Emma</p>
             <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6">Travel planner pour vous aider à reprendre votre souffle</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">
               Je crée des itinéraires sur mesure dans le Grand Nord pour celles et ceux qui ont besoin de ralentir et de se recentrer. Mon approche : écoute, simplicité et nature.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">

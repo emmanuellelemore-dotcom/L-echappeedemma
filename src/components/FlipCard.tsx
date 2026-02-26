@@ -7,17 +7,33 @@ interface FlipCardProps {
   className?: string;
 }
 
+
 const FlipCard: React.FC<FlipCardProps> = ({ recto, verso, className }) => {
   const [flipped, setFlipped] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleClick = () => {
+    if (isMobile) setFlipped((prev) => !prev);
+  };
 
   return (
     <div
       className={`relative ${className || ''}`}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
+      onMouseEnter={!isMobile ? () => setFlipped(true) : undefined}
+      onMouseLeave={!isMobile ? () => setFlipped(false) : undefined}
       tabIndex={0}
-      onFocus={() => setFlipped(true)}
-      onBlur={() => setFlipped(false)}
+      onFocus={!isMobile ? () => setFlipped(true) : undefined}
+      onBlur={!isMobile ? () => setFlipped(false) : undefined}
+      onClick={handleClick}
       style={{ perspective: 1200 }}
     >
       <motion.div
