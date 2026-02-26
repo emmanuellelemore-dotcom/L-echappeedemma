@@ -10,6 +10,10 @@ const FAQ = [
     answer: "Une travel planner indépendante comme moi conçoit des voyages sur mesure selon VOS envies, votre budget et vos contraintes. Je m'occupe de la recherche, de la planification et je vous propose un itinéraire personnalisé, unique et flexible.",
   },
   {
+    question: "Pourquoi choisir une travel planner indépendante plutôt qu'une agence de voyage classique ?",
+    answer: "En tant que travel planner indépendante, je vous offre un service sur-mesure, sans commission cachée, avec une vraie écoute et une flexibilité totale. Je sélectionne chaque prestation pour vous, sans catalogue imposé.",
+  },
+  {
     question: "Proposes-tu des voyages dernière minute ou week-end ?",
     answer: "Oui, j'organise aussi bien des voyages dernière minute que des week-ends sur mesure, selon les disponibilités et vos souhaits. Contactez-moi pour une proposition rapide !",
   },
@@ -18,20 +22,12 @@ const FAQ = [
     answer: "Vous bénéficiez d'un accompagnement 100% personnalisé, d'itinéraires uniques, d'une expertise sur le Grand Nord, et d'une organisation sans stress, même pour les courts séjours. Je suis à votre écoute à chaque étape.",
   },
   {
-    question: "Où es-tu basée ?",
-    answer: "Je suis basée à Sucy-en-Brie, mais j'accompagne des voyageurs partout en France et à l'international.",
-  },
-  {
     question: "Comment réserver un voyage sur mesure ?",
     answer: "Contactez-moi via le formulaire du site ou par email. Nous échangerons sur vos envies avant que je vous propose un devis personnalisé. Je m'occupe de tout, vous n'avez plus qu'à profiter !",
   },
   {
     question: "Peux-tu organiser un voyage dans le Grand Nord ?",
     answer: "Oui, je suis spécialisée dans les destinations nordiques : Islande, Norvège, Suède, Finlande, Lofoten... Je crée des itinéraires adaptés à vos envies d'aventure, de nature ou de déconnexion.",
-  },
-  {
-    question: "Pourquoi choisir une travel planner indépendante plutôt qu'une agence de voyage classique ?",
-    answer: "En tant que travel planner indépendante, je vous offre un service sur-mesure, sans commission cachée, avec une vraie écoute et une flexibilité totale. Je sélectionne chaque prestation pour vous, sans catalogue imposé.",
   },
   {
     question: "Quels mots-clés décrivent le mieux ton activité ?",
@@ -78,7 +74,7 @@ const FeedbackWidget = () => {
             className="fixed bottom-6 right-6 z-[60] cursor-pointer group"
             onClick={openModal}
           >
-            <div className="relative bg-white rounded-2xl shadow-lg border border-accent bg-accent/10 overflow-hidden flex flex-col items-center hover:shadow-xl transition-shadow w-[130px]">
+            <div className="relative bg-white rounded-2xl shadow-lg border border-[#1e3a5f] bg-[#1e3a5f]/10 overflow-hidden flex flex-col items-center hover:shadow-xl transition-shadow w-[130px]">
               {/* Close button */}
               <button
                 onClick={(e) => {
@@ -92,7 +88,7 @@ const FeedbackWidget = () => {
               </button>
 
               {/* Image fills the entire top */}
-              <div className="w-full bg-pink-50">
+              <div className="w-full bg-[#1e3a5f]/10">
                 <img
                   src="/chouette_avis.webp"
                   alt="Donnez votre avis"
@@ -101,8 +97,8 @@ const FeedbackWidget = () => {
               </div>
 
               {/* Text below */}
-              <div className="px-2 py-2">
-                <span className="text-xs font-bold text-gray-800 text-center leading-tight block">
+              <div className="w-full bg-white px-2 py-2 rounded-b-2xl shadow flex items-center justify-center">
+                <span className="text-xs font-bold text-gray-800 text-center leading-tight">
                   La FAQ la plus chouette du coin
                 </span>
               </div>
@@ -135,7 +131,7 @@ const FeedbackWidget = () => {
               <div className="w-[90vw] max-w-md bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto pointer-events-auto">
                 {/* Header */}
                 <div className="flex justify-between items-center p-3 pb-0">
-                  <h2 className="text-xl font-bold text-gray-900">FAQ</h2>
+                  <h2 className="text-xl font-bold text-pink-500">FAQ</h2>
                   <button
                     onClick={dismiss}
                     className="text-sm text-gray-500 hover:text-gray-800 flex items-center gap-1 transition-colors"
@@ -153,7 +149,7 @@ const FeedbackWidget = () => {
                         aria-controls={`faq-panel-${idx}`}
                       >
                         <span>{item.question}</span>
-                        {openIndex === idx ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                        {openIndex === idx ? <ChevronUp size={18} className="min-w-[18px] flex-shrink-0" /> : <ChevronDown size={18} className="min-w-[18px] flex-shrink-0" />}
                       </button>
                       <AnimatePresence initial={false}>
                         {openIndex === idx && (

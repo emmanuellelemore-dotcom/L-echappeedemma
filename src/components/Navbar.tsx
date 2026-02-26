@@ -34,7 +34,7 @@ const Navbar = () => {
           : 'bg-background/95 backdrop-blur-md shadow-sm py-4 border-b border-border'
       }`}
     >
-      <div className="w-full px-6 flex justify-between items-center">
+      <div className="w-full px-8 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <img src="/logo.png" alt="Logo L'échappée d'Emma" className="w-8 h-8 object-contain" loading="lazy" width="32" height="32" />
           <Link

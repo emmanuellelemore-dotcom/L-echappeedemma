@@ -202,9 +202,12 @@ const MesPrestations = () => {
               <motion.div key={need.number} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, delay: index * 0.1 }} className="flex flex-col items-center relative">
                 <FlipCard
                   recto={
-                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px]">
+                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px] relative">
                       <h3 className="text-base sm:text-lg font-bold mb-2 text-center break-words">{need.title}</h3>
                       <p className="text-xs sm:text-base text-center mb-4 text-white/90 font-medium break-words">{need.subtitle}</p>
+                      <span className="block sm:hidden absolute bottom-3 left-1/2 -translate-x-1/2 text-center text-xs font-semibold text-pink-500 animate-pulse">
+                        Touchez pour retourner
+                      </span>
                     </div>
                   }
                   verso={
@@ -236,10 +239,6 @@ const MesPrestations = () => {
                   }
                   className="w-full max-w-xs mx-auto h-[520px]"
                 />
-                {/* Indication mobile : flèche circulaire + texte */}
-                <div className="block sm:hidden mt-2 text-center text-xs font-semibold text-pink-500 animate-pulse">
-                  Touchez pour retourner
-                </div>
               </motion.div>
             ))}
           </div>
@@ -262,9 +261,9 @@ const MesPrestations = () => {
                   <ChevronDown size={36} className="animate-bounce text-accent" />
                 </motion.div>
               </div>
-              {/* Bandeau bleu "En construction" */}
+              {/* Bandeau bleu "En développement" */}
               <div className="w-full bg-primary text-primary-foreground rounded-2xl py-8 px-4 mt-8 shadow-lg flex items-center justify-center text-2xl font-bold">
-                🚧 En construction 🚧
+                🚧 En développement 🚧
               </div>
             </div>
           </div>

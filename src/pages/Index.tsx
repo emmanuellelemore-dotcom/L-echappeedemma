@@ -360,7 +360,7 @@ const Index = () => {
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-serif text-2xl mb-10">Bienvenue</button>
-          <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-8">Comment est née L'Échappée d'Emma?</h2>
+          <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-8">Comment est née L'Échappée d'Emma?</h2>
           <p className="font-sans font-bold text-muted-foreground text-base md:text-lg mb-6">Je suis convaincue qu'à un tournant de vie, on a besoin de ralentir pour se retrouver.</p>
           <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">C'est de cette conviction qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>
           <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">Après avoir moi-même cherché ce souffle dans les grands espaces nordiques,</p>
@@ -482,7 +482,7 @@ const Index = () => {
                 to="/devis"
                 className="bg-primary text-primary-foreground px-10 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
               >
-                Formulaire
+                Débuter mon échappée
               </Link>
             </div>
           </motion.div>

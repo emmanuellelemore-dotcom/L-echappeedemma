@@ -293,7 +293,6 @@ const QuotePage = () => {
                     <span className="flex-1 text-center font-bold text-foreground">{children === 0 ? 'Aucun' : children}</span>
                     <button type="button" onClick={() => setChildren(children + 1)} className="w-10 h-10 bg-background rounded-lg shadow-sm font-bold text-foreground">+</button>
                   </div>
-                  <div className="text-xs text-muted-foreground mt-1">Laisser à zéro si aucun enfant.</div>
                 </div>
               </div>
 
