@@ -51,8 +51,9 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider">Newsletter & Réseaux</h4>
             <div className="border-t border-dashed border-primary-foreground/20 mb-4" />
             <div className="space-y-3 text-sm text-primary-foreground/70">
+              {/* Ajout id et name pour accessibilité et SEO */}
               <form className="flex mb-3">
-                <input type="email" placeholder="Votre email" className="rounded-l px-3 py-1 text-primary w-full focus:outline-none" />
+                <input id="newsletter-email" name="newsletterEmail" type="email" placeholder="Votre email" className="rounded-l px-3 py-1 text-primary w-full focus:outline-none" />
                 <button type="submit" className="bg-accent text-accent-foreground px-4 py-1 rounded-r font-semibold hover:opacity-90 transition-opacity">OK</button>
               </form>
               <div className="flex gap-4 mt-2">

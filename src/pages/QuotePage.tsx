@@ -144,8 +144,11 @@ const QuotePage = () => {
 
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Nom complet *</label>
+                  {/* Ajout id et name pour accessibilité et SEO */}
+                  <label htmlFor="quote-name" className="text-sm font-semibold text-foreground">Nom complet *</label>
                   <input
+                    id="quote-name"
+                    name="name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -155,8 +158,11 @@ const QuotePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Email *</label>
+                  {/* Ajout id et name pour accessibilité et SEO */}
+                  <label htmlFor="quote-email" className="text-sm font-semibold text-foreground">Email *</label>
                   <input
+                    id="quote-email"
+                    name="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -166,8 +172,11 @@ const QuotePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Téléphone *</label>
+                  {/* Ajout id et name pour accessibilité et SEO */}
+                  <label htmlFor="quote-phone" className="text-sm font-semibold text-foreground">Téléphone *</label>
                   <input
+                    id="quote-phone"
+                    name="phone"
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -185,8 +194,11 @@ const QuotePage = () => {
 
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Destination </label>
+                  {/* Ajout id et name pour accessibilité et SEO */}
+                  <label htmlFor="quote-destination" className="text-sm font-semibold text-foreground">Destination </label>
                   <input
+                    id="quote-destination"
+                    name="destination"
                     type="text"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
@@ -195,8 +207,11 @@ const QuotePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Date de départ</label>
+                  {/* Ajout id et name pour accessibilité et SEO */}
+                  <label htmlFor="quote-depart-date" className="text-sm font-semibold text-foreground">Date de départ</label>
                   <input
+                    id="quote-depart-date"
+                    name="departDate"
                     type="date"
                     value={departDate === 'flexible' || departDate === '' ? '' : departDate}
                     onChange={(e) => setDepartDate(e.target.value)}
@@ -220,8 +235,11 @@ const QuotePage = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Date de retour</label>
+                  {/* Ajout id et name pour accessibilité et SEO */}
+                  <label htmlFor="quote-return-date" className="text-sm font-semibold text-foreground">Date de retour</label>
                   <input
+                    id="quote-return-date"
+                    name="returnDate"
                     type="date"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
@@ -232,8 +250,11 @@ const QuotePage = () => {
 
               <div className="space-y-4">
                 <label className="text-sm font-semibold text-foreground block">
+                  {/* Ajout id et name pour accessibilité et SEO */}
                   Budget par personne :
                   <input
+                    id="quote-budget"
+                    name="budget"
                     ref={budgetInputRef}
                     type="number"
                     inputMode="numeric"
@@ -253,7 +274,10 @@ const QuotePage = () => {
                   />
                   <span className="ml-1 text-accent text-lg font-bold">€</span>
                 </label>
+                {/* Ajout id et name pour accessibilité et SEO */}
                 <input
+                  id="quote-budget-range"
+                  name="budgetRange"
                   type="range"
                   min="500"
                   max="15000"
@@ -297,8 +321,11 @@ const QuotePage = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Qui sera du voyage ?</label>
+                {/* Ajout id et name pour accessibilité et SEO */}
+                <label htmlFor="quote-travel-party" className="text-sm font-semibold text-foreground">Qui sera du voyage ?</label>
                 <input
+                  id="quote-travel-party"
+                  name="travelParty"
                   type="text"
                   value={travelParty}
                   onChange={(e) => setTravelParty(e.target.value)}
@@ -310,12 +337,15 @@ const QuotePage = () => {
               <div className="space-y-2 pt-6 border-t border-border">
                 {/* Bloc état d'esprit actuel */}
                 <label className="text-sm font-semibold text-foreground">Votre état d'esprit actuel</label>
+                {/* Ajout id et name pour accessibilité et SEO */}
                 <textarea
+                  id="quote-mindset"
+                  name="mindset"
                   rows={2}
                   value={mindset}
-                  onChange={e => setMindset(e.target.value)}
-                  placeholder="En un mot ou une phrase, comment vous sentez-vous aujourd'hui et qu'attendez-vous de ce voyage ? (optionnel)"
-                  className="w-full p-4 bg-muted border-none rounded-xl outline-none resize-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
+                  onChange={(e) => setMindset(e.target.value)}
+                  placeholder="Ex: besoin de souffler, de changer d'air, de me ressourcer..."
+                  className="w-full p-4 bg-muted border-none rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 

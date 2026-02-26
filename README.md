@@ -1,7 +1,3 @@
-# L'echappee d'Emma
-
-Site vitrine pour L'echappee d'Emma, un Travel Planer sur mesure à Sucy-en-Brie. Le projet présente les offres, l'approche personnalisée, les destinations et les moyens de contact.
-
 # L'échappée d'Emma
 
 > **Travel planner indépendante, spécialiste du voyage sur mesure, du Grand Nord et des expériences uniques.**

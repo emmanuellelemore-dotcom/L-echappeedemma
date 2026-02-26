@@ -110,8 +110,11 @@ const ContactPage = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">Nom complet *</label>
+              {/* Ajout id et name pour accessibilité et SEO */}
+              <label htmlFor="contact-name" className="text-sm font-semibold text-foreground">Nom complet *</label>
               <input
+                id="contact-name"
+                name="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -121,8 +124,11 @@ const ContactPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">Email *</label>
+              {/* Ajout id et name pour accessibilité et SEO */}
+              <label htmlFor="contact-email" className="text-sm font-semibold text-foreground">Email *</label>
               <input
+                id="contact-email"
+                name="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -135,8 +141,11 @@ const ContactPage = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">Téléphone</label>
+              {/* Ajout id et name pour accessibilité et SEO */}
+              <label htmlFor="contact-phone" className="text-sm font-semibold text-foreground">Téléphone</label>
               <input
+                id="contact-phone"
+                name="phone"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -145,8 +154,11 @@ const ContactPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">Sujet</label>
+              {/* Ajout id et name pour accessibilité et SEO */}
+              <label htmlFor="contact-subject" className="text-sm font-semibold text-foreground">Sujet</label>
               <input
+                id="contact-subject"
+                name="subject"
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
