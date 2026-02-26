@@ -1,35 +1,56 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
-import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
+import { X, ChevronDown, ChevronUp } from 'lucide-react';
 
-const STORAGE_KEY = 'feedback_dismissed';
+const STORAGE_KEY = 'faqwidget_dismissed';
 
-const emojis = [
-  { icon: '😠', label: 'Très mécontent' },
-  { icon: '😟', label: 'Mécontent' },
-  { icon: '😕', label: 'Neutre' },
-  { icon: '😊', label: 'Content' },
-  { icon: '🤩', label: 'Très content' },
+const FAQ = [
+  {
+    question: "Qu'est-ce qu'une travel planner ?",
+    answer: "Une travel planner indépendante comme moi conçoit des voyages sur mesure selon VOS envies, votre budget et vos contraintes. Je m'occupe de la recherche, de la planification et je vous propose un itinéraire personnalisé, unique et flexible.",
+  },
+  {
+    question: "Proposes-tu des voyages dernière minute ou week-end ?",
+    answer: "Oui, j'organise aussi bien des voyages dernière minute que des week-ends sur mesure, selon les disponibilités et vos souhaits. Contactez-moi pour une proposition rapide !",
+  },
+  {
+    question: "Quels sont les avantages de passer par L'échappée d'Emma ?",
+    answer: "Vous bénéficiez d'un accompagnement 100% personnalisé, d'itinéraires uniques, d'une expertise sur le Grand Nord, et d'une organisation sans stress, même pour les courts séjours. Je suis à votre écoute à chaque étape.",
+  },
+  {
+    question: "Où es-tu basée ?",
+    answer: "Je suis basée à Sucy-en-Brie, mais j'accompagne des voyageurs partout en France et à l'international.",
+  },
+  {
+    question: "Comment réserver un voyage sur mesure ?",
+    answer: "Contactez-moi via le formulaire du site ou par email. Nous échangerons sur vos envies avant que je vous propose un devis personnalisé. Je m'occupe de tout, vous n'avez plus qu'à profiter !",
+  },
+  {
+    question: "Peux-tu organiser un voyage dans le Grand Nord ?",
+    answer: "Oui, je suis spécialisée dans les destinations nordiques : Islande, Norvège, Suède, Finlande, Lofoten... Je crée des itinéraires adaptés à vos envies d'aventure, de nature ou de déconnexion.",
+  },
+  {
+    question: "Pourquoi choisir une travel planner indépendante plutôt qu'une agence de voyage classique ?",
+    answer: "En tant que travel planner indépendante, je vous offre un service sur-mesure, sans commission cachée, avec une vraie écoute et une flexibilité totale. Je sélectionne chaque prestation pour vous, sans catalogue imposé.",
+  },
+  {
+    question: "Quels mots-clés décrivent le mieux ton activité ?",
+    answer: "Travel planner, voyage dernière minute, agence travel, simply voyage, l'échappée, grand nord, voyage weekend dernière minute, l'échappée d'emma, Sucy-en-brie, voyage sur mesure, Islande, Norvège, Suède, Finlande, voyage nordique, aurore boréale, fjord... N'hésitez pas à me contacter pour toute demande spécifique !",
+  },
 ];
+
 
 const FeedbackWidget = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
-  const [comment, setComment] = useState('');
-  const [email, setEmail] = useState('');
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY);
     if (dismissed) return;
-
     const timer = setTimeout(() => {
       setShowBubble(true);
     }, 5000);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -42,34 +63,6 @@ const FeedbackWidget = () => {
   const openModal = () => {
     setShowBubble(false);
     setShowModal(true);
-  };
-
-  const handleSubmit = async () => {
-    if (selectedEmoji === null) return;
-    setSending(true);
-
-    try {
-      // Utilise le template Contact avec un format adapté pour le feedback
-      await emailjs.send(
-        EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.TEMPLATE_FEEDBACK,
-        {
-          from_name: 'Feedback visiteur',
-          from_email: email || 'Non renseigné',
-          phone: `Note: ${selectedEmoji + 1}/5 ${emojis[selectedEmoji].icon}`,
-          subject: `Feedback client - ${emojis[selectedEmoji].label}`,
-          message: comment || 'Aucun commentaire',
-        }
-      );
-      setSent(true);
-      setTimeout(() => dismiss(), 2000);
-    } catch {
-      // silently fail — don't block UX
-      setSent(true);
-      setTimeout(() => dismiss(), 2000);
-    } finally {
-      setSending(false);
-    }
   };
 
   return (
@@ -110,7 +103,7 @@ const FeedbackWidget = () => {
               {/* Text below */}
               <div className="px-2 py-2">
                 <span className="text-xs font-bold text-gray-800 text-center leading-tight block">
-                  Votre avis nous intéresse !
+                  La FAQ la plus chouette du coin
                 </span>
               </div>
             </div>
@@ -118,7 +111,7 @@ const FeedbackWidget = () => {
         )}
       </AnimatePresence>
 
-      {/* Feedback modal */}
+      {/* FAQ modal */}
       <AnimatePresence>
         {showModal && (
           <>
@@ -140,103 +133,45 @@ const FeedbackWidget = () => {
               className="fixed inset-0 z-[80] flex items-center justify-center pointer-events-none"
             >
               <div className="w-[90vw] max-w-md bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto pointer-events-auto">
-              {/* Header */}
-              <div className="flex justify-end p-3 pb-0">
-                <button
-                  onClick={dismiss}
-                  className="text-sm text-gray-500 hover:text-gray-800 flex items-center gap-1 transition-colors"
-                >
-                  Fermer <X size={16} />
-                </button>
-              </div>
-
-              {sent ? (
-                <div className="px-6 pb-8 pt-2 text-center">
-                  <p className="text-lg font-bold text-gray-800">Merci pour votre retour !</p>
-                  <p className="text-sm text-gray-500 mt-1">Votre avis nous aide à nous améliorer.</p>
+                {/* Header */}
+                <div className="flex justify-between items-center p-3 pb-0">
+                  <h2 className="text-xl font-bold text-gray-900">FAQ</h2>
+                  <button
+                    onClick={dismiss}
+                    className="text-sm text-gray-500 hover:text-gray-800 flex items-center gap-1 transition-colors"
+                  >
+                    Fermer <X size={16} />
+                  </button>
                 </div>
-              ) : (
-                <div className="px-6 pb-6 pt-2 space-y-5">
-                  <h2 className="text-xl font-bold text-gray-900">Votre avis nous intéresse !</h2>
-
-                  {/* Rating */}
-                  <div>
-                    <p className="text-sm font-medium text-gray-700 mb-3">
-                      Le service L'échappée d'Emma répond-il à vos attentes ?
-                    </p>
-                    <div className="flex gap-2 justify-between">
-                      {emojis.map((e, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setSelectedEmoji(i)}
-                          className={`text-3xl p-2 rounded-xl transition-all ${
-                            selectedEmoji === i
-                              ? 'bg-pink-100 ring-2 ring-pink-400 scale-110'
-                              : 'hover:bg-gray-100'
-                          }`}
-                          aria-label={e.label}
-                        >
-                          {e.icon}
-                        </button>
-                      ))}
+                <div className="px-6 pb-6 pt-2 space-y-3">
+                  {FAQ.map((item, idx) => (
+                    <div key={idx} className="border-b border-gray-200 py-2">
+                      <button
+                        className="w-full flex justify-between items-center text-left font-semibold text-gray-800 focus:outline-none focus:text-pink-600 transition-colors"
+                        onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                        aria-expanded={openIndex === idx}
+                        aria-controls={`faq-panel-${idx}`}
+                      >
+                        <span>{item.question}</span>
+                        {openIndex === idx ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {openIndex === idx && (
+                          <motion.div
+                            id={`faq-panel-${idx}`}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="text-gray-600 text-sm mt-2 pl-1 pr-2"
+                          >
+                            {item.answer}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div className="flex justify-between text-xs text-gray-400 mt-1 px-1">
-                      <span>Pas du tout</span>
-                      <span>Tout à fait</span>
-                    </div>
-                  </div>
-
-                  {/* Comment */}
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 block mb-1.5">
-                      Que pouvons-nous améliorer ?
-                    </label>
-                    <textarea
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-24 focus:outline-none focus:ring-2 focus:ring-pink-300 bg-gray-50"
-                      placeholder="Vos suggestions..."
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <p className="text-sm font-semibold text-gray-700 mb-1">
-                      Échangez avec nous sur votre expérience et participez aux futures évolutions !
-                    </p>
-                    <label className="text-sm text-gray-600 block mb-1.5">
-                      Email de contact (facultatif)
-                    </label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Ex : @email.com"
-                      className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 bg-gray-50"
-                    />
-                    <p className="text-xs text-gray-400 mt-1">
-                      Votre email ne sera utilisé que pour échanger sur la plateforme et ses futures évolutions.
-                    </p>
-                  </div>
-
-                  {/* Buttons */}
-                  <div className="flex justify-end gap-3 pt-2">
-                    <button
-                      onClick={dismiss}
-                      className="px-5 py-2.5 text-sm font-medium border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
-                    >
-                      Fermer sans répondre
-                    </button>
-                    <button
-                      onClick={handleSubmit}
-                      disabled={selectedEmoji === null || sending}
-                      className="px-5 py-2.5 text-sm font-bold bg-accent text-accent-foreground rounded-full hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {sending ? 'Envoi…' : 'Envoyer'}
-                    </button>
-                  </div>
+                  ))}
                 </div>
-              )}
               </div>
             </motion.div>
           </>
