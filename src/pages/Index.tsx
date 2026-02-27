@@ -1,14 +1,5 @@
 // ...existing code...
-// Place these lines inside the Index component, after all imports
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-};
-
-const fadeDown = {
-  hidden: { opacity: 0, y: -18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
-};
+// ...existing code...
 import heroTravel from '@/assets/hero-travel.webp';
 // Array of hero background images
 // Ajoutez vos images personnalisées ici
@@ -26,15 +17,7 @@ import destFinlande from '../assets/dest-finlande.jpg';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import DestinationCard from '../components/DestinationCard';
-// Tags populaires pour le hero
-const popularTags = [
-  'Nature',
-  'Aventure',
-  'Bien-être',
-  'Grand Nord',
-  'Slow Travel',
-  'Déconnexion',
-];
+// ...existing code...
 
 // Destinations pour la section Destinations
 const destinations = [
@@ -56,7 +39,7 @@ const reasons = [
 
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Search,
   Star,
@@ -81,39 +64,6 @@ import {
 import { GradualSpacing } from '../components/GradualSpacing';
 
 
-const processSteps = [
-  {
-    step: '1',
-    title: "L'appel découverte",
-    description: "On échange sur votre énergie du moment et vos envies profondes.",
-    icon: Phone,
-  },
-  {
-    step: '2',
-    title: 'Proposition & immersion',
-    description: "Je vous transmets une proposition tarifaire claire et votre questionnaire d'immersion.",
-    icon: PenTool,
-  },
-  {
-    step: '3',
-    title: 'Sélection & réservations',
-    description: "Je sélectionne les meilleurs options, vous choisissez ET vous réservez.",
-    icon: Calendar,
-  },
-  {
-    step: '4',
-    title: "Création de l'itinéraire",
-    description: 'Je dessine un parcours fluide, jour par jour.',
-    icon: Map,
-  },
-  {
-    step: '5',
-    title: 'Carnet de route',
-    description: 'Vous recevez un carnet personnalisé pour partir serein.',
-    icon: BadgeCheck,
-  },
-  // Le processus sera revu après le module 2
-];
 
 const breathNeeds = [
   {
@@ -241,9 +191,7 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
-  const processProgress = processSteps.length > 1
-    ? activeProcessStep / (processSteps.length - 1)
-    : 0;
+  // processProgress supprimé car processSteps n'existe plus
 
   const [showWelcome, setShowWelcome] = useState(true);
   useEffect(() => {
@@ -440,7 +388,6 @@ const Index = () => {
           Voir toutes mes prestations
         </Link>
       </section>
-      {/* Section 6 raisons supprimée */}
 
       {/* Reviews / Social proof */}
       <section id="avis" className="bg-secondary py-20 px-6">
@@ -453,8 +400,6 @@ const Index = () => {
           </p>
         </div>
       </section>
-
-      {/* Section offres supprimée */}
 
       {/* CTA */}
       <section className="py-24 px-6">
