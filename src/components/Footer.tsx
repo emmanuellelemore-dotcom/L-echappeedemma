@@ -59,7 +59,7 @@ const Footer = () => {
               </form>
               <div className="flex gap-4 mt-2">
                 <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-accent transition-colors">LinkedIn</a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-accent transition-colors">Instagram</a>
+                <a href="https://www.instagram.com/lechappee_demma?igsh=MWFtY2NrYzFpOHpvbw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-accent transition-colors">Instagram</a>
               </div>
             </div>
           </div>

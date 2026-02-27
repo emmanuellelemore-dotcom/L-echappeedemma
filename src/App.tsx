@@ -14,6 +14,7 @@ import Emma from "./pages/Emma";
 import NotFound from "./pages/NotFound";
 import MesPrestations from "./pages/MesPrestations";
 import BlogPage from "./pages/BlogPage";
+import RoadtripLaponieAuroresBoreales from "./pages/blog/roadtrip-laponie-aurores-boreales";
 const Islande = React.lazy(() => import("./pages/galleries/Islande"));
 const Norvege = React.lazy(() => import("./pages/galleries/Norvege"));
 const Suede = React.lazy(() => import("./pages/galleries/Suede"));
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/devis" element={<QuotePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/roadtrip-laponie-aurores-boreales" element={<RoadtripLaponieAuroresBoreales />} />
             <Route path="/gallery/islande" element={<Islande />} />
             <Route path="/gallery/norvege" element={<Norvege />} />
             <Route path="/gallery/suede" element={<Suede />} />
