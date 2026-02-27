@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import CurvedLoop from '../components/CurvedLoop';
+import Marquee from '../components/Marquee';
 
 // Mock d'articles pour la démo
 const articles = [
@@ -67,25 +69,34 @@ export default function BlogPage() {
 
   return (
 
-    <div className="min-h-screen bg-secondary/60">
+    <div className="min-h-screen bg-secondary/60 relative overflow-x-hidden max-w-full">
       <Navbar />
 
 
       {/* Bandeau fond coloré sous la nav */}
-      <section className="w-full pt-28 pb-12 px-4 bg-secondary/60 border-b border-border text-center">
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-3">Le Blog du Grand Nord</h1>
-      </section>
-
+        {/* Marquee mobile / CurvedLoop desktop */}
+        <div className="block md:hidden w-full bg-secondary/60 py-2 mt-[64px]">
+          <Marquee text="Le Blog du Grand Nord" />
+        </div>
+        <div className="hidden md:block w-full mt-[-300px] mb-0 h-[550px] overflow-hidden bg-secondary/60">
+          <div className="max-w-7xl mx-auto px-4">
+            <CurvedLoop
+              marqueeText="Le Blog du Grand Nord"
+              speed={1}
+              className="text-primary text-7xl font-serif"
+              curveAmount={400}
+              direction="left"
+              interactive={false}
+            />
+          </div>
+        </div>
+      
       {/* Présentation immersive à deux colonnes */}
       <section className="w-full bg-white py-16 px-4 border-b border-border">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
           {/* Image immersive à gauche */}
-          <div className="flex justify-center">
-            <img
-              src="/gallery/finlande/finlande-hiver-foret.jpg"
-              alt="Voyageuse dans le Grand Nord, ambiance boréale"
-              className="rounded-3xl shadow-lg object-cover w-full max-w-md h-80 md:h-96"
-            />
+          <div className="flex justify-center items-center min-h-[120px] text-muted-foreground text-lg font-medium">
+            pas de photo pour le moment
           </div>
           {/* Texte d'accueil à droite */}
           <div className="text-center md:text-left">
