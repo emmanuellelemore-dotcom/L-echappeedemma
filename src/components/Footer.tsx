@@ -40,6 +40,7 @@ const Footer = () => {
               <Link to="/mes-prestations" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Prestations</Link>
               <Link to="/#offres" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mes offres</Link>
               <Link to="/emma" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Emma</Link>
+              <Link to="/blog" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Blog</Link>
               <Link to="/contact" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Contact</Link>
               <Link to="/devis" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Débuter mon échappée</Link>
               <a href="/mentions-legales" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mentions légales</a>

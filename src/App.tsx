@@ -13,6 +13,7 @@ import ContactPage from "./pages/ContactPage";
 import Emma from "./pages/Emma";
 import NotFound from "./pages/NotFound";
 import MesPrestations from "./pages/MesPrestations";
+import BlogPage from "./pages/BlogPage";
 const Islande = React.lazy(() => import("./pages/galleries/Islande"));
 const Norvege = React.lazy(() => import("./pages/galleries/Norvege"));
 const Suede = React.lazy(() => import("./pages/galleries/Suede"));
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/mes-prestations" element={<MesPrestations />} />
             <Route path="/devis" element={<QuotePage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogPage />} />
             <Route path="/gallery/islande" element={<Islande />} />
             <Route path="/gallery/norvege" element={<Norvege />} />
             <Route path="/gallery/suede" element={<Suede />} />

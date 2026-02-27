@@ -18,11 +18,13 @@ const Navbar = () => {
 
   const transparent = isHome && !scrolled && !mobileOpen;
 
+  // Ajout du lien Blog entre Emma et Contact
   const links = [
     { to: '/', label: 'Accueil' },
     { to: '/mes-prestations', label: 'Prestations' },
     { to: '/#offres', label: 'Mes offres' },
     { to: '/emma', label: 'Emma' },
+    { to: '/blog', label: 'Blog' },
     { to: '/contact', label: 'Contact' },
   ];
 

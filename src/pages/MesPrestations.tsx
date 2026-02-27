@@ -131,21 +131,11 @@ const MesPrestations = () => {
   };
   const processProgress = processSteps.length > 1 ? activeProcessStep / (processSteps.length - 1) : 0;
 
-  // Composant d'intro SEO
-  const SeoIntro = () => (
-    <section className="max-w-2xl mx-auto mt-8 mb-6 px-4 text-center">
-      <h1 className="text-2xl md:text-3xl font-bold mb-2 text-blue-900">Travel planner Grand Nord&nbsp;: spécialiste des voyages nordiques sur mesure</h1>
-      <p className="text-base md:text-lg text-gray-700">
-        Envie d'une aventure unique en Islande, Norvège, Suède ou Finlande&nbsp;? Je suis travel planner grand nord, passionnée par les terres nordiques et experte dans la création de voyages sur mesure. Profite de mon accompagnement personnalisé pour vivre une expérience authentique, loin des sentiers battus, adaptée à tes envies et à ton rythme.
-      </p>
-    </section>
-  );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       <section className="py-24 px-6">
-        <SeoIntro />
         <MesPrestationsTitle />
         <p className="text-center text-lg mb-16">
           <TextEffect per="char" preset="fade">

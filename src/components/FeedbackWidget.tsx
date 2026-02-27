@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronDown, ChevronUp } from 'lucide-react';
 
-const STORAGE_KEY = 'faqwidget_dismissed';
 
 const FAQ = [
   {
@@ -37,35 +37,49 @@ const FAQ = [
 
 
 const FeedbackWidget = () => {
+
   const [showBubble, setShowBubble] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [minimized, setMinimized] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const location = useLocation();
+  const hasShownBubble = useRef(false);
 
   useEffect(() => {
-    const dismissed = localStorage.getItem(STORAGE_KEY);
-    if (dismissed) return;
-    const timer = setTimeout(() => {
-      setShowBubble(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+    // Affiche la bulle d'accueil uniquement à la première visite (pas à chaque navigation)
+    if (!hasShownBubble.current) {
+      setShowBubble(false);
+      setShowModal(false);
+      setMinimized(false);
+      const timer = setTimeout(() => {
+        setShowBubble(true);
+        hasShownBubble.current = true;
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+    // Si la bulle a déjà été affichée et n'a pas été fermée, on la laisse visible sur toutes les pages
+    // Si l'utilisateur a fermé (minimized), on garde l'étiquette FAQ
+    // Donc on ne touche pas à l'état si la bulle est encore ouverte
+    // eslint-disable-next-line
+  }, [location.pathname]);
 
-  const dismiss = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
+  const dismiss = (fromModal = false) => {
     setShowBubble(false);
     setShowModal(false);
+    setMinimized(true);
   };
 
   const openModal = () => {
     setShowBubble(false);
     setShowModal(true);
+    setMinimized(false);
   };
 
   return (
     <>
       {/* Floating bubble — mascot */}
       <AnimatePresence>
-        {showBubble && (
+        {showBubble && !minimized && (
           <motion.div
             initial={{ opacity: 0, x: 80 }}
             animate={{ opacity: 1, x: 0 }}
@@ -79,7 +93,7 @@ const FeedbackWidget = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  dismiss();
+                  dismiss(false);
                 }}
                 className="absolute top-1 right-1 bg-white/80 backdrop-blur rounded-full p-0.5 shadow border border-gray-200 hover:bg-gray-100 transition-colors z-10"
                 aria-label="Fermer"
@@ -105,6 +119,24 @@ const FeedbackWidget = () => {
             </div>
           </motion.div>
         )}
+        {/* Etiquette FAQ minimisée */}
+        {minimized && (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+            className="fixed bottom-10 right-0 z-[60] cursor-pointer group"
+            style={{ pointerEvents: 'auto' }}
+            onClick={() => { setShowModal(true); setMinimized(false); }}
+          >
+            <div className="bg-[#1e3a5f] font-serif font-bold px-2 py-2 rounded-l-2xl shadow-lg border border-[#1e3a5f] text-base tracking-wide hover:bg-[#25406e] transition-all flex flex-col items-center select-none" style={{letterSpacing: 0}}>
+              <span className="text-accent" style={{lineHeight: '1.1'}}>F</span>
+              <span className="text-accent" style={{lineHeight: '1.1'}}>A</span>
+              <span className="text-accent" style={{lineHeight: '1.1'}}>Q</span>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
 
       {/* FAQ modal */}
@@ -117,7 +149,7 @@ const FeedbackWidget = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/40 z-[70]"
-              onClick={dismiss}
+              onClick={() => dismiss(true)}
             />
 
             {/* Modal */}
@@ -133,7 +165,7 @@ const FeedbackWidget = () => {
                 <div className="flex justify-between items-center p-3 pb-0">
                   <h2 className="text-xl font-bold text-pink-500">FAQ</h2>
                   <button
-                    onClick={dismiss}
+                    onClick={() => dismiss(true)}
                     className="text-sm text-gray-500 hover:text-gray-800 flex items-center gap-1 transition-colors"
                   >
                     Fermer <X size={16} />
