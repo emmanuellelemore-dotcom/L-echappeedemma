@@ -221,6 +221,79 @@ Ouvrez `public/sitemap.xml` et remplacez `https://example.com` par `https://lech
 
 ---
 
+## ⭐ Activer les avis Google (Places API)
+
+La section avis Google du site est déjà prête. Il reste uniquement à connecter votre clé API Google.
+
+### 1) Créer un projet Google Cloud
+
+1. Ouvrez [https://console.cloud.google.com/](https://console.cloud.google.com/)
+2. Créez un projet (ou réutilisez un projet existant)
+3. Vérifiez que la facturation est activée sur ce projet
+
+### 2) Activer l’API nécessaire
+
+1. Dans **APIs & Services** → **Library**
+2. Activez **Places API**
+
+### 3) Générer une clé API
+
+1. Allez dans **APIs & Services** → **Credentials**
+2. Cliquez sur **Create Credentials** → **API key**
+3. Copiez la clé
+
+### 4) Sécuriser la clé (fortement recommandé)
+
+Dans la clé API :
+
+- **API restrictions** : autorisez uniquement **Places API**
+- **Application restrictions** :
+   - si usage serveur uniquement : limitez par IP du serveur
+   - si plusieurs environnements, ajoutez les IP/serveurs nécessaires
+
+### 5) Configurer les variables d’environnement serveur
+
+Dans l’environnement du backend (local + production), ajoutez :
+
+```env
+GOOGLE_MAPS_API_KEY=VOTRE_CLE_API
+GOOGLE_PLACE_ID=ChIJm2NF0mML5kcRXlMfFIy36ew
+CONTACT_PORT=3001
+```
+
+> `GOOGLE_PLACE_ID` est déjà prérempli dans le code avec votre fiche :
+> **L'échappée d'Emma - Travel Planner Grand Nord**
+> `ChIJm2NF0mML5kcRXlMfFIy36ew`
+
+### 6) Redémarrer les services
+
+En local :
+
+```powershell
+# Terminal 1
+npm run server
+
+# Terminal 2
+npm run dev
+```
+
+### 7) Vérifier le fonctionnement
+
+1. Ouvrez la page d’accueil
+2. Allez à la section **Vos avis Google**
+3. Vérifiez que les avis s’affichent
+4. Le bouton **Laisser un avis Google** ouvre bien Google
+
+### Dépannage rapide
+
+- **Aucun avis affiché** : vérifiez `GOOGLE_MAPS_API_KEY`
+- **Erreur API** : vérifiez que **Places API** est bien activée
+- **403/permission denied** : ajustez les restrictions de clé (API/IP)
+- **En local via Vite** : le proxy `/api` vers `http://localhost:3001` doit être actif
+
+
+---
+
 ## 📊 Limites EmailJS (gratuit)
 
 - **200 emails par mois**

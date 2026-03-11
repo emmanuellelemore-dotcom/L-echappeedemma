@@ -21,8 +21,8 @@ const Navbar = () => {
   // Ajout du lien Blog entre Emma et Contact
   const links = [
     { to: '/', label: 'Accueil' },
-    { to: '/mes-prestations', label: 'Prestations' },
-    { to: '/#offres', label: 'Mes offres' },
+    { to: '/mes-prestations', label: 'Description de mes services' },
+    { to: '/mes-offres', label: 'Mes offres' },
     { to: '/emma', label: 'Emma' },
     { to: '/blog', label: 'Blog' },
     { to: '/contact', label: 'Contact' },
@@ -41,11 +41,11 @@ const Navbar = () => {
           <img src="/logo.png" alt="Logo L'échappée d'Emma" className="w-8 h-8 object-contain" loading="lazy" width="32" height="32" />
           <Link
             to="/"
-            className={`text-xl font-serif tracking-tight font-bold transition-colors ${
+            className={`text-3xl tracking-tight transition-colors ${
               transparent ? 'text-primary-foreground' : 'text-foreground'
             }`}
           >
-            L'échappée <span className="italic font-normal">d'</span>Emma
+            <span style={{ fontFamily: 'Bebas Neue, sans-serif', fontWeight: 700 }}>L'échappée</span> <span style={{ fontFamily: 'Caveat, cursive', fontWeight: 700 }}>d'Emma</span>
           </Link>
         </div>
 

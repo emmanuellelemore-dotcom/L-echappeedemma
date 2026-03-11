@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PortraitChinois from '../components/PortraitChinois';
 import { Button } from '../components/ui/button';
+import { TournantDeVieText } from '../components/TournantDeVie';
 
 const challenges = [
   "Ne plus avoir l'énergie pour soi ni pour les autres.",
@@ -94,7 +95,7 @@ const Emma = () => {
                 De cette renaissance est née ”L’Échappée d’Emma”.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Mon rôle est d’accompagner ceux qui traversent un tournant de vie,  qu’ils célèbrent un nouveau départ ou qu’ils aient besoin de reprendre leur souffle.
+                Mon rôle est d’accompagner ceux qui traversent un <TournantDeVieText />, qu’ils célèbrent un nouveau départ ou qu’ils aient besoin de reprendre leur souffle.
                 Je conçois pour vous des itinéraires où la logistique s'efface pour vous offrir le luxe de vous réapproprier votre temps. En vous libérant de chaque contrainte, je crée l'espace nécessaire pour ralentir,
                 savourer la simplicité des lieux et redevenir l'acteur principal de votre propre histoire. En tant qu’architecte de voyage, je dessine une parenthèse sur-mesure, fluide et sereine.
               </p>

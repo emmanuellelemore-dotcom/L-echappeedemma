@@ -25,7 +25,7 @@ const Footer = () => {
             <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAbout ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Je suis Emma, fondatrice de l'Échappée d'Emma, Créatrice d'itinéraires sur-mesure I Travel planner.<br />
-                Je suis convaincue qu'à un tournant de vie, on a besoin de ralentir pour se retrouver.<br />
+                Je suis convaincue qu'à un moment de vie, on a besoin de ralentir pour se retrouver.<br />
                 C’est pour ça que je crée des itinéraires sur-mesure en Islande, Norvège, Suède et Finlande, où je m'occupe de toute la logistique pour vous laisser simplement, reprendre votre souffle.
               </p>
             </div>
@@ -37,8 +37,8 @@ const Footer = () => {
             <div className="border-t border-dashed border-primary-foreground/20 mb-4" />
             <div className="space-y-3">
               <Link to="/" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Accueil</Link>
-              <Link to="/mes-prestations" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Prestations</Link>
-              <Link to="/#offres" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mes offres</Link>
+              <Link to="/mes-prestations" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Description de mes services</Link>
+              <Link to="/mes-offres" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mes offres</Link>
               <Link to="/emma" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Emma</Link>
               <Link to="/blog" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Blog</Link>
               <Link to="/contact" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Contact</Link>

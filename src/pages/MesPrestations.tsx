@@ -1,13 +1,13 @@
-import { useAnimation } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { MesPrestationsTitle } from './MesPrestationsTitle';
-import { TextEffect } from '../components/core/text-effect';
-import React, { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { HandHeart, Hourglass, Sparkles, BadgeCheck, Sun, Compass, Phone, PenTool, Calendar, Mountain, Footprints, Sun as SunIcon, ChevronDown } from 'lucide-react';
-
+import { HandHeart, Hourglass, Sparkles, BadgeCheck, Sun, Compass, Phone, PenTool, Calendar, Mountain, Footprints, Sun as SunIcon } from 'lucide-react';
+import { TournantDeVieText } from '../components/TournantDeVie';
+import { Link } from 'react-router-dom';
 import FlipCard from '../components/FlipCard';
+import ProcessTimeline from '../components/ProcessTimeline';
 
 // Copie des données et animations depuis Index.tsx
 const reasons = [
@@ -25,7 +25,6 @@ const processSteps = [
   { step: '3', title: 'Sélection & réservations', description: "Je sélectionne les meilleurs options, vous choisissez ET vous réservez.", icon: Calendar },
   { step: '4', title: "Création de l'itinéraire", description: 'Je dessine un parcours fluide, jour par jour.', icon: Calendar },
   { step: '5', title: 'Carnet de route', description: 'Vous recevez un carnet personnalisé pour partir serein.', icon: BadgeCheck },
-  // Le processus sera revu après le module 2
 ];
 
 const breathNeeds = [
@@ -37,42 +36,11 @@ const breathNeeds = [
   { number: '6', title: "L'Infini (Lofoten)", subtitle: "Le souffle hors du temps", spirit: "Perdre ses repères habituels pour mieux se retrouver. S’affranchir de la dictature de la montre.", experience: "Vivre le Soleil de Minuit. Randonner ou lire à 2h du matin sous une lumière dorée éternelle. Un voyage où 'l’heure qu’il est' n’a plus aucune importance.", icon: 'soleil' },
 ];
 
-const offers = [
-  { title: 'La Parenthèse "Inspiration"', subtitle: "Pour celles et ceux qui ont besoin d'une boussole pour se lancer. (Ici, je ne créé pas de carnet de route. c'est plus une vision pour les guider)", price: 'Forfait à partir de XX EUR', items: [ 'Questionnaire "Éclaireur" : pour cibler vos besoins en amont.', 'Appel Horizon (1h) : échange personnalisé pour lever vos blocages.', 'Kit "Essentiel" (PDF) : vos 9 cartes mémos stratégiques :', '5 Fondamentales (équipement, sécurité, admin...).', '2 Spécifiques selon votre profil (vanlife, rando...).', '1 Destination dédiée à votre terre d’aventure.', '1 Bonus pour optimiser votre budget.', ], },
-  { title: 'L’itinéraire', subtitle: "Pour celles et ceux qui ont besoin d'une boussole pour se lancer. (Ici, je ne créé pas de carnet de route. c'est plus une vision pour les guider)", price: 'Sur devis, à partir de XXX EUR', items: [ 'Appel Découverte (offert) : pour faire connaissance et valider votre projet.', 'Questionnaire d’immersion à compléter qui me servira de boussole pour la création de votre échappée.', 'Itinéraire sur-mesure : tracé jour par jour selon votre propre rythme.', 'Sélection "Pépites" : hébergements et transports sélectionnés pour vous.', 'Carnet de Route  : votre guide complet avec liens de réservation, activités et infos.', 'Expertise intégrée : mes conseils logistiques personnalisés distillés au fil du Carnet.', ], },
-];
-
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
 const fadeDown = { hidden: { opacity: 0, y: -18 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
 const MesPrestations = () => {
-  const processSectionRef = useRef<HTMLElement | null>(null);
-  const reasonsSectionRef = useRef<HTMLElement | null>(null);
-  const [activeProcessStep, setActiveProcessStep] = useState(0);
-
-  // Scroll progressif pour Mon processus
-  useEffect(() => {
-    const root = processSectionRef.current;
-    if (!root) return;
-    const triggers = Array.from(root.querySelectorAll('[data-process-step]')) as HTMLElement[];
-    if (!triggers.length) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const step = Number(entry.target.getAttribute('data-process-step'));
-            setActiveProcessStep(step);
-          }
-        });
-      },
-      { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-    );
-    triggers.forEach((trigger) => observer.observe(trigger));
-    return () => observer.disconnect();
-  }, []);
-
-  // Scroll progressif pour 6 raisons
   // Carrousel horizontal infini pour les 6 raisons
   const [isPaused, setIsPaused] = useState(false);
   const controls = useAnimation();
@@ -82,6 +50,8 @@ const MesPrestations = () => {
   const [containerWidth, setContainerWidth] = useState(0);
   const totalDuration = 32; // durée totale pour parcourir toute la liste (plus lent)
   const containerRef = useRef<HTMLDivElement>(null);
+  const processSectionRef = useRef<HTMLElement | null>(null);
+  const reasonsSectionRef = useRef<HTMLElement | null>(null);
 
   // Mesure la largeur du carrousel pour l'infini
   useEffect(() => {
@@ -129,19 +99,19 @@ const MesPrestations = () => {
   const handleResume = () => {
     setIsPaused(false);
   };
-  const processProgress = processSteps.length > 1 ? activeProcessStep / (processSteps.length - 1) : 0;
-
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
-      <section className="py-24 px-6">
-        <MesPrestationsTitle />
-        <p className="text-center text-lg mb-16">
-          <TextEffect per="char" preset="fade">
-            Retrouvez ici toutes les raisons de faire appel à moi, mon processus, les besoins de souffle et les offres d'accompagnement.
-          </TextEffect>
-        </p>
+      <section className="w-full bg-white py-[72px] px-4 border-b border-border">
+        <div className="max-w-5xl mx-auto text-center">
+          <MesPrestationsTitle />
+          <div className="text-center text-lg">
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Retrouvez ici toutes les raisons de faire appel à moi, mon processus et les besoins de souffle.
+            </p>
+          </div>
+        </div>
       </section>
       {/* 6 raisons */}
       <motion.section ref={reasonsSectionRef} id="reasons" className="bg-secondary/60 py-24 px-6 min-h-[80vh]" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
@@ -151,7 +121,6 @@ const MesPrestations = () => {
               <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.08, ease: 'easeOut' }} className="text-3xl md:text-4xl font-serif text-foreground">6 raisons de faire appel à moi</motion.h2>
               <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.08, ease: 'easeOut' }} className="text-muted-foreground mt-4 text-lg">Un accompagnement humain pour un voyage qui a du sens.</motion.p>
             </div>
-            {/* Ajout pour scroll progressif : déclencheurs juste après le sous-titre */}
             <div className="overflow-x-hidden w-screen relative left-1/2 -translate-x-1/2">
               <motion.div
                 className="flex gap-6 py-4"
@@ -181,12 +150,6 @@ const MesPrestations = () => {
                 ))}
               </motion.div>
             </div>
-            {/* Scroll triggers pour animation progressive, sans trou */}
-            <div className="sr-only" aria-hidden="true">
-              {reasons.map((reason, index) => (
-                <div key={reason.title} data-reason-step={index} />
-              ))}
-            </div>
           </div>
         </div>
       </motion.section>
@@ -195,7 +158,7 @@ const MesPrestations = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }} className="text-3xl md:text-4xl font-serif text-foreground mb-4">Quel est votre besoin de souffle ?</motion.h2>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base mb-2">Parce que chaque tournant de vie demande une énergie différente, j'ai conçu cinq approches pour vous aider à retrouver votre cap.</motion.p>
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base mb-2">Parce que chaque <TournantDeVieText /> demande une énergie différente, j'ai conçu six approches pour vous aider à retrouver votre cap.</motion.p>
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }} className="text-muted-foreground text-base">C'est vous qui choisissez l'intensité de votre déconnexion.</motion.p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mb-8">
@@ -249,50 +212,23 @@ const MesPrestations = () => {
         </div>
       </motion.section>
       {/* Mon processus */}
-      <motion.section ref={processSectionRef} id="processus" className="py-24 px-6 min-h-[80vh]" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-        <div className="max-w-6xl mx-auto relative">
-          <div className="sticky top-24">
-            <div className="text-center mb-14">
-              <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.55, ease: 'easeOut' }} className="text-3xl md:text-4xl font-serif text-foreground">Mon processus : de l'idée à l'échappée</motion.h2>
-              <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-muted-foreground mt-4 text-lg">Une méthode simple et fluide pour avancer avec sérénité.</motion.p>
-              {/* Flèche scroll SOUS la zone de texte Mon processus */}
-              <div className="flex flex-col items-center mt-2 mb-4">
-                <span className="text-accent text-sm font-semibold mb-1">scroll</span>
-                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
-                  <ChevronDown size={36} className="animate-bounce text-accent" />
-                </motion.div>
-              </div>
-              {/* Bandeau bleu "En développement" */}
-              <div className="w-full bg-primary text-primary-foreground rounded-2xl py-8 px-4 mt-8 shadow-lg flex items-center justify-center text-2xl font-bold">
-                🚧 En développement 🚧
-              </div>
-            </div>
+      <motion.section ref={processSectionRef} id="processus" className="py-16 md:py-20 px-6 bg-white" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8 md:mb-10">
+            <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.55, ease: 'easeOut' }} className="text-3xl md:text-4xl font-serif text-primary mb-4">Mon processus : de l'idée à l'échappée</motion.h2>
+            <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-muted-foreground text-lg">Une méthode simple et fluide pour avancer avec sérénité.</motion.p>
           </div>
+          <ProcessTimeline />
         </div>
       </motion.section>
-      {/* Offres */}
-      <motion.section className="bg-secondary/40 py-24 px-6" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="text-3xl md:text-4xl font-serif text-foreground mb-4">Les offres d'accompagnement</motion.h2>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base">Choisissez l'accompagnement qui vous correspond.</motion.p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {offers.map((offer) => (
-              <motion.div key={offer.title} variants={fadeUp} className="border border-border rounded-[32px] p-8 bg-background" whileHover={{ y: -6 }}>
-                <h3 className="text-xl font-serif text-foreground mb-2">{offer.title}</h3>
-                <p className="text-muted-foreground mb-4">{offer.subtitle}</p>
-                <span className="inline-flex bg-accent/20 text-accent text-sm font-semibold px-4 py-2 rounded-full mb-6">{offer.price}</span>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  {offer.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent" /><span>{item}</span></li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+      <section className="py-10 px-6 text-center">
+        <Link
+          to="/mes-offres"
+          className="inline-block bg-accent text-accent-foreground px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
+        >
+          Voir mes offres
+        </Link>
+      </section>
       <Footer />
     </div>
   );

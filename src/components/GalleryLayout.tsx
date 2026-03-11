@@ -24,7 +24,7 @@ const destinationInfos: Record<string, { description: string; highlights: string
       "Aurores boréales et nuits magiques",
       "Paysages lunaires uniques au monde",
     ],
-    cta: "Demander un devis Islande",
+    cta: "Je commence mon échappée",
     ctaLink: "/devis?destination=islande",
   },
   "Norvège": {
@@ -35,7 +35,7 @@ const destinationInfos: Record<string, { description: string; highlights: string
       "Randonnées et nature sauvage",
       "Villages de pêcheurs typiques",
     ],
-    cta: "Demander un devis Norvège",
+    cta: "Je commence mon échappée",
     ctaLink: "/devis?destination=norvege",
   },
   "Suède": {
@@ -46,7 +46,7 @@ const destinationInfos: Record<string, { description: string; highlights: string
       "Ambiance slow travel et déconnexion",
       "Feux de camp et nuits étoilées",
     ],
-    cta: "Demander un devis Suède",
+    cta: "Je commence mon échappée",
     ctaLink: "/devis?destination=suede",
   },
   "Finlande": {
@@ -57,7 +57,7 @@ const destinationInfos: Record<string, { description: string; highlights: string
       "Rencontres avec les rennes",
       "Expériences nordiques authentiques",
     ],
-    cta: "Demander un devis Finlande",
+    cta: "Je commence mon échappée",
     ctaLink: "/devis?destination=finlande",
   },
 };

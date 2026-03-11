@@ -17,6 +17,8 @@ import destFinlande from '../assets/dest-finlande.jpg';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import DestinationCard from '../components/DestinationCard';
+import GoogleReviews from '../components/GoogleReviews';
+import { TournantDeVieText } from '../components/TournantDeVie';
 // ...existing code...
 
 // Destinations pour la section Destinations
@@ -193,15 +195,6 @@ const Index = () => {
 
   // processProgress supprimé car processSteps n'existe plus
 
-  const [showWelcome, setShowWelcome] = useState(true);
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowWelcome(window.scrollY < 30);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -265,9 +258,9 @@ const Index = () => {
             </button>
             {showExtraDests && (
               <div id="extra-dests" className="flex flex-wrap justify-center gap-2 animate-fade-in mt-2">
-                <Link to="/gallery/egypte" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Égypte</Link>
-                <Link to="/gallery/thailande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Thaïlande</Link>
-                <Link to="/gallery/polynesie" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Polynésie FR</Link>
+                <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Égypte</span>
+                <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Thaïlande</span>
+                <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Polynésie FR</span>
               </div>
             )}
           </div>
@@ -296,9 +289,7 @@ const Index = () => {
       {/* Texte de bienvenue entre hero et Introduction */}
       <div className="w-full my-1">
         <span
-          className={
-            `block w-full text-xs sm:text-sm md:text-base lg:text-lg font-serif font-bold text-blue-900 px-4 py-3 text-center whitespace-nowrap overflow-x-auto transition-opacity duration-500 ${showWelcome ? 'opacity-100' : 'opacity-0'}`
-          }
+          className="block w-full text-xs sm:text-sm md:text-base lg:text-lg font-serif font-bold text-blue-900 px-4 py-3 text-center whitespace-nowrap overflow-x-auto"
         >
           Je conçois des parenthèses de sérénité sur-mesure dans le Grand Nord. Pour ralentir, se réapproprier son temps et, enfin, reprendre son souffle.
         </span>
@@ -307,9 +298,9 @@ const Index = () => {
       {/* Introduction - Bienvenue et histoire */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-serif text-2xl mb-10">Bienvenue</button>
+          <p className="font-serif text-3xl text-primary mb-10">Hei !</p>
           <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-8">Comment est née L'Échappée d'Emma?</h2>
-          <p className="font-sans font-bold text-muted-foreground text-base md:text-lg mb-6">Je suis convaincue qu'à un tournant de vie, on a besoin de ralentir pour se retrouver.</p>
+          <p className="font-sans font-bold text-muted-foreground text-base md:text-lg mb-6">Je suis convaincue qu'à un <TournantDeVieText />, on a besoin de ralentir pour se retrouver.</p>
           <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">C'est de cette conviction qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>
           <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">Après avoir moi-même cherché ce souffle dans les grands espaces nordiques,</p>
           <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">je conçois aujourd'hui pour vous des itinéraires où je m'occupe de toute la logistique.</p>
@@ -391,13 +382,8 @@ const Index = () => {
 
       {/* Reviews / Social proof */}
       <section id="avis" className="bg-secondary py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-serif text-foreground mb-6 leading-tight">
-            Bientôt vos mots ici...
-          </h2>
-          <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-            L'échappée d'Emma commence avec vous. J'ai hâte de recueillir vos premières impressions et de partager ici vos récits.
-          </p>
+        <div className="max-w-5xl mx-auto">
+          <GoogleReviews />
         </div>
       </section>
 

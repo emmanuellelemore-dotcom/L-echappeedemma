@@ -26,7 +26,7 @@ const DestinationCard = ({ name, tag, image, index, to }: DestinationCardProps) 
         style={{ objectFit: 'cover', objectPosition: 'center' }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
-      <div className="absolute w-full text-center pb-2 md:p-4 bottom-0 md:top-0 md:bottom-auto">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
         <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] text-primary-foreground/60 mb-1 block uppercase">
           {tag}
         </span>

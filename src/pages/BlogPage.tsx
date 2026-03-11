@@ -75,10 +75,10 @@ export default function BlogPage() {
 
       {/* Bandeau fond coloré sous la nav */}
         {/* Marquee mobile / CurvedLoop desktop */}
-        <div className="block md:hidden w-full bg-secondary/60 py-2 mt-[64px]">
+        <div className="block lg:hidden w-full bg-secondary/60 py-3 mt-[104px] border-b border-border">
           <Marquee text="Le Blog du Grand Nord" />
         </div>
-        <div className="hidden md:block w-full mt-[-300px] mb-0 h-[550px] overflow-hidden bg-secondary/60">
+        <div className="hidden lg:block w-full mt-[-300px] mb-0 h-[550px] overflow-hidden bg-secondary/60">
           <div className="max-w-7xl mx-auto px-4">
             <CurvedLoop
               marqueeText="Le Blog du Grand Nord"
@@ -86,7 +86,7 @@ export default function BlogPage() {
               className="text-primary text-7xl font-serif"
               curveAmount={400}
               direction="left"
-              interactive={false}
+              interactive={true}
             />
           </div>
         </div>
