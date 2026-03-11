@@ -22,6 +22,12 @@ const Footer = () => {
               Qui suis-je ?
               <ChevronDown size={14} className={`transition-transform duration-300 ${showAbout ? 'rotate-180' : ''}`} />
             </button>
+            <Link to="/charte-echappee" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm mb-3">
+              La Charte de l'Échappée
+            </Link>
+            <Link to="/mentions-legales" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm mb-3">
+              Mentions légales
+            </Link>
             <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAbout ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Je suis Emma, fondatrice de l'Échappée d'Emma, Créatrice d'itinéraires sur-mesure I Travel planner.<br />
@@ -43,7 +49,6 @@ const Footer = () => {
               <Link to="/blog" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Blog</Link>
               <Link to="/contact" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Contact</Link>
               <Link to="/devis" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Débuter mon échappée</Link>
-              <a href="/mentions-legales" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">Mentions légales</a>
             </div>
           </div>
 

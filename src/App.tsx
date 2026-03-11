@@ -15,6 +15,8 @@ import NotFound from "./pages/NotFound";
 import MesPrestations from "./pages/MesPrestations";
 import MesOffres from "./pages/MesOffres";
 import BlogPage from "./pages/BlogPage";
+import CharteEchappee from "./pages/charte-echappee";
+import MentionsLegales from "./pages/mentionslegales";
 import RoadtripLaponieAuroresBoreales from "./pages/blog/roadtrip-laponie-aurores-boreales";
 import { TournantDeVieProvider } from "./components/TournantDeVie";
 const Islande = React.lazy(() => import("./pages/galleries/Islande"));
@@ -38,6 +40,8 @@ const App = () => (
               <Route path="/emma" element={<Emma />} />
               <Route path="/mes-prestations" element={<MesPrestations />} />
               <Route path="/mes-offres" element={<MesOffres />} />
+              <Route path="/charte-echappee" element={<CharteEchappee />} />
+              <Route path="/mentions-legales" element={<MentionsLegales />} />
               <Route path="/devis" element={<QuotePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/blog" element={<BlogPage />} />

@@ -185,7 +185,7 @@ const MesOffres = () => {
           <div className="border border-border/70 px-4 py-8 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10 items-start">
               {offers.map((offer) => (
-                <motion.div key={offer.title} variants={fadeUp} className="relative overflow-hidden text-primary bg-background border border-border/60 rounded-3xl p-6 md:p-7 shadow-sm flex flex-col self-start">
+                <motion.div key={offer.title} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="relative overflow-hidden text-primary bg-background border border-border/60 rounded-3xl p-6 md:p-7 shadow-sm flex flex-col self-start">
                   <SnowflakesOverlay />
 
                   <div className="relative z-10 flex flex-col">
