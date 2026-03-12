@@ -160,7 +160,7 @@ const FAQ_SECTIONS: FAQSection[] = [
         answer: [
           "Je suis à votre écoute pour répondre à vos doutes et construire votre échappée.",
           "Téléphone : 06 78 21 88 23",
-          "Email : hello-lechappeedemma@gmail.com",
+          "Email : hello.lechappeedemma@gmail.com",
           "Instagram : @lechappee_demma",
         ],
       },

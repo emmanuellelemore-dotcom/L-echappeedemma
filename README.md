@@ -38,9 +38,14 @@ Prérequis : Node.js >= 18 ou Bun
 # Installation des dépendances
 npm install
 
-# Lancer le serveur de développement
+# Lancer le front Vite
 npm run dev
+
+# Lancer l'API locale (contact, devis, avis Google)
+npm run server
 ```
+
+En local, le front appelle l'API via le proxy Vite sur `/api`. En production, renseignez `VITE_CONTACT_API_URL` uniquement si l'API est hébergée sur un domaine différent du site.
 
 ##  Build & déploiement
 

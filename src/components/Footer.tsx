@@ -10,24 +10,18 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Présentation */}
-          <div>
+          <div className="space-y-3">
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider">
               L'échappée <span className="italic font-normal">d'</span>Emma
             </h4>
             <div className="border-t border-dashed border-primary-foreground/20 mb-4" />
             <button
               onClick={() => setShowAbout(!showAbout)}
-              className="text-primary-foreground/70 text-sm font-semibold mb-3 flex items-center gap-1.5 hover:text-accent transition-colors"
+              className="text-primary-foreground/70 text-sm font-semibold flex items-center gap-1.5 hover:text-accent transition-colors"
             >
               Qui suis-je ?
               <ChevronDown size={14} className={`transition-transform duration-300 ${showAbout ? 'rotate-180' : ''}`} />
             </button>
-            <Link to="/charte-echappee" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm mb-3">
-              La Charte de l'Échappée
-            </Link>
-            <Link to="/mentions-legales" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm mb-3">
-              Mentions légales
-            </Link>
             <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAbout ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Je suis Emma, fondatrice de l'Échappée d'Emma, Créatrice d'itinéraires sur-mesure I Travel planner.<br />
@@ -35,6 +29,12 @@ const Footer = () => {
                 C’est pour ça que je crée des itinéraires sur-mesure en Islande, Norvège, Suède et Finlande, où je m'occupe de toute la logistique pour vous laisser simplement, reprendre votre souffle.
               </p>
             </div>
+            <Link to="/charte-echappee" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">
+              La Charte de l'Échappée
+            </Link>
+            <Link to="/mentions-legales" className="block text-primary-foreground/70 hover:text-accent transition-colors text-sm">
+              Mentions légales
+            </Link>
           </div>
 
           {/* Navigation */}
@@ -80,7 +80,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-accent" />
-                <span>hello-lechappeedemma@gmail.com</span>
+                <span>hello.lechappeedemma@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin size={16} className="text-accent" />

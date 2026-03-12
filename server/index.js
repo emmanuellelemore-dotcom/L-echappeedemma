@@ -3,19 +3,69 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { Resend } from "resend";
 
+dotenv.config({ path: ".env.local" });
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "256kb" }));
 
-const port = Number(process.env.CONTACT_PORT || 3001);
+const port = Number(process.env.PORT || process.env.CONTACT_PORT || 3001);
 const apiKey = process.env.RESEND_API_KEY || "";
-const toEmail = process.env.CONTACT_TO_EMAIL || "hello-lechappeedemma@gmail.com";
+const toEmail = process.env.CONTACT_TO_EMAIL || "hello.lechappeedemma@gmail.com";
 const fromEmail = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
+const googlePlacesApiKey = process.env.GOOGLE_PLACES_API_KEY || "";
+const googlePlaceId = process.env.GOOGLE_PLACE_ID || "ChIJm2NF0mML5kcRXlMfFIy36ew";
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
+});
+
+app.get("/api/reviews", async (_req, res) => {
+  if (!googlePlacesApiKey) {
+    return res.status(500).json({ ok: false, error: "Google Places API key is missing on server." });
+  }
+
+  try {
+    const response = await fetch(`https://places.googleapis.com/v1/places/${googlePlaceId}?languageCode=fr`, {
+      headers: {
+        "X-Goog-Api-Key": googlePlacesApiKey,
+        "X-Goog-FieldMask": "displayName,rating,userRatingCount,reviews",
+      },
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(502).json({
+        ok: false,
+        error: data.error?.message || `Google Places request failed (${response.status}).`,
+      });
+    }
+
+    const reviews = Array.isArray(data.reviews)
+      ? data.reviews.map((review, index) => ({
+          id: String(review.publishTime || index),
+          author: review.authorAttribution?.displayName || "Voyageur",
+          rating: Number(review.rating || 0),
+          text: review.text?.text || "",
+          date: review.relativePublishTimeDescription || "Récemment",
+        }))
+      : [];
+
+    res.setHeader("Cache-Control", "public, max-age=900");
+    return res.json({
+      ok: true,
+      place: {
+        name: data.displayName?.text || "L'échappée d'Emma",
+        rating: Number(data.rating || 0),
+        userRatingsTotal: Number(data.userRatingCount || 0),
+      },
+      reviews,
+    });
+  } catch (error) {
+    console.error("Google Places error", error);
+    return res.status(500).json({ ok: false, error: "Unable to fetch Google reviews." });
+  }
 });
 
 app.post("/api/contact", async (req, res) => {

@@ -39,7 +39,7 @@ const CookieBanner = () => {
               <div className="mt-2 p-2 rounded bg-muted/60 text-xs text-foreground border">
                 <strong>Ce que nous collectons :</strong> uniquement des statistiques anonymes de fréquentation (Google Analytics).<br />
                 <strong>Ce que nous ne faisons pas :</strong> aucune revente, aucun partage de vos données personnelles, aucune publicité ciblée.<br />
-                <strong>Votre choix :</strong> vous pouvez accepter ou refuser le suivi à tout moment. Pour toute question, contactez-nous à hello-lechappeedemma@gmail.com.
+                <strong>Votre choix :</strong> vous pouvez accepter ou refuser le suivi à tout moment. Pour toute question, contactez-nous à hello.lechappeedemma@gmail.com.
               </div>
             )}
           </div>

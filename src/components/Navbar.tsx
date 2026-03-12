@@ -18,7 +18,6 @@ const Navbar = () => {
 
   const transparent = isHome && !scrolled && !mobileOpen;
 
-  // Ajout du lien Blog entre Emma et Contact
   const links = [
     { to: '/', label: 'Accueil' },
     { to: '/mes-prestations', label: 'Description de mes services' },
@@ -45,7 +44,9 @@ const Navbar = () => {
               transparent ? 'text-primary-foreground' : 'text-foreground'
             }`}
           >
-            <span style={{ fontFamily: 'Bebas Neue, sans-serif', fontWeight: 700 }}>L'échappée</span> <span style={{ fontFamily: 'Caveat, cursive', fontWeight: 700 }}>d'Emma</span>
+            <span className="font-logo-main">L'échappée </span>
+            <span className="font-logo-accent text-[1.22em] leading-none align-middle">d' </span>
+            <span className="font-logo-main">Emma</span>
           </Link>
         </div>
 
@@ -75,7 +76,14 @@ const Navbar = () => {
                   location.pathname === link.to ? 'text-accent font-semibold' : ''
                 }`}
               >
-                {link.label}
+                {link.to === '/mes-prestations' ? (
+                  <>
+                    <span className="lg:hidden">Mes services</span>
+                    <span className="hidden lg:inline">Description de mes services</span>
+                  </>
+                ) : (
+                  link.label
+                )}
               </Link>
             );
           })}
@@ -127,7 +135,7 @@ const Navbar = () => {
                     onClick={handleClick}
                     className="block text-foreground font-medium py-2 hover:text-accent transition-colors"
                   >
-                    {link.label}
+                    {link.to === '/mes-prestations' ? 'Mes services' : link.label}
                   </Link>
                 );
               })}

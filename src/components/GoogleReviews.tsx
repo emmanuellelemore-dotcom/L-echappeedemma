@@ -1,11 +1,34 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Star, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const GOOGLE_BUSINESS_URL = 'https://www.google.com/maps/place/ChIJm2NF0mML5kcRXlMfFIy36ew';
 const PLACE_ID = 'ChIJm2NF0mML5kcRXlMfFIy36ew';
+const GOOGLE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${PLACE_ID}`;
+const USE_LIVE_GOOGLE_REVIEWS = true;
+
+const getReviewsApiBase = () => {
+  const configuredBase = import.meta.env.VITE_CONTACT_API_URL?.trim();
+
+  if (configuredBase) {
+    try {
+      const apiUrl = new URL(configuredBase);
+      const isLocalApi = ['localhost', '127.0.0.1'].includes(apiUrl.hostname);
+      const isLocalSite = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
+      if (isLocalApi && !isLocalSite) {
+        return '';
+      }
+    } catch {
+      return configuredBase.replace(/\/$/, '');
+    }
+
+    return configuredBase.replace(/\/$/, '');
+  }
+
+  return '';
+};
 
 interface Review {
   author: string;
@@ -13,6 +36,18 @@ interface Review {
   text: string;
   date: string;
   id?: string;
+}
+
+interface PlaceSummary {
+  name: string;
+  rating: number;
+  userRatingsTotal: number;
+}
+
+interface ReviewsApiResponse {
+  ok: boolean;
+  reviews?: Review[];
+  place?: PlaceSummary;
 }
 
 // Placeholder reviews - will be replaced with dynamic Google API data
@@ -83,25 +118,49 @@ const GoogleReviews = () => {
   const [reviews, setReviews] = useState<Review[]>(placeholderReviews);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [placeSummary, setPlaceSummary] = useState<PlaceSummary | null>(null);
 
-  // Fetch Google reviews when API key is available (to be added later)
   useEffect(() => {
-    // TODO: Fetch from your backend API once Google Places API is configured
-    // const fetchGoogleReviews = async () => {
-    //   try {
-    //     setIsLoading(true);
-    //     const response = await fetch('/api/reviews');
-    //     const data = await response.json();
-    //     if (data.reviews && data.reviews.length > 0) {
-    //       setReviews(data.reviews);
-    //     }
-    //   } catch (error) {
-    //     console.error('Error fetching reviews:', error);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
-    // };
-    // fetchGoogleReviews();
+    if (!USE_LIVE_GOOGLE_REVIEWS) {
+      setReviews(placeholderReviews);
+      setIsLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const fetchGoogleReviews = async () => {
+      try {
+        setIsLoading(true);
+        const endpoint = `${getReviewsApiBase()}/api/reviews`;
+        const response = await fetch(endpoint, { signal: controller.signal });
+
+        if (!response.ok) {
+          throw new Error(`Reviews request failed with status ${response.status}`);
+        }
+
+        const data: ReviewsApiResponse = await response.json();
+
+        if (data.place) {
+          setPlaceSummary(data.place);
+        }
+
+        if (data.ok && Array.isArray(data.reviews) && data.reviews.length > 0) {
+          setReviews(data.reviews);
+          setCurrentIndex(0);
+        }
+      } catch (error) {
+        if ((error as Error).name !== 'AbortError') {
+          console.error('Error fetching reviews:', error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGoogleReviews();
+
+    return () => controller.abort();
   }, []);
 
   const handlePrev = () => {
@@ -134,23 +193,41 @@ const GoogleReviews = () => {
         <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
           Découvrez ce que les voyageurs pensent de L'Échappée d'Emma.
         </p>
+        {placeSummary && (
+          <p className="text-sm text-muted-foreground">
+            Note Google {placeSummary.rating.toFixed(1).replace('.', ',')}/5 sur {placeSummary.userRatingsTotal} note{placeSummary.userRatingsTotal > 1 ? 's' : ''}
+            {placeSummary.userRatingsTotal > reviews.length
+              ? `, dont ${reviews.length} avis textuels visibles via l'API Google.`
+              : '.'}
+          </p>
+        )}
+        {USE_LIVE_GOOGLE_REVIEWS && isLoading && (
+          <p className="text-sm text-muted-foreground">Chargement des avis Google...</p>
+        )}
       </div>
 
       {/* Carousel Container */}
       <div className="relative">
         {/* Reviews Carousel */}
         <div className="overflow-hidden px-4">
-          <div className="flex gap-6">
-            <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="flex gap-6"
+            >
               {visibleReviews.map((review, idx) => (
                 <ReviewCard
-                  key={`${currentIndex}-${idx}`}
+                  key={review.id || `${currentIndex}-${idx}`}
                   review={review}
                   index={idx}
                 />
               ))}
-            </AnimatePresence>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Navigation Arrows */}
@@ -199,25 +276,12 @@ const GoogleReviews = () => {
           Vous avez vécu une échappée mémorable ? Partagez votre avis !
         </p>
         <a
-          href={GOOGLE_BUSINESS_URL}
+          href={GOOGLE_REVIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
         >
           Laisser un avis Google
-          <ExternalLink size={18} />
-        </a>
-      </div>
-
-      {/* Google Places Badge */}
-      <div className="text-center text-xs text-muted-foreground pt-6">
-        <a
-          href={GOOGLE_BUSINESS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-accent transition-colors"
-        >
-          Voir tous les avis sur Google Maps →
         </a>
       </div>
     </div>

@@ -18,6 +18,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import DestinationCard from '../components/DestinationCard';
 import GoogleReviews from '../components/GoogleReviews';
+import ContainerTextFlip from '../components/ContainerTextFlip';
 import { TournantDeVieText } from '../components/TournantDeVie';
 // ...existing code...
 
@@ -298,7 +299,13 @@ const Index = () => {
       {/* Introduction - Bienvenue et histoire */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="font-serif text-3xl text-primary mb-10">Hei !</p>
+          <div className="mb-10 flex justify-center">
+            <ContainerTextFlip
+              interval={2800}
+              className="text-primary"
+              textClassName="font-serif"
+            />
+          </div>
           <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-8">Comment est née L'Échappée d'Emma?</h2>
           <p className="font-sans font-bold text-muted-foreground text-base md:text-lg mb-6">Je suis convaincue qu'à un <TournantDeVieText />, on a besoin de ralentir pour se retrouver.</p>
           <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">C'est de cette conviction qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>

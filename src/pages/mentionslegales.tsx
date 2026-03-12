@@ -29,7 +29,7 @@ const MentionsLegales = () => {
             <li>Responsable de publication : Emmanuelle Lemore</li>
             <li>Structure juridique : Entreprise individuelle</li>
             <li>SIRET : ??</li>
-            <li>Email : hello-lechappeedemma@gmail.com</li>
+            <li>Email : hello.lechappeedemma@gmail.com</li>
             <li>Téléphone : 06 78 21 88 23</li>
             <li>Adresse : 94370 Sucy-en-Brie, France</li>
           </ul>
@@ -106,7 +106,7 @@ const MentionsLegales = () => {
             Conformément à la réglementation applicable (RGPD et loi Informatique et Libertés),
             vous disposez de droits d’accès, de rectification, d’effacement, d’opposition et de limitation du traitement.
           </p>
-          <p>Pour exercer vos droits, vous pouvez écrire à : hello-lechappeedemma@gmail.com</p>
+          <p>Pour exercer vos droits, vous pouvez écrire à : hello.lechappeedemma@gmail.com</p>
           <p>
             Une réponse vous sera apportée dans un délai maximal d’un mois à compter de la réception de votre demande.
           </p>

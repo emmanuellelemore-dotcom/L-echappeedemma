@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: lechappeedemma-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm run server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: CONTACT_TO_EMAIL
+        value: hello.lechappeedemma@gmail.com
+      - key: CONTACT_FROM_EMAIL
+        value: onboarding@resend.dev
+      - key: GOOGLE_PLACE_ID
+        value: ChIJm2NF0mML5kcRXlMfFIy36ew
+      - key: RESEND_API_KEY
+        sync: false
+      - key: GOOGLE_PLACES_API_KEY
+        sync: false

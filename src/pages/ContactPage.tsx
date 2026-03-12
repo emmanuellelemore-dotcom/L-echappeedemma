@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
 
-const CONTACT_EMAIL = 'hello-lechappeedemma@gmail.com';
+const CONTACT_EMAIL = 'hello.lechappeedemma@gmail.com';
 
 const ContactPage = () => {
   const [name, setName] = useState('');

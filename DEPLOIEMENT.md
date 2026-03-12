@@ -223,7 +223,16 @@ Ouvrez `public/sitemap.xml` et remplacez `https://example.com` par `https://lech
 
 ## ⭐ Activer les avis Google (Places API)
 
-La section avis Google du site est déjà prête. Il reste uniquement à connecter votre clé API Google.
+La section avis Google du site est déjà prête, mais pour avoir les avis **en live** il faut un **backend Node.js** accessible en ligne.
+
+Important :
+
+- si vous déployez uniquement le dossier `dist/` par FTP sur un hébergement statique, les avis Google live ne peuvent pas fonctionner seuls
+- la solution recommandée est :
+   - **frontend** : OVH FTP avec le dossier `dist/`
+   - **backend** : un petit hébergement Node.js séparé pour `server/index.js`
+
+Exemples d'hébergement backend simples : **Render**, **Railway**, **Northflank**, **Fly.io**, ou un **VPS OVH**
 
 ### 1) Créer un projet Google Cloud
 
@@ -251,12 +260,36 @@ Dans la clé API :
    - si usage serveur uniquement : limitez par IP du serveur
    - si plusieurs environnements, ajoutez les IP/serveurs nécessaires
 
-### 5) Configurer les variables d’environnement serveur
+### 5) Déployer le backend Node.js
 
-Dans l’environnement du backend (local + production), ajoutez :
+Le fichier à exécuter en production est :
+
+- `server/index.js`
+
+Commande de démarrage :
+
+```sh
+npm run server
+```
+
+Le backend doit être publiquement accessible, par exemple sur une URL du type :
+
+```txt
+https://api.lechappeedemma.com
+```
+
+ou :
+
+```txt
+https://lechappeedemma-api.onrender.com
+```
+
+### 6) Configurer les variables d’environnement du backend
+
+Dans l’environnement du backend en ligne, ajoutez :
 
 ```env
-GOOGLE_MAPS_API_KEY=VOTRE_CLE_API
+GOOGLE_PLACES_API_KEY=VOTRE_CLE_API
 GOOGLE_PLACE_ID=ChIJm2NF0mML5kcRXlMfFIy36ew
 CONTACT_PORT=3001
 ```
@@ -265,7 +298,29 @@ CONTACT_PORT=3001
 > **L'échappée d'Emma - Travel Planner Grand Nord**
 > `ChIJm2NF0mML5kcRXlMfFIy36ew`
 
-### 6) Redémarrer les services
+### 7) Configurer le frontend avant le build FTP
+
+Avant de lancer `npm run build`, renseignez dans votre environnement de build :
+
+```env
+VITE_CONTACT_API_URL=https://votre-backend-en-ligne.com
+```
+
+Exemple :
+
+```env
+VITE_CONTACT_API_URL=https://lechappeedemma-api.onrender.com
+```
+
+Ensuite seulement, relancez :
+
+```powershell
+npm run build
+```
+
+Puis uploadez le contenu de `dist/` par FTP sur OVH.
+
+### 8) Redémarrer les services
 
 En local :
 
@@ -277,7 +332,12 @@ npm run server
 npm run dev
 ```
 
-### 7) Vérifier le fonctionnement
+En production :
+
+- le backend doit être lancé sur son hébergeur Node.js
+- le frontend est simplement servi depuis OVH FTP
+
+### 9) Vérifier le fonctionnement
 
 1. Ouvrez la page d’accueil
 2. Allez à la section **Vos avis Google**
@@ -286,10 +346,12 @@ npm run dev
 
 ### Dépannage rapide
 
-- **Aucun avis affiché** : vérifiez `GOOGLE_MAPS_API_KEY`
+- **Aucun avis affiché** : vérifiez `GOOGLE_PLACES_API_KEY`
 - **Erreur API** : vérifiez que **Places API** est bien activée
 - **403/permission denied** : ajustez les restrictions de clé (API/IP)
 - **En local via Vite** : le proxy `/api` vers `http://localhost:3001` doit être actif
+- **En production FTP** : vérifiez que `VITE_CONTACT_API_URL` pointe bien vers votre backend public, pas vers `localhost`
+- **Erreur CORS** : le backend doit autoriser le domaine du site si vous resserrez la config CORS
 
 
 ---
