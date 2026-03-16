@@ -78,7 +78,21 @@ const placeholderReviews: Review[] = [
   },
 ];
 
-const REVIEWS_PER_VIEW = 4;
+const getReviewsPerView = () => {
+  if (typeof window === 'undefined') {
+    return 4;
+  }
+
+  if (window.innerWidth < 640) {
+    return 1;
+  }
+
+  if (window.innerWidth < 1024) {
+    return 2;
+  }
+
+  return 4;
+};
 
 const ReviewCard = ({ review, index }: { review: Review; index: number }) => (
   <motion.div
@@ -119,6 +133,28 @@ const GoogleReviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [placeSummary, setPlaceSummary] = useState<PlaceSummary | null>(null);
+  const [reviewsPerView, setReviewsPerView] = useState(getReviewsPerView);
+
+  useEffect(() => {
+    const updateReviewsPerView = () => {
+      setReviewsPerView(getReviewsPerView());
+    };
+
+    updateReviewsPerView();
+    window.addEventListener('resize', updateReviewsPerView);
+
+    return () => window.removeEventListener('resize', updateReviewsPerView);
+  }, []);
+
+  useEffect(() => {
+    setCurrentIndex((prev) => {
+      if (prev >= reviews.length) {
+        return 0;
+      }
+
+      return Math.floor(prev / reviewsPerView) * reviewsPerView;
+    });
+  }, [reviews.length, reviewsPerView]);
 
   useEffect(() => {
     if (!USE_LIVE_GOOGLE_REVIEWS) {
@@ -165,23 +201,25 @@ const GoogleReviews = () => {
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? Math.max(0, reviews.length - REVIEWS_PER_VIEW) : prev - 1
+      prev === 0
+        ? Math.max(0, Math.floor((reviews.length - 1) / reviewsPerView) * reviewsPerView)
+        : Math.max(0, prev - reviewsPerView)
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev + REVIEWS_PER_VIEW >= reviews.length ? 0 : prev + 1
+      prev + reviewsPerView >= reviews.length ? 0 : prev + reviewsPerView
     );
   };
 
   const visibleReviews = reviews.slice(
     currentIndex,
-    currentIndex + REVIEWS_PER_VIEW
+    currentIndex + reviewsPerView
   );
 
-  const totalGroups = Math.ceil(reviews.length / REVIEWS_PER_VIEW);
-  const currentGroup = Math.floor(currentIndex / REVIEWS_PER_VIEW) + 1;
+  const totalGroups = Math.ceil(reviews.length / reviewsPerView);
+  const currentGroup = Math.floor(currentIndex / reviewsPerView) + 1;
 
   return (
     <div className="space-y-8">
@@ -231,7 +269,7 @@ const GoogleReviews = () => {
         </div>
 
         {/* Navigation Arrows */}
-        {reviews.length > REVIEWS_PER_VIEW && (
+        {reviews.length > reviewsPerView && (
           <>
             <button
               onClick={handlePrev}
@@ -252,12 +290,12 @@ const GoogleReviews = () => {
         )}
 
         {/* Pagination Dots */}
-        {reviews.length > REVIEWS_PER_VIEW && (
+        {reviews.length > reviewsPerView && (
           <div className="flex justify-center gap-2 mt-8">
             {Array.from({ length: totalGroups }).map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setCurrentIndex(idx * REVIEWS_PER_VIEW)}
+                onClick={() => setCurrentIndex(idx * reviewsPerView)}
                 className={`h-2 rounded-full transition-all ${
                   idx === currentGroup - 1
                     ? 'bg-accent w-8'

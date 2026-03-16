@@ -1,6 +1,7 @@
 import { useRef, useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, PenLine, Plane, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -12,10 +13,21 @@ const offerOptions = [
   { value: 'etincelle', label: "L'Étincelle (Visio-conseil 1h)" },
   { value: 'escale', label: "L'Escale (Séjour court 4-5 jours)" },
   { value: 'ancrage', label: "L'Ancrage (7 à 10 jours – Je pose mes valises)" },
+  { value: 'horizon', label: "L'Horizon (Destination citadine ou ensoleillée)" },
+  { value: 'inconnue', label: "L'Inconnue (Destination lointaine ou atypique)" },
   { value: 'trace', label: 'Le Tracé (Itinéraire Vanlife)' },
   { value: 'traversee', label: 'La Traversée (Itinérance 10 j ou plus)' },
   { value: 'boreal', label: 'Le Boréal (Séjour thématique hiver/aurores)' },
 ];
+
+const discoveryOptions = [
+  { value: '', label: 'Choisir une réponse...' },
+  { value: 'reseaux_sociaux', label: 'Réseaux sociaux' },
+  { value: 'recherche_internet', label: 'Recherche internet' },
+  { value: 'parrainage', label: "De la part d'un proche (Parrainage)" },
+] as const;
+
+const RequiredMark = () => <span className="text-accent"> *</span>;
 
 const QuotePage = () => {
   const [budget, setBudget] = useState(3000);
@@ -33,6 +45,8 @@ const QuotePage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [discoverySource, setDiscoverySource] = useState<(typeof discoveryOptions)[number]['value'] | ''>('');
+  const [sponsorName, setSponsorName] = useState('');
   const [travelParty, setTravelParty] = useState('');
   // Champs conditionnels L'Étincelle
   const [objectifPrioritaire, setObjectifPrioritaire] = useState('');
@@ -41,11 +55,20 @@ const QuotePage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isEtincelle = selectedOffer === 'etincelle';
+  const isReferral = discoverySource === 'parrainage';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!name || !email) {
       toast.error('Veuillez remplir les champs obligatoires (nom et email).');
+      return;
+    }
+    if (!discoverySource) {
+      toast.error('Veuillez indiquer comment vous avez connu L’Échappée d’Emma.');
+      return;
+    }
+    if (isReferral && !sponsorName.trim()) {
+      toast.error('Merci d’indiquer le nom de votre parrain pour bénéficier de vos -10%.');
       return;
     }
     if (adults < 1) {
@@ -76,6 +99,8 @@ const QuotePage = () => {
           client_name: name,
           client_email: email,
           client_phone: phone || 'Non renseigné',
+          discovery_source: discoveryOptions.find((option) => option.value === discoverySource)?.label || 'Non renseigné',
+          sponsor_name: isReferral ? (sponsorName || 'Non renseigné') : '-',
           destination: destination || 'Non précisée',
           depart_date:
             departDate ||
@@ -101,7 +126,7 @@ const QuotePage = () => {
       setBudget(3000); setAdults(0); setChildren(0); setDuration(7);
       setDestination(''); setDepartDate(''); setDepartPreference(''); setReturnDate('');
       setMindset(''); setSelectedOffer(''); setTitle('');
-      setName(''); setEmail(''); setPhone(''); setTravelParty('');
+      setName(''); setEmail(''); setPhone(''); setDiscoverySource(''); setSponsorName(''); setTravelParty('');
       setObjectifPrioritaire(''); setEtatAvancement(''); setPlusGrandeCrainte('');
     } catch {
       toast.error('Une erreur est survenue. Réessayez plus tard.');
@@ -133,6 +158,23 @@ const QuotePage = () => {
             Confiez-moi vos premières envies. Elles sont le point de départ pour concevoir ensemble l'échappée nordique qui vous ressemble.
           </p>
 
+          <div className="mb-10 rounded-3xl border border-accent/20 bg-[linear-gradient(135deg,rgba(219,39,119,0.06),rgba(255,255,255,0.96),rgba(244,114,182,0.1))] p-6 md:p-8 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent/90">Votre fidélité récompensée</p>
+            <p className="mt-4 text-base md:text-lg leading-relaxed text-primary/90">
+              Parce que votre confiance est le plus beau moteur de L'Échappée d'Emma. Que vous repartiez pour une nouvelle aventure ou que vous fassiez découvrir mon univers à vos proches, profitez du programme « Gratitude & Bienvenue ».
+            </p>
+            <div className="mt-5 border-t border-primary/10 pt-4">
+              <p className="text-xs leading-relaxed text-primary/65">
+                Plus de détails sur les formats, les budgets globaux et les honoraires sur
+                {' '}
+                <Link to="/mes-offres" className="font-semibold text-accent transition-colors hover:text-accent/80">
+                  Mes Offres
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-8">
 
             {/* Section 1 – Faisons connaissance */}
@@ -144,7 +186,7 @@ const QuotePage = () => {
 
               {/* Titre Mr / Mme */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Titre *</label>
+                <label className="text-sm font-semibold text-foreground">Titre</label>
                 <div className="flex items-center gap-6">
                   {(['Mr', 'Mme'] as const).map((t) => (
                     <label key={t} className="flex items-center gap-2 cursor-pointer">
@@ -164,18 +206,66 @@ const QuotePage = () => {
 
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Nom complet *</label>
+                  <label className="text-sm font-semibold text-foreground">Nom complet<RequiredMark /></label>
                   <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Nom Prénom" required className="w-full p-4 bg-muted rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Email *</label>
+                  <label className="text-sm font-semibold text-foreground">Email<RequiredMark /></label>
                   <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="@email.com" required className="w-full p-4 bg-muted rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Téléphone *</label>
+                  <label className="text-sm font-semibold text-foreground">Téléphone</label>
                   <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="06 12 34 56 78" className="w-full p-4 bg-muted rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground" />
                 </div>
               </div>
+
+              <div className="space-y-3">
+                <label className="text-sm font-semibold text-foreground">Comment avez-vous connu L'Échappée d'Emma ?<RequiredMark /></label>
+                <select
+                  required
+                  value={discoverySource}
+                  onChange={(e) => {
+                    const nextValue = e.target.value as (typeof discoveryOptions)[number]['value'];
+                    setDiscoverySource(nextValue);
+                    if (nextValue !== 'parrainage') {
+                      setSponsorName('');
+                    }
+                  }}
+                  className="w-full cursor-pointer rounded-xl bg-muted p-4 text-foreground outline-none focus:ring-2 ring-accent"
+                >
+                  {discoveryOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <AnimatePresence initial={false}>
+                {isReferral && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="rounded-2xl border border-accent/25 bg-accent/5 p-5">
+                      <label className="block text-sm font-semibold text-foreground">
+                        Si vous avez été parrainé, merci d'indiquer le nom de votre parrain pour bénéficier de vos -10% :
+                      </label>
+                      <input
+                        type="text"
+                        value={sponsorName}
+                        onChange={e => setSponsorName(e.target.value)}
+                        placeholder="Nom du parrain"
+                        required={isReferral}
+                        className="mt-3 w-full rounded-xl bg-background p-4 text-foreground outline-none ring-accent placeholder:text-muted-foreground focus:ring-2"
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Section 2 – Les contours de votre projet */}
@@ -264,12 +354,12 @@ const QuotePage = () => {
               {/* Durée / Adultes / Enfants */}
               <div className="grid md:grid-cols-3 gap-4">
                 {[
-                  { label: 'Durée (jours)', value: duration, setter: setDuration, min: 0, display: (v: number) => v === 0 ? 'Non précisé' : v },
-                  { label: 'Adultes *', value: adults, setter: setAdults, min: 0, display: (v: number) => v },
-                  { label: 'Enfants', value: children, setter: setChildren, min: 0, display: (v: number) => v === 0 ? 'Aucun' : v },
-                ].map(({ label, value, setter, min, display }) => (
+                  { label: 'Durée (jours)', required: false, value: duration, setter: setDuration, min: 0, display: (v: number) => v === 0 ? 'Non précisé' : v },
+                  { label: 'Adultes', required: true, value: adults, setter: setAdults, min: 0, display: (v: number) => v },
+                  { label: 'Enfants', required: false, value: children, setter: setChildren, min: 0, display: (v: number) => v === 0 ? 'Aucun' : v },
+                ].map(({ label, required, value, setter, min, display }) => (
                   <div key={label} className="space-y-2">
-                    <label className="text-sm font-semibold text-foreground">{label}</label>
+                    <label className="text-sm font-semibold text-foreground">{label}{required ? <RequiredMark /> : null}</label>
                     <div className="flex items-center gap-3 bg-muted p-2 rounded-xl">
                       <button type="button" onClick={() => setter(Math.max(min, value - 1))} className="w-9 h-9 bg-background rounded-lg shadow-sm font-bold text-foreground">−</button>
                       <span className="flex-1 text-center font-bold text-foreground">{display(value)}</span>
@@ -298,13 +388,13 @@ const QuotePage = () => {
 
               {/* État d'esprit */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Votre état d'esprit actuel *</label>
+                <label className="text-sm font-semibold text-foreground">Votre état d'esprit actuel<RequiredMark /></label>
                 <textarea required rows={2} value={mindset} onChange={e => setMindset(e.target.value)} placeholder="Ex: besoin de souffler, de changer d'air, de me ressourcer..." className="w-full p-4 bg-muted rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground resize-none" />
               </div>
 
               {/* Format de l'échappée */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Avez-vous déjà repéré le format de votre échappée ? *</label>
+                <label className="text-sm font-semibold text-foreground">Avez-vous déjà repéré le format de votre échappée ?<RequiredMark /></label>
                 <select required value={selectedOffer} onChange={e => setSelectedOffer(e.target.value)} className="w-full p-4 bg-muted rounded-xl outline-none focus:ring-2 ring-accent text-foreground cursor-pointer">
                   {offerOptions.map(o => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -327,21 +417,21 @@ const QuotePage = () => {
                       <div className="space-y-5">
                         <div>
                           <p className="font-semibold text-foreground mb-1">
-                            <span className="text-accent">• L'Objectif Prioritaire :</span>
+                            <span className="text-accent">• L'Objectif Prioritaire<RequiredMark /> :</span>
                           </p>
                           <p className="text-foreground text-sm mb-2">Quel est le point précis que vous souhaitez avoir résolu à la fin de notre heure ensemble ? (Ex : Valider la cohérence de l'itinéraire, choisir entre deux régions, …)</p>
                           <textarea required={isEtincelle} rows={3} value={objectifPrioritaire} onChange={e => setObjectifPrioritaire(e.target.value)} className="w-full p-4 bg-background border border-border rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground resize-none" />
                         </div>
                         <div>
                           <p className="font-semibold text-foreground mb-1">
-                            <span className="text-accent">• Votre état d'avancement :</span>
+                            <span className="text-accent">• Votre état d'avancement<RequiredMark /> :</span>
                           </p>
                           <p className="text-foreground text-sm mb-2">Qu'avez-vous déjà réservé ou décidé avec certitude ? (Vols, hébergement spécifique, location de véhicule…)</p>
                           <textarea required={isEtincelle} rows={3} value={etatAvancement} onChange={e => setEtatAvancement(e.target.value)} className="w-full p-4 bg-background border border-border rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground resize-none" />
                         </div>
                         <div>
                           <p className="font-semibold text-foreground mb-1">
-                            <span className="text-accent">• Votre plus grande crainte :</span>
+                            <span className="text-accent">• Votre plus grande crainte<RequiredMark /> :</span>
                           </p>
                           <p className="text-foreground text-sm mb-2">Qu'est-ce qui vous freine aujourd'hui dans la validation définitive de votre projet ?</p>
                           <textarea required={isEtincelle} rows={3} value={plusGrandeCrainte} onChange={e => setPlusGrandeCrainte(e.target.value)} className="w-full p-4 bg-background border border-border rounded-xl outline-none focus:ring-2 ring-accent text-foreground placeholder:text-muted-foreground resize-none" />

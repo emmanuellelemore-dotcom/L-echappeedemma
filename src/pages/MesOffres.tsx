@@ -3,15 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import AmbassadorCard from '../components/AmbassadorCard';
 
 const offers = [
   {
     title: "Offre L'Étincelle",
     need: 'Vous ressentez la nécessité de clarifier vos choix et de lever vos doutes.',
     solution: '1h de visio-conseil pour valider vos choix techniques.',
-    price: '70 €',
+    displayPrice: '70 €',
+    feeNote: 'Honoraires de visio-conseil pour une session dédiée à vos questions prioritaires.',
     detailTitle: 'Format expertise express',
-    detailPrice: '70€',
+    detailPrice: '70 €',
     items: [
       "1h30 d’entretien pour lever vos doutes.",
       'Thématique au choix : itinéraire, budget ou logistique.',
@@ -23,9 +25,10 @@ const offers = [
     title: "Offre L’Escale",
     need: "Vous ressentez l'appel du silence et d’une pause immédiate.",
     solution: 'Un séjour court (4-5 jours) dans un cocon unique et apaisant.',
-    price: 'À partir de 300 €',
+    displayPrice: 'À partir de 2 000 € pour 2*',
+    feeNote: 'Dont un minimum de 300 € d’honoraires de création, à adapter selon la durée du séjour.',
     detailTitle: 'Premières Lueurs d’Islande',
-    detailPrice: 'À partir de 2000€ pour 2*',
+    detailPrice: 'À partir de 2 000 € pour 2*',
     items: [
       '4 nuits au cœur des ponts de mai, là où le jour ne finit jamais vraiment.',
       'Vol direct',
@@ -38,9 +41,10 @@ const offers = [
     title: "Offre L’Ancrage",
     need: "Vous ressentez l'envie de ralentir et de vous imprégner d’un lieu.",
     solution: '7 à 10 jours avec un ou deux hébergements maximum.',
-    price: 'À partir de 460 €',
+    displayPrice: 'À partir de 2 500 € pour 2*',
+    feeNote: 'Dont un minimum de 460 € d’honoraires de création, à adapter selon la durée du séjour.',
     detailTitle: 'Douceur de vivre en Suède',
-    detailPrice: 'À partir de 2500€ pour 2*',
+    detailPrice: 'À partir de 2 500 € pour 2*',
     items: [
       '7 nuits fin juin pour célébrer le solstice.',
       'Vol direct',
@@ -53,9 +57,10 @@ const offers = [
     title: 'Offre Le Boréal',
     need: 'Vous ressentez le désir de vivre la féerie nordique (Aurores, Noël).',
     solution: '5 à 7 jours thématiques avec une logistique arctique sécurisée.',
-    price: 'À partir de 480 €',
+    displayPrice: 'À partir de 4 300 € pour 2*',
+    feeNote: 'Dont un minimum de 480 € d’honoraires de création, à adapter selon la durée du séjour.',
     detailTitle: 'La Magie d’Inari',
-    detailPrice: 'À partir de 4300€ pour 2*',
+    detailPrice: 'À partir de 4 300 € pour 2*',
     items: [
       '5 nuits au début de l’hiver, quand la Finlande revêt son manteau blanc.',
       'Vol avec escale vers le cercle polaire',
@@ -68,9 +73,10 @@ const offers = [
     title: 'Offre Le Tracé',
     need: "Vous ressentez l'appel de la route et de la liberté totale.",
     solution: 'Un itinéraire de 8 jours ou plus, dédié exclusivement à la Vanlife.',
-    price: 'À partir de 500 €',
+    displayPrice: 'À partir de 7 000 € pour 4*',
+    feeNote: 'Dont un minimum de 500 € d’honoraires de création, à adapter selon la durée du séjour.',
     detailTitle: 'La Liberté Nomade',
-    detailPrice: 'À partir de 7000€ pour 4*',
+    detailPrice: 'À partir de 7 000 € pour 4*',
     items: [
       '3 semaines d’été à travers les fjords du Sud-Ouest de la Norvège.',
       'Van tout confort aménagé pour 4 personnes',
@@ -82,9 +88,10 @@ const offers = [
     title: 'Offre La Traversée',
     need: "Vous ressentez l'envie d’une immersion longue et de diversité.",
     solution: 'Un road trip complet de 10 jours ou plus, à votre rythme.',
-    price: 'À partir de 880 €',
+    displayPrice: 'À partir de 5 000 € pour 2*',
+    feeNote: 'Dont un minimum de 880 € d’honoraires de création, à adapter selon la durée du séjour.',
     detailTitle: 'L’Odyssée des Lofoten',
-    detailPrice: 'À partir de 5000€ pour 2*',
+    detailPrice: 'À partir de 5 000 € pour 2*',
     items: [
       '11 nuits en mai, entre sommets enneigés et mer turquoise.',
       'Vol avec escale',
@@ -92,6 +99,66 @@ const offers = [
       'Escales variées',
       'Kayak de mer, randonnées & culture locale',
     ],
+  },
+];
+
+const latitudeOffers = [
+  {
+    title: 'Offre L’Horizon',
+    need: 'Vous souhaitez vous envoler vers une destination ensoleillée ou citadine que j’ai moi-même déjà explorée.',
+    solution: 'Un itinéraire sur-mesure (dès 3 nuits) basé sur mon expérience de terrain pour une échappée authentique.',
+    displayPrice: 'À partir de 300 €',
+    explorationGroups: [
+      {
+        title: 'Douceur de France',
+        destinations: 'Road trip en Bretagne, Côte d’Opale, Baie de Somme.',
+      },
+      {
+        title: 'Escales Européennes',
+        destinations: 'Prague, Budapest, Lisbonne & l’Algarve.',
+      },
+      {
+        title: 'Méditerranée & Balkans',
+        destinations: 'Croatie, Albanie, Égypte.',
+      },
+      {
+        title: 'Horizons Lointains',
+        destinations: 'Thaïlande, Polynésie française, La Réunion, La Guadeloupe.',
+      },
+    ],
+    exampleTitle: 'L’Horizon : "Lumières de Budapest"',
+    exampleSubtitle: 'Le charme du Danube et la chaleur des sources.',
+    examplePrice: 'À partir de 800 € pour 2*',
+    exampleFeeNote: 'Estimation globale (incluant un minimum de 300 € d’honoraires de création) à adapter selon la durée du séjour.',
+    description:
+      '3 nuits à la mi-novembre pour savourer l’atmosphère feutrée de la perle du Danube. Une parenthèse citadine entre architecture impériale et bains historiques, parfaite pour reprendre son souffle.',
+    facts: [
+      'Vol direct',
+      'City-break au cœur de la ville',
+      '1 logement (selon vos besoins)',
+      'Une expérience incluse chaque jour',
+    ],
+  },
+  {
+    title: 'Offre L’Inconnue',
+    need: 'Vous rêvez d’une destination lointaine ou atypique que je n’ai pas encore explorée, mais vous voulez la sécurité d’un itinéraire expert.',
+    solution: 'Une création d’itinéraire de A à Z (dès 7 nuits) incluant une phase de recherche logistique approfondie sur cette terre nouvelle.',
+    displayPrice: 'À partir de 630 €',
+    exampleTitle: 'L’Inconnue : "La Page Blanche"',
+    exampleSubtitle: 'Le monde est vaste, partons l’explorer ensemble.',
+    examplePrice: 'Sur devis *',
+    exampleFeeNote: 'Honoraires dès 560 €, à ajuster selon la complexité et la durée de votre échappée.',
+    description:
+      '7 à 20 nuits pour donner vie à ce projet qui vous fait rêver. Que vous soyez attirés par la spiritualité du Laos, les temples du Cambodge ou la douceur des Seychelles, je construis votre sécurité là où tout est nouveau.',
+    facts: [
+      'Logistique et vols internationaux analysés',
+      'Itinéraire créé de A à Z (page blanche)',
+      'Sélection d’étapes selon vos besoins',
+      'Une expérience phare dénichée par jour',
+    ],
+    closingTitle: 'Tout est possible',
+    closingCopy:
+      'Chaque projet est unique : tout dépendra de vos envies, de votre rythme et de votre budget. Pour transformer cette page blanche en une échappée qui vous ressemble, rencontrons-nous d’abord pour en parler.',
   },
 ];
 
@@ -172,7 +239,7 @@ const MesOffres = () => {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-8 md:mb-10">
             <motion.h1 initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.8 }} variants={fadeDown} className="text-4xl md:text-5xl font-serif text-foreground mb-5">
-              Mes Offres
+              Mes Offres & Programme Ambassadeur
             </motion.h1>
             <motion.p initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.8 }} variants={fadeUp} className="text-muted-foreground text-base md:text-lg leading-relaxed">
               Chaque besoin de reconnexion est unique. Mes offres sont des pages blanches que nous remplissons selon vos envies.
@@ -201,7 +268,10 @@ const MesOffres = () => {
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                        <span><strong>Tarif :</strong> {offer.price}</span>
+                        <div>
+                          <p><strong>Tarif :</strong> {offer.displayPrice}</p>
+                          <p className="mt-1 text-sm italic leading-relaxed text-primary/70">{offer.feeNote}</p>
+                        </div>
                       </li>
                     </ul>
 
@@ -244,10 +314,104 @@ const MesOffres = () => {
                     >
                       Débuter mon échappée
                     </Link>
+                    <p className="mt-3 text-center text-[0.72rem] italic leading-relaxed text-muted-foreground">
+                      Estimation globale (incluant mes honoraires de conseil)
+                    </p>
                   </div>
                 </motion.div>
               ))}
             </div>
+
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="mt-10">
+              <AmbassadorCard />
+            </motion.div>
+
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={fadeUp} className="mt-12 md:mt-14">
+              <div className="mx-auto max-w-4xl text-center">
+                <h2 className="text-3xl md:text-4xl font-serif text-primary">Parce que votre souffle peut aussi se trouver sous d’autres latitudes...</h2>
+                <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
+                  Si mon cœur bat pour le Nord, ma méthode de conception et mon exigence de sérénité n'ont pas de frontières. Pour ceux qui ont besoin de températures plus douces, de la caresse du soleil, ou d'un autre horizon pour marquer leur nouveau cap, j'ouvre mon carnet de route à de nouvelles destinations.
+                </p>
+              </div>
+
+              <div className="mt-8 space-y-8">
+                {latitudeOffers.map((offer) => (
+                  <div key={offer.title} className="overflow-hidden rounded-[2rem] border border-border/70 bg-background shadow-sm">
+                    <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+                      <div className="border-b border-border/60 p-6 md:p-8 lg:border-b-0 lg:border-r">
+                        <h3 className="text-center text-2xl md:text-3xl font-serif text-primary">{offer.title}</h3>
+                        <ul className="mt-6 space-y-5 text-[1.05rem] leading-relaxed text-primary">
+                          <li className="flex items-start gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span><strong>Votre besoin :</strong> {offer.need}</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span><strong>Ma solution :</strong> {offer.solution}</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span><strong>Tarif :</strong> {offer.displayPrice}</span>
+                          </li>
+                        </ul>
+
+                        <Link
+                          to="/devis"
+                          className="mt-8 inline-flex w-full justify-center rounded-full bg-accent px-5 py-3 text-xl font-medium text-accent-foreground transition-opacity hover:opacity-90"
+                        >
+                          Débuter mon échappée
+                        </Link>
+
+                        {offer.explorationGroups && (
+                          <details className="mt-5 rounded-2xl border border-border/70 bg-secondary/20 p-4 text-primary">
+                            <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.14em] text-primary/75">
+                              Mes terres d’exploration
+                            </summary>
+                            <div className="mt-4 space-y-3 text-sm leading-relaxed text-primary/85">
+                              {offer.explorationGroups.map((group) => (
+                                <p key={group.title}>
+                                  <strong>{group.title} :</strong> {group.destinations}
+                                </p>
+                              ))}
+                            </div>
+                          </details>
+                        )}
+                      </div>
+
+                      <div className="p-6 md:p-8">
+                        <div className="border-b border-dashed border-border/70 pb-6 text-center">
+                          <h4 className="text-2xl font-serif text-primary">{offer.exampleTitle}</h4>
+                          <p className="mt-2 text-lg font-semibold leading-snug text-primary">{offer.exampleSubtitle}</p>
+                          <p className="mt-6 text-2xl font-semibold text-primary">{offer.examplePrice}</p>
+                          <p className="mt-2 text-sm italic leading-relaxed text-primary/75">{offer.exampleFeeNote}</p>
+                        </div>
+
+                        <p className="mt-6 text-lg leading-relaxed text-primary/90">{offer.description}</p>
+
+                        <div className="mt-8">
+                          <p className="text-xl font-serif text-primary">Les faits :</p>
+                          <ul className="mt-4 space-y-3 text-[1.04rem] leading-relaxed text-primary/90">
+                            {offer.facts.map((fact) => (
+                              <li key={fact} className="flex items-start gap-3">
+                                <span className="mt-1 text-accent">✦</span>
+                                <span>{fact}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {offer.closingTitle && offer.closingCopy && (
+                          <div className="mt-8 border-t border-border/60 pt-6">
+                            <p className="text-xl font-serif text-primary">{offer.closingTitle}</p>
+                            <p className="mt-3 text-lg leading-relaxed text-primary/90">{offer.closingCopy}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
             <p className="text-center text-muted-foreground text-base md:text-lg mt-10 leading-relaxed">
               Votre échappée commence ici : au point de rencontre entre votre besoin de déconnexion et mon expertise,
@@ -255,7 +419,7 @@ const MesOffres = () => {
               pour vous permettre de vous reconnecter à l’essentiel.
             </p>
             <p className="text-center text-muted-foreground text-base md:text-lg mt-8 leading-relaxed">
-              * Exemples de budgets incluant mes honoraires de recherche et de conseil, sur la base des premiers tarifs constatés...
+              Exemples de budgets globaux incluant mes honoraires de recherche et de conseil, sur la base des premiers tarifs constatés.
             </p>
           </div>
         </div>

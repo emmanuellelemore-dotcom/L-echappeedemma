@@ -44,7 +44,7 @@ const Navbar = () => {
               transparent ? 'text-primary-foreground' : 'text-foreground'
             }`}
           >
-            <span className="font-logo-main">L'échappée </span>
+            <span className="font-logo-main">L'Échappée </span>
             <span className="font-logo-accent text-[1.22em] leading-none align-middle">d' </span>
             <span className="font-logo-main">Emma</span>
           </Link>
