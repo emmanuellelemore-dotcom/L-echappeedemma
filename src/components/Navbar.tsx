@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
@@ -51,11 +52,17 @@ const Navbar = () => {
         </div>
 
         {/* Desktop nav */}
-        <div className={`hidden md:flex gap-8 items-center text-sm font-medium ${
+        <div
+          onMouseLeave={() => setHoveredLink(null)}
+          className={`hidden md:flex gap-8 items-center text-sm font-medium ${
           transparent ? 'text-primary-foreground/90' : 'text-muted-foreground'
-        }`}>
+        }`}
+        >
           {links.map((link) => {
             const isHash = link.to.includes('#');
+            const isCurrent = location.pathname === link.to;
+            const isDimmed = hoveredLink !== null && hoveredLink !== link.to;
+
             const handleClick = (e: React.MouseEvent) => {
               if (isHash) {
                 e.preventDefault();
@@ -72,8 +79,17 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 onClick={handleClick}
-                className={`hover:text-accent transition-colors ${
-                  location.pathname === link.to ? 'text-accent font-semibold' : ''
+                onMouseEnter={() => setHoveredLink(link.to)}
+                className={`transition-all duration-300 ${
+                  isCurrent ? 'text-accent font-semibold' : ''
+                } ${
+                  isDimmed
+                    ? transparent
+                      ? 'opacity-35'
+                      : 'opacity-40'
+                    : 'opacity-100'
+                } ${
+                  hoveredLink === link.to ? 'text-accent' : 'hover:text-accent'
                 }`}
               >
                 {link.to === '/mes-prestations' ? (

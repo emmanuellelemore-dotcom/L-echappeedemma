@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import AnalyticsTracker from "./components/AnalyticsTracker";
 const CookieBanner = React.lazy(() => import("./components/CookieBanner"));
 const FeedbackWidget = React.lazy(() => import("./components/FeedbackWidget"));
 import Index from "./pages/Index";
@@ -14,6 +15,7 @@ import Emma from "./pages/Emma";
 import NotFound from "./pages/NotFound";
 import MesPrestations from "./pages/MesPrestations";
 import MesOffres from "./pages/MesOffres";
+import VillageDuPereNoel from "./pages/VillageDuPereNoel";
 import BlogPage from "./pages/BlogPage";
 import CharteEchappee from "./pages/charte-echappee";
 import MentionsLegales from "./pages/mentionslegales";
@@ -33,6 +35,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <AnalyticsTracker />
           <ScrollToTop />
           <Suspense fallback={<div style={{textAlign:'center',padding:'2rem'}}>Chargement de la galerie...</div>}>
             <Routes>
@@ -40,6 +43,7 @@ const App = () => (
               <Route path="/emma" element={<Emma />} />
               <Route path="/mes-prestations" element={<MesPrestations />} />
               <Route path="/mes-offres" element={<MesOffres />} />
+              <Route path="/village-du-pere-noel" element={<VillageDuPereNoel />} />
               <Route path="/charte-echappee" element={<CharteEchappee />} />
               <Route path="/mentions-legales" element={<MentionsLegales />} />
               <Route path="/devis" element={<QuotePage />} />

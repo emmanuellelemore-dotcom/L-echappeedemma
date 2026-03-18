@@ -94,6 +94,19 @@ const getReviewsPerView = () => {
   return 4;
 };
 
+const formatAuthorName = (author: string) => {
+  const nameParts = author.trim().split(/\s+/).filter(Boolean);
+
+  if (nameParts.length <= 1) {
+    return author;
+  }
+
+  const firstName = nameParts[0];
+  const lastNameInitial = nameParts[nameParts.length - 1].charAt(0).toUpperCase();
+
+  return `${firstName} ${lastNameInitial}.`;
+};
+
 const ReviewCard = ({ review, index }: { review: Review; index: number }) => (
   <motion.div
     key={review.id || index}
@@ -101,7 +114,7 @@ const ReviewCard = ({ review, index }: { review: Review; index: number }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: 20 }}
     transition={{ duration: 0.3 }}
-    className="bg-background p-6 rounded-2xl shadow-sm border-l-4 border-accent flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-12px)]"
+    className="min-w-0 bg-background p-6 rounded-2xl shadow-sm border-l-4 border-accent"
   >
     {/* Stars */}
     <div className="flex gap-1 mb-4">
@@ -121,17 +134,18 @@ const ReviewCard = ({ review, index }: { review: Review; index: number }) => (
     </p>
 
     {/* Author & Date */}
-    <div className="flex justify-between items-center text-sm">
-      <span className="font-bold text-foreground">{review.author}</span>
-      <span className="text-muted-foreground text-xs">{review.date}</span>
+    <div className="grid min-h-[3.5rem] grid-cols-[minmax(0,1fr)_7.5rem] items-start gap-x-4 text-sm">
+      <span className="min-w-0 pr-2 font-bold leading-snug text-foreground">{formatAuthorName(review.author)}</span>
+      <span className="w-[7.5rem] text-right text-xs leading-snug text-muted-foreground">{review.date}</span>
     </div>
   </motion.div>
 );
 
 const GoogleReviews = () => {
-  const [reviews, setReviews] = useState<Review[]>(placeholderReviews);
+  const [reviews, setReviews] = useState<Review[]>(USE_LIVE_GOOGLE_REVIEWS ? [] : placeholderReviews);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [placeSummary, setPlaceSummary] = useState<PlaceSummary | null>(null);
   const [reviewsPerView, setReviewsPerView] = useState(getReviewsPerView);
 
@@ -160,6 +174,7 @@ const GoogleReviews = () => {
     if (!USE_LIVE_GOOGLE_REVIEWS) {
       setReviews(placeholderReviews);
       setIsLoading(false);
+      setLoadFailed(false);
       return;
     }
 
@@ -168,6 +183,7 @@ const GoogleReviews = () => {
     const fetchGoogleReviews = async () => {
       try {
         setIsLoading(true);
+        setLoadFailed(false);
         const endpoint = `${getReviewsApiBase()}/api/reviews`;
         const response = await fetch(endpoint, { signal: controller.signal });
 
@@ -184,10 +200,16 @@ const GoogleReviews = () => {
         if (data.ok && Array.isArray(data.reviews) && data.reviews.length > 0) {
           setReviews(data.reviews);
           setCurrentIndex(0);
+          return;
         }
+
+        setLoadFailed(true);
+        setReviews(placeholderReviews);
       } catch (error) {
         if ((error as Error).name !== 'AbortError') {
           console.error('Error fetching reviews:', error);
+          setLoadFailed(true);
+          setReviews(placeholderReviews);
         }
       } finally {
         setIsLoading(false);
@@ -220,6 +242,13 @@ const GoogleReviews = () => {
 
   const totalGroups = Math.ceil(reviews.length / reviewsPerView);
   const currentGroup = Math.floor(currentIndex / reviewsPerView) + 1;
+  const showLoadingState = USE_LIVE_GOOGLE_REVIEWS && isLoading && reviews.length === 0;
+  const gridClassName =
+    reviewsPerView === 1
+      ? 'grid-cols-1'
+      : reviewsPerView === 2
+        ? 'grid-cols-2'
+        : 'grid-cols-4';
 
   return (
     <div className="space-y-8">
@@ -242,38 +271,86 @@ const GoogleReviews = () => {
         {USE_LIVE_GOOGLE_REVIEWS && isLoading && (
           <p className="text-sm text-muted-foreground">Chargement des avis Google...</p>
         )}
+        {loadFailed && (
+          <p className="text-sm text-muted-foreground">Les avis Google mettent plus de temps que prévu à se charger. Affichage temporaire des témoignages de secours.</p>
+        )}
       </div>
 
       {/* Carousel Container */}
       <div className="relative">
-        {/* Reviews Carousel */}
-        <div className="overflow-hidden px-4">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="flex gap-6"
-            >
-              {visibleReviews.map((review, idx) => (
-                <ReviewCard
-                  key={review.id || `${currentIndex}-${idx}`}
-                  review={review}
-                  index={idx}
+        {showLoadingState ? (
+          <div className="px-4">
+            <div className="mx-auto flex max-w-md flex-col items-center rounded-[2rem] border border-accent/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94))] px-8 py-10 text-center shadow-sm">
+              <motion.div
+                animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
+                transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative flex h-32 w-32 items-center justify-center md:h-36 md:w-36"
+              >
+                <motion.div
+                  aria-hidden="true"
+                  animate={{ opacity: [0.25, 0.55, 0.25], scale: [0.92, 1.05, 0.92] }}
+                  transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute inset-0 rounded-full bg-white/90 blur-2xl"
                 />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+
+                <video
+                  className="relative h-28 w-28 rounded-full object-cover shadow-[0_18px_35px_rgba(120,84,102,0.14)] md:h-32 md:w-32"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                >
+                  <source src="/chouette_neige.webm" type="video/webm" />
+                </video>
+              </motion.div>
+
+              <p className="mt-5 text-lg font-serif text-primary">La chouette récupère vos avis...</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Les témoignages Google arrivent doucement depuis le Grand Nord.
+              </p>
+
+              <div className="mt-5 flex items-center gap-2">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <motion.span
+                    key={index}
+                    animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
+                    transition={{ duration: 1.4, delay: index * 0.18, repeat: Infinity, ease: 'easeInOut' }}
+                    className="h-2.5 w-2.5 rounded-full bg-accent/70"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="overflow-hidden px-8 lg:px-12">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className={`grid gap-6 ${gridClassName}`}
+              >
+                {visibleReviews.map((review, idx) => (
+                  <ReviewCard
+                    key={review.id || `${currentIndex}-${idx}`}
+                    review={review}
+                    index={idx}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        )}
 
         {/* Navigation Arrows */}
-        {reviews.length > reviewsPerView && (
+        {!showLoadingState && reviews.length > reviewsPerView && (
           <>
             <button
               onClick={handlePrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-6 z-10 bg-primary text-primary-foreground p-2 rounded-full hover:opacity-80 transition-opacity shadow-lg disabled:opacity-50"
+              className="absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-primary p-2 text-primary-foreground rounded-full shadow-lg transition-opacity hover:opacity-80 disabled:opacity-50 lg:-translate-x-3/4"
               aria-label="Avis précédents"
             >
               <ChevronLeft size={24} />
@@ -281,7 +358,7 @@ const GoogleReviews = () => {
 
             <button
               onClick={handleNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-6 z-10 bg-primary text-primary-foreground p-2 rounded-full hover:opacity-80 transition-opacity shadow-lg disabled:opacity-50"
+              className="absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2 bg-primary p-2 text-primary-foreground rounded-full shadow-lg transition-opacity hover:opacity-80 disabled:opacity-50 lg:translate-x-3/4"
               aria-label="Avis suivants"
             >
               <ChevronRight size={24} />
@@ -290,7 +367,7 @@ const GoogleReviews = () => {
         )}
 
         {/* Pagination Dots */}
-        {reviews.length > reviewsPerView && (
+        {!showLoadingState && reviews.length > reviewsPerView && (
           <div className="flex justify-center gap-2 mt-8">
             {Array.from({ length: totalGroups }).map((_, idx) => (
               <button

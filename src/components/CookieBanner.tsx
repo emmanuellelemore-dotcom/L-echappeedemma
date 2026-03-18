@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
-
-const CONSENT_KEY = "cookie_consent";
+import { COOKIE_CONSENT_KEY, initAnalytics, isAnalyticsConfigured, trackPageView } from "../lib/analytics";
 
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(CONSENT_KEY);
+    const stored = window.localStorage.getItem(COOKIE_CONSENT_KEY);
     if (stored !== "accepted" && stored !== "rejected") {
       setIsVisible(true);
     }
   }, []);
 
   const handleChoice = (value: "accepted" | "rejected") => {
-    window.localStorage.setItem(CONSENT_KEY, value);
+    window.localStorage.setItem(COOKIE_CONSENT_KEY, value);
+
+    if (value === "accepted" && isAnalyticsConfigured()) {
+      void initAnalytics().then(() => {
+        trackPageView();
+      });
+    }
+
     setIsVisible(false);
   };
 

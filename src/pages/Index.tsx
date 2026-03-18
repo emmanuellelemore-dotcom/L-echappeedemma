@@ -216,13 +216,13 @@ const Index = () => {
           )}
         </div>
 
-        <div className="relative z-10 text-center px-2 w-full max-w-xl mx-auto">
-          <div className="mb-3">
+        <div className="relative z-10 text-center px-2 w-full max-w-4xl mx-auto">
+          <div className="mb-1">
             <GradualSpacing
-              text="Faisons l'Echappée ensemble"
+              text="Cap au Nord Pour un"
               renderChar={(char, i) => {
-                const start = 8;
-                const end = 18;
+                const start = 7;
+                const end = 11;
                 const isAccent = i >= start && i < end;
                 return (
                   <span
@@ -235,6 +235,19 @@ const Index = () => {
               }}
             />
           </div>
+          <div className="mb-3">
+            <GradualSpacing
+              text="nouveau souffle"
+              renderChar={(char, i) => (
+                <span
+                  className="font-bold font-serif text-accent"
+                  key={i}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              )}
+            />
+          </div>
           <div className="flex justify-center mb-6">
             <Link
               to="/devis"
@@ -244,21 +257,24 @@ const Index = () => {
               <span><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 24 24'><path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/></svg></span>
             </Link>
           </div>
-          <div className="flex flex-wrap justify-center gap-2">
-            <Link to="/gallery/norvege" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Norvège</Link>
-            <Link to="/gallery/islande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Islande</Link>
-            <Link to="/gallery/suede" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Suède</Link>
-            <button
-              onClick={() => setShowExtraDests(v => !v)}
-              className="border border-white/80 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-white/10 transition focus:outline-none opacity-70 hover:opacity-90"
-              aria-expanded={showExtraDests}
-              aria-controls="extra-dests"
-            >
-              Destinations exotiques
-              <span className={`transition-transform duration-200 ${showExtraDests ? 'rotate-90' : ''}`}>{showExtraDests ? '▲' : '▼'}</span>
-            </button>
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-wrap justify-center gap-2">
+              <Link to="/gallery/norvege" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Norvège</Link>
+              <Link to="/gallery/islande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Islande</Link>
+              <Link to="/gallery/suede" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Suède</Link>
+              <button
+                onClick={() => setShowExtraDests(v => !v)}
+                className="border border-white/80 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-white/10 transition focus:outline-none opacity-70 hover:opacity-90"
+                aria-expanded={showExtraDests}
+                aria-controls="extra-dests"
+              >
+                Destinations exotiques
+                <span className={`transition-transform duration-200 ${showExtraDests ? 'rotate-90' : ''}`}>{showExtraDests ? '▲' : '▼'}</span>
+              </button>
+            </div>
+
             {showExtraDests && (
-              <div id="extra-dests" className="flex flex-wrap justify-center gap-2 animate-fade-in mt-2">
+              <div id="extra-dests" className="flex flex-wrap justify-center gap-2 animate-fade-in">
                 <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Égypte</span>
                 <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Thaïlande</span>
                 <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Polynésie FR</span>

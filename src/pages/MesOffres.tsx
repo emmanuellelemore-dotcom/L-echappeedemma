@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Gift, ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ const offers = [
     detailTitle: 'Format expertise express',
     detailPrice: '70 €',
     items: [
-      "1h30 d’entretien pour lever vos doutes.",
+      "1h d’entretien pour lever vos doutes.",
       'Thématique au choix : itinéraire, budget ou logistique.',
       'Envoi d’un PDF récapitulatif de nos échanges.',
       'Cible : voyageurs autonomes en quête d’un regard expert.',
@@ -143,7 +144,7 @@ const latitudeOffers = [
     title: 'Offre L’Inconnue',
     need: 'Vous rêvez d’une destination lointaine ou atypique que je n’ai pas encore explorée, mais vous voulez la sécurité d’un itinéraire expert.',
     solution: 'Une création d’itinéraire de A à Z (dès 7 nuits) incluant une phase de recherche logistique approfondie sur cette terre nouvelle.',
-    displayPrice: 'À partir de 630 €',
+    displayPrice: 'À partir de 560 €',
     exampleTitle: 'L’Inconnue : "La Page Blanche"',
     exampleSubtitle: 'Le monde est vaste, partons l’explorer ensemble.',
     examplePrice: 'Sur devis *',
@@ -326,7 +327,7 @@ const MesOffres = () => {
               <AmbassadorCard />
             </motion.div>
 
-            <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={fadeUp} className="mt-12 md:mt-14">
+            <div className="mt-12 md:mt-14">
               <div className="mx-auto max-w-4xl text-center">
                 <h2 className="text-3xl md:text-4xl font-serif text-primary">Parce que votre souffle peut aussi se trouver sous d’autres latitudes...</h2>
                 <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
@@ -363,9 +364,10 @@ const MesOffres = () => {
                         </Link>
 
                         {offer.explorationGroups && (
-                          <details className="mt-5 rounded-2xl border border-border/70 bg-secondary/20 p-4 text-primary">
-                            <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.14em] text-primary/75">
-                              Mes terres d’exploration
+                          <details className="group mt-5 rounded-2xl border border-border/70 bg-secondary/20 p-4 text-primary">
+                            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold uppercase tracking-[0.14em] text-primary/75">
+                              <span>Mes terres d’exploration</span>
+                              <ChevronDown className="h-4 w-4 flex-none text-accent transition-transform duration-300 group-open:rotate-180" />
                             </summary>
                             <div className="mt-4 space-y-3 text-sm leading-relaxed text-primary/85">
                               {offer.explorationGroups.map((group) => (
@@ -411,7 +413,7 @@ const MesOffres = () => {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             <p className="text-center text-muted-foreground text-base md:text-lg mt-10 leading-relaxed">
               Votre échappée commence ici : au point de rencontre entre votre besoin de déconnexion et mon expertise,
@@ -421,6 +423,34 @@ const MesOffres = () => {
             <p className="text-center text-muted-foreground text-base md:text-lg mt-8 leading-relaxed">
               Exemples de budgets globaux incluant mes honoraires de recherche et de conseil, sur la base des premiers tarifs constatés.
             </p>
+
+            <div className="mt-14 flex justify-center">
+              <Link
+                to="/village-du-pere-noel"
+                className="group relative block w-full max-w-xl transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="relative overflow-hidden rounded-[1.9rem] border border-primary/10 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(255,249,251,0.98))] px-6 pb-8 pt-10 shadow-[0_24px_55px_rgba(75,36,58,0.14)]">
+                  <div className="absolute inset-0 opacity-90 [background-image:radial-gradient(circle_at_18px_18px,rgba(233,30,99,0.55)_0_2px,transparent_2.5px),radial-gradient(circle_at_42px_22px,rgba(24,120,68,0.5)_0_2px,transparent_2.5px),radial-gradient(circle_at_26px_44px,rgba(246,190,54,0.55)_0_2px,transparent_2.5px),radial-gradient(circle_at_52px_50px,rgba(42,64,125,0.45)_0_2px,transparent_2.5px)] [background-size:72px_72px]" />
+                  <div className="absolute inset-x-0 top-[5.35rem] h-4 bg-[linear-gradient(180deg,#d8a537,#b57c14)] shadow-[0_8px_18px_rgba(181,124,20,0.25)]" />
+                  <div className="absolute left-1/2 top-0 h-full w-4 -translate-x-1/2 bg-[linear-gradient(180deg,#e5be57,#b67c13)] shadow-[0_8px_18px_rgba(181,124,20,0.2)]" />
+                  <div className="absolute left-1/2 top-[5.35rem] h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-[8px] border-[#c78d1d] bg-white/95 shadow-[0_8px_18px_rgba(181,124,20,0.18)]" />
+                  <div className="absolute left-[calc(50%-2.5rem)] top-[2.35rem] h-11 w-11 rounded-full border-[10px] border-[#c78d1d] border-b-0 border-r-0 bg-transparent rotate-[10deg]" />
+                  <div className="absolute left-[calc(50%+0.15rem)] top-[2.35rem] h-11 w-11 rounded-full border-[10px] border-[#c78d1d] border-b-0 border-l-0 bg-transparent -rotate-[10deg]" />
+
+                  <div className="relative z-10 text-center">
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.28em] text-primary/60">Idee cadeau</p>
+                    <h3 className="mt-3 text-2xl font-serif text-primary md:text-3xl">Village du Pere Noel</h3>
+                    <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-primary/75 md:text-base">
+                      Une entree cadeau vers une page douce et festive, a peaufiner ensuite dans l'esprit d'une vraie surprise de Noel.
+                    </p>
+                    <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(180deg,#d53d4d,#b81f34)] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_20px_rgba(184,31,52,0.28)] transition-transform duration-300 group-hover:scale-[1.02]">
+                      Ouvrir le cadeau
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </motion.section>
