@@ -81,9 +81,9 @@ Retrouvez la FAQ complète sur le site, via la chouette en bas à droite !
 
 ##  Contact
 
-- [Site web](https://lechappeedemma.com/)
-- [Contact](https://lechappeedemma.com/contact)
-- [Demander un devis](https://lechappeedemma.com/devis)
+- [Site web](https://www.lechappeedemma.com/)
+- [Contact](https://www.lechappeedemma.com/contact)
+- [Demander un devis](https://www.lechappeedemma.com/devis)
 - Sucy-en-Brie, France
 
 ---
