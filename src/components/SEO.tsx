@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 
-const BASE_URL = 'https://www.lechappeedemma.com';
+const BASE_URL = 'https://lechappeedemma.com';
 const SITE_NAME = "L'échappée d'Emma";
 const DEFAULT_IMAGE = '/logo.png';
 

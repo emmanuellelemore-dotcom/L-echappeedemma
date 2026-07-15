@@ -209,7 +209,7 @@ Si vous voulez que `.fr` redirige vers `.com` :
 
 1. Dans OVH Manager → **"Domaines"** → Sélectionnez `.fr`
 2. Allez dans **"Redirection"**
-3. Configurez une redirection 301 vers `https://www.lechappeedemma.com`
+3. Configurez une redirection 301 vers `https://lechappeedemma.com`
 
 ### Fichier robots.txt et sitemap.xml
 
@@ -217,7 +217,7 @@ Les fichiers sont déjà présents dans `public/`. Après le build, ils seront a
 
 Pour le sitemap, remplacez les URLs par vos vraies URLs :
 
-Ouvrez `public/sitemap.xml` et remplacez `https://example.com` par `https://www.lechappeedemma.com`
+Ouvrez `public/sitemap.xml` et remplacez `https://example.com` par `https://lechappeedemma.com`
 
 ---
 

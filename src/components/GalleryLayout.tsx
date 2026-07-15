@@ -87,14 +87,14 @@ const buildStructuredData = (title: string, info: (typeof destinationInfos)[stri
   "@type": "TouristDestination",
   "name": info.seoTitle,
   "description": info.description,
-  "url": `https://www.lechappeedemma.com${info.canonicalPath}`,
-  "image": `https://www.lechappeedemma.com${info.ogImage}`,
+  "url": `https://lechappeedemma.com${info.canonicalPath}`,
+  "image": `https://lechappeedemma.com${info.ogImage}`,
   "touristType": "Voyageur indépendant cherchant une expérience nordique sur mesure",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.lechappeedemma.com/" },
-      { "@type": "ListItem", "position": 2, "name": title, "item": `https://www.lechappeedemma.com${info.canonicalPath}` }
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://lechappeedemma.com/" },
+      { "@type": "ListItem", "position": 2, "name": title, "item": `https://lechappeedemma.com${info.canonicalPath}` }
     ]
   }
 });
