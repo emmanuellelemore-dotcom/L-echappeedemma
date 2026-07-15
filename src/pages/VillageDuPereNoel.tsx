@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 
 const snowFlakes = [
   { left: '4%', size: 'text-sm', delay: 0.1, duration: 9.8, drift: 14, opacity: 0.45, blur: 'blur-[0.4px]' },
@@ -86,6 +87,12 @@ const VillageDuPereNoel = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#07131f] text-white">
+      <SEO
+        title="Village du Père Noël — Une escapade magique dans le Grand Nord | L'échappée d'Emma"
+        description="Vivez la magie du Village du Père Noël avec L'échappée d'Emma. Une expérience nordique unique pour les familles et les amoureux de la magie hivernale."
+        canonical="/village-du-pere-noel"
+        ogImage="/pere_noel_secours.PNG"
+      />
       <Navbar />
       <audio ref={audioRef} src="/Jingle-bells-Version2.mp3" loop preload="auto" />
 

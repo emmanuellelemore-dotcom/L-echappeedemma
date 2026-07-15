@@ -3,10 +3,48 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Roadtrip Laponie : conseils, itinéraire et aurores boréales",
+  "description": "Préparez votre roadtrip en Laponie avec des conseils pratiques pour voir les aurores boréales, choisir le meilleur itinéraire nordique et vivre une expérience authentique dans le Grand Nord.",
+  "url": "https://lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales",
+  "datePublished": "2026-02-15",
+  "author": {
+    "@type": "Person",
+    "name": "Emma",
+    "url": "https://lechappeedemma.com/emma"
+  },
+  "publisher": {
+    "@type": "ProfessionalService",
+    "name": "L'échappée d'Emma",
+    "url": "https://lechappeedemma.com",
+    "logo": "https://lechappeedemma.com/logo.png"
+  },
+  "image": "https://lechappeedemma.com/gallery/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://lechappeedemma.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://lechappeedemma.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": "Roadtrip Laponie", "item": "https://lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales" }
+    ]
+  }
+};
 
 export default function RoadtripLaponieAuroresBoreales() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#eaf6fb] via-[#f7fafc] to-[#eaf6fb]">
+      <SEO
+        title="Roadtrip Laponie : conseils, itinéraire et aurores boréales | L'échappée d'Emma"
+        description="Préparez votre roadtrip en Laponie : conseils pratiques pour voir les aurores boréales, itinéraire nordique, équipement, meilleure période et expériences authentiques dans le Grand Nord."
+        canonical="/blog/roadtrip-laponie-aurores-boreales"
+        ogType="article"
+        ogImage="/gallery/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg"
+        structuredData={blogPostingSchema}
+      />
       <Navbar />
       {/* Bandeau fond coloré sous la nav */}
       <section className="w-full pt-28 pb-12 px-4 bg-secondary/60 border-b border-border text-center">

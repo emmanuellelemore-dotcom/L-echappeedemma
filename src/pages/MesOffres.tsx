@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import AmbassadorCard from '../components/AmbassadorCard';
+import SEO from '../components/SEO';
 
 const offers = [
   {
@@ -234,6 +235,11 @@ const MesOffres = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
+      <SEO
+        title="Mes offres de voyage sur mesure dans le Grand Nord | L'échappée d'Emma"
+        description="Trouvez l'offre de voyage sur mesure qui correspond à votre besoin de souffle : de la visio-conseil à l'itinéraire complet en Islande, Norvège, Suède ou Finlande. Programme ambassadeur disponible."
+        canonical="/mes-offres"
+      />
       <Navbar />
 
       <motion.section className="bg-secondary/40 pt-36 pb-24 px-4 md:px-6" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>

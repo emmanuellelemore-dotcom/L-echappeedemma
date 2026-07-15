@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="bg-card border border-border rounded-2xl p-6 md:p-8 space-y-3">
@@ -11,6 +12,12 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 const MentionsLegales = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Mentions légales | L'échappée d'Emma"
+        description="Mentions légales de L'échappée d'Emma, travel planner spécialisée dans les voyages sur mesure dans le Grand Nord."
+        canonical="/mentions-legales"
+        robots="noindex, follow"
+      />
       <Navbar />
 
       <main className="pt-32 pb-24 px-4 md:px-6 max-w-5xl mx-auto space-y-6">

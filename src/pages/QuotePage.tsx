@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
+import SEO from '../components/SEO';
 
 const offerOptions = [
   { value: '', label: 'Choisir une offre...' },
@@ -137,6 +138,12 @@ const QuotePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Demander un devis voyage sur mesure dans le Grand Nord | L'échappée d'Emma"
+        description="Décrivez votre projet de voyage en Islande, Norvège, Suède ou Finlande. Emma crée votre itinéraire sur mesure et vous accompagne de A à Z pour vivre votre échappée nordique."
+        canonical="/devis"
+        robots="noindex, follow"
+      />
       <Navbar />
 
       <main className="pt-32 pb-24 px-6 max-w-7xl mx-auto">

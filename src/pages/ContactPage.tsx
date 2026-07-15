@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
+import SEO from '../components/SEO';
 
 const CONTACT_EMAIL = 'hello.lechappeedemma@gmail.com';
 
@@ -60,6 +61,11 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Contact — Échangeons sur votre projet de voyage | L'échappée d'Emma"
+        description="Contactez Emma pour toute question sur un voyage sur mesure dans le Grand Nord. Islande, Norvège, Suède, Finlande : posez vos questions et commencez l'aventure."
+        canonical="/contact"
+      />
       <Navbar />
 
       <main className="pt-32 pb-24 px-6 max-w-5xl mx-auto">
