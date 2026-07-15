@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://lechappeedemma.com/sitemap.xml
+Sitemap: https://www.lechappeedemma.com/sitemap.xml

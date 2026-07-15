@@ -10,26 +10,26 @@ const blogPostingSchema = {
   "@type": "BlogPosting",
   "headline": "Roadtrip Laponie : conseils, itinéraire et aurores boréales",
   "description": "Préparez votre roadtrip en Laponie avec des conseils pratiques pour voir les aurores boréales, choisir le meilleur itinéraire nordique et vivre une expérience authentique dans le Grand Nord.",
-  "url": "https://lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales",
+  "url": "https://www.lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales",
   "datePublished": "2026-02-15",
   "author": {
     "@type": "Person",
     "name": "Emma",
-    "url": "https://lechappeedemma.com/emma"
+    "url": "https://www.lechappeedemma.com/emma"
   },
   "publisher": {
     "@type": "ProfessionalService",
     "name": "L'échappée d'Emma",
-    "url": "https://lechappeedemma.com",
-    "logo": "https://lechappeedemma.com/logo.png"
+    "url": "https://www.lechappeedemma.com",
+    "logo": "https://www.lechappeedemma.com/logo.png"
   },
-  "image": "https://lechappeedemma.com/gallery/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg",
+  "image": "https://www.lechappeedemma.com/gallery/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://lechappeedemma.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://lechappeedemma.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "Roadtrip Laponie", "item": "https://lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales" }
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.lechappeedemma.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.lechappeedemma.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": "Roadtrip Laponie", "item": "https://www.lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales" }
     ]
   }
 };
