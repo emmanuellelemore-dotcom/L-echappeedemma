@@ -15,6 +15,7 @@ import destSuede from '../assets/dest-suede.jpg';
 import destFinlande from '../assets/dest-finlande.jpg';
 
 import Navbar from '../components/Navbar';
+import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import DestinationCard from '../components/DestinationCard';
 import GoogleReviews from '../components/GoogleReviews';
@@ -197,11 +198,16 @@ const Index = () => {
   // processProgress supprimé car processSteps n'existe plus
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <Helmet>
+        <meta name="description" content="Voyages sur-mesure Grand Nord : Islande, Norvège, Suède, Finlande. Itinéraires personnalisés, conseils d'experte, accompagnement humain et transparent. Cap au Nord pour un nouveau souffle !" />
+      </Helmet>
+      <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-10 sm:pt-24 sm:pb-16">
+        <h1 className="sr-only">L'échappée d'Emma - Cap au Nord pour un Nouveau Souffle avec L'Échappée d'Emma</h1>
         <div className="absolute inset-0 overflow-hidden">
           {heroImages.length > 0 ? (
             <img
@@ -219,7 +225,7 @@ const Index = () => {
         <div className="relative z-10 text-center px-2 w-full max-w-4xl mx-auto">
           <div className="mb-1">
             <GradualSpacing
-              text="Cap au Nord Pour un"
+              text="Cap au Nord pour un"
               renderChar={(char, i) => {
                 const start = 7;
                 const end = 11;
@@ -237,7 +243,7 @@ const Index = () => {
           </div>
           <div className="mb-3">
             <GradualSpacing
-              text="nouveau souffle"
+              text="Nouveau Souffle"
               renderChar={(char, i) => (
                 <span
                   className="font-bold font-serif text-accent"
@@ -262,6 +268,7 @@ const Index = () => {
               <Link to="/gallery/norvege" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Norvège</Link>
               <Link to="/gallery/islande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Islande</Link>
               <Link to="/gallery/suede" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Suède</Link>
+              <Link to="/gallery/finlande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Finlande</Link>
               <button
                 onClick={() => setShowExtraDests(v => !v)}
                 className="border border-white/80 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-white/10 transition focus:outline-none opacity-70 hover:opacity-90"
@@ -306,9 +313,9 @@ const Index = () => {
       {/* Texte de bienvenue entre hero et Introduction */}
       <div className="w-full my-1">
         <span
-          className="block w-full text-xs sm:text-sm md:text-base lg:text-lg font-serif font-bold text-blue-900 px-4 py-3 text-center whitespace-nowrap overflow-x-auto"
+          className="block w-full overflow-x-auto whitespace-nowrap px-4 py-3 text-center text-[11px] font-serif font-bold text-blue-900 sm:text-xs md:text-sm lg:text-base"
         >
-          Je conçois des parenthèses de sérénité sur-mesure dans le Grand Nord. Pour ralentir, se réapproprier son temps et, enfin, reprendre son souffle.
+          Architecte de vos voyages sur-mesure dans les grands espaces nordiques. Une invitation à vivre l'immensité ensemble, à savourer chaque instant et à retrouver le plaisir de l'essentiel, à votre rythme.
         </span>
       </div>
 
@@ -336,10 +343,11 @@ const Index = () => {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-5">Je suis Emma</p>
-            <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6">Travel planner pour vous aider à reprendre votre souffle</h2>
+            <h2 className="text-center text-3xl md:text-4xl font-serif text-foreground mb-6">Votre Travel Planner (concepteur de voyages sur-mesure) spécialiste du Grand Nord & de l'itinérance.</h2>
             <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">
-              Je crée des itinéraires sur mesure dans le Grand Nord pour celles et ceux qui ont besoin de ralentir et de se recentrer. Mon approche : écoute, simplicité et nature.
+              Je conçois des itinéraires uniques pour tous les amoureux de nature sauvage, avec une sensibilité particulière pour ceux qui cherchent à marquer un nouveau départ.
             </p>
+            <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">Mon approche : écoute, simplicité et nature.</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/emma"
@@ -445,7 +453,7 @@ const Index = () => {
 
       <Footer />
     </div>
-  );
+  </>);
 };
 
 export default Index;

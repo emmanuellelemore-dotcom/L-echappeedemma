@@ -5,26 +5,11 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const snowFlakes = [
-  { left: '4%', size: 'text-sm', delay: 0.1, duration: 9.8, drift: 14, opacity: 0.45, blur: 'blur-[0.4px]' },
-  { left: '11%', size: 'text-lg', delay: 1.3, duration: 12.5, drift: 20, opacity: 0.55, blur: 'blur-0' },
-  { left: '18%', size: 'text-xs', delay: 0.8, duration: 10.2, drift: 12, opacity: 0.42, blur: 'blur-[0.3px]' },
-  { left: '26%', size: 'text-xl', delay: 2.4, duration: 13.4, drift: 18, opacity: 0.5, blur: 'blur-0' },
-  { left: '34%', size: 'text-sm', delay: 1.1, duration: 11.8, drift: 15, opacity: 0.48, blur: 'blur-[0.4px]' },
-  { left: '41%', size: 'text-base', delay: 3.1, duration: 12.9, drift: 16, opacity: 0.44, blur: 'blur-[0.2px]' },
-  { left: '49%', size: 'text-xs', delay: 0.4, duration: 9.6, drift: 10, opacity: 0.38, blur: 'blur-[0.4px]' },
-  { left: '57%', size: 'text-lg', delay: 2.2, duration: 13.8, drift: 19, opacity: 0.52, blur: 'blur-0' },
-  { left: '65%', size: 'text-sm', delay: 1.7, duration: 10.6, drift: 13, opacity: 0.44, blur: 'blur-[0.3px]' },
-  { left: '73%', size: 'text-xl', delay: 2.8, duration: 14.2, drift: 22, opacity: 0.56, blur: 'blur-0' },
-  { left: '81%', size: 'text-xs', delay: 0.9, duration: 9.9, drift: 12, opacity: 0.4, blur: 'blur-[0.4px]' },
-  { left: '89%', size: 'text-base', delay: 1.9, duration: 12.1, drift: 16, opacity: 0.46, blur: 'blur-[0.2px]' },
-  { left: '95%', size: 'text-sm', delay: 3.4, duration: 13.1, drift: 14, opacity: 0.42, blur: 'blur-[0.3px]' },
-];
-
 const VillageDuPereNoel = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [musicStarted, setMusicStarted] = useState(false);
   const [musicEnabled, setMusicEnabled] = useState(false);
+  const [activeStory, setActiveStory] = useState<'village' | 'souvenirs' | 'sur-mesure' | null>(null);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -108,28 +93,6 @@ const VillageDuPereNoel = () => {
           </video>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,10,18,0.35),rgba(4,10,21,0.58),rgba(7,19,31,0.82))]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(162,233,255,0.18),rgba(162,233,255,0)_30%),radial-gradient(circle_at_80%_12%,rgba(255,245,195,0.18),rgba(255,245,195,0)_22%)]" />
-          <div className="pointer-events-none absolute inset-0">
-            {snowFlakes.map((flake) => (
-              <motion.span
-                key={`${flake.left}-${flake.delay}`}
-                className={`absolute top-[-10%] select-none text-white/90 ${flake.size} ${flake.blur}`}
-                style={{ left: flake.left, opacity: flake.opacity, textShadow: '0 0 12px rgba(255,255,255,0.18)' }}
-                animate={{
-                  y: ['0vh', '118vh'],
-                  x: [0, flake.drift, -flake.drift * 0.5, flake.drift * 0.25],
-                  rotate: [0, 40, -30, 20],
-                }}
-                transition={{
-                  duration: flake.duration,
-                  delay: flake.delay,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-              >
-                ❄
-              </motion.span>
-            ))}
-          </div>
         </div>
 
         <button
@@ -158,9 +121,9 @@ const VillageDuPereNoel = () => {
             >
               <div className="relative mx-auto max-w-xl text-center">
                 <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#d8b155]">Ambiance feerique</p>
-                <h1 className="mt-3 text-3xl font-serif text-white md:text-4xl">Village du Pere Noel</h1>
+                <h1 className="mt-3 text-3xl font-serif text-white md:text-4xl">L'échappée d'Emma - Bienvenue au cœur de la féerie polaire, village du père Noël fait par L'Échappée d'Emma</h1>
                 <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/82 md:text-base">
-                  Clique dans le coffret ou sur le bouton en haut a droite pour lancer la musique et entrer dans l'ambiance du Grand Nord.
+                  Laissez-vous porter par le crépitement du feu et le silence de la neige... Ici, la magie de Noël n'est pas qu'une date, c'est un voyage qui commence dès maintenant. Prenez le temps d'explorer cet univers où les souvenirs d'enfance prennent vie.
                 </p>
 
                 {!musicStarted && (
@@ -178,18 +141,56 @@ const VillageDuPereNoel = () => {
                 )}
 
                 <div className="mt-6 grid gap-3 md:grid-cols-1">
-                  {[
-                    'Idees cadeaux a glisser sous le sapin',
-                    'Ambiance nordique douce et festive',
-                    'Future page dediee a une echappee magique',
-                  ].map((item) => (
-                    <div key={item} className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/76 shadow-sm backdrop-blur-sm">
-                      <div className="flex items-center justify-center gap-2">
-                        <Sparkles className="h-4 w-4 text-[#d8b155]" />
-                        <span>{item}</span>
-                      </div>
-                    </div>
-                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setActiveStory(activeStory === 'village' ? null : 'village')}
+                    className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/90 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      <Sparkles className="h-4 w-4 text-[#d8b155]" />
+                      <span>Bienvenue au Village</span>
+                    </span>
+                  </button>
+
+                  {activeStory === 'village' && (
+                    <p className="rounded-[1.1rem] border border-white/8 bg-black/30 px-4 py-4 text-sm leading-relaxed text-white/82">
+                      Laissez-vous porter par les mélodies de Noël et l'éclat des lumières nordiques... Vous êtes ailleurs. Ici, le voyage commence dans la chaleur du partage et la joie des préparatifs. Prenez un instant pour savourer cette parenthèse enchantée.
+                    </p>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveStory(activeStory === 'souvenirs' ? null : 'souvenirs')}
+                    className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/90 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      <Sparkles className="h-4 w-4 text-[#d8b155]" />
+                      <span>Des souvenirs à partager.</span>
+                    </span>
+                  </button>
+
+                  {activeStory === 'souvenirs' && (
+                    <p className="rounded-[1.1rem] border border-white/8 bg-black/30 px-4 py-4 text-sm leading-relaxed text-white/82">
+                      Offrez bien plus qu'un voyage : une promesse d'évasion qui fera briller les yeux de chaque génération. Entre rires et magie polaire, créez ensemble ces souvenirs précieux que les enfants emporteront toute leur vie et que les plus grands chériront. À quelques-uns ou avec toute votre tribu, l'aventure commence ici.
+                    </p>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveStory(activeStory === 'sur-mesure' ? null : 'sur-mesure')}
+                    className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/90 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      <Sparkles className="h-4 w-4 text-[#d8b155]" />
+                      <span>L'aventure sur-mesure</span>
+                    </span>
+                  </button>
+
+                  {activeStory === 'sur-mesure' && (
+                    <p className="rounded-[1.1rem] border border-white/8 bg-black/30 px-4 py-4 text-sm leading-relaxed text-white/82">
+                      Glissez une enveloppe d'échappée au milieu des cadeaux. Que vous souhaitiez un itinéraire complet, une sélection d'hébergements ou le carnet de vos futures activités, je conçois pour vous ce moment de fête personnalisé. Avec un montant au choix, la surprise commence ici et la magie fera le reste.
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -198,13 +199,13 @@ const VillageDuPereNoel = () => {
                     className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/16"
                   >
                     <ArrowLeft className="h-4 w-4" />
-                    Revenir a Mes Offres
+                    Revenir à Mes Offres
                   </Link>
                   <Link
                     to="/devis"
                     className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(180deg,#d53d4d,#b81f34)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                   >
-                    Offrir une echappee
+                    Glisser l'échappée sous le sapin
                     <Gift className="h-4 w-4" />
                   </Link>
                 </div>

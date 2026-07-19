@@ -6,8 +6,55 @@ import { Resend } from "resend";
 dotenv.config({ path: ".env.local" });
 dotenv.config();
 
+const normalizeOrigin = (origin) => {
+  try {
+    const url = new URL(origin);
+    return `${url.protocol}//${url.host}`;
+  } catch {
+    return String(origin || "").trim().replace(/\/$/, "");
+  }
+};
+
+const defaultAllowedOrigins = [
+  "http://localhost:8080",
+  "http://127.0.0.1:8080",
+  "http://localhost:4173",
+  "http://127.0.0.1:4173",
+  "https://lechappeedemma.com",
+  "https://www.lechappeedemma.com",
+  "https://lechappeedemma.onrender.com",
+];
+
+const configuredAllowedOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((origin) => normalizeOrigin(origin))
+  .filter(Boolean);
+
+const allowedOrigins = new Set(
+  (configuredAllowedOrigins.length > 0 ? configuredAllowedOrigins : defaultAllowedOrigins).map((origin) =>
+    normalizeOrigin(origin)
+  )
+);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Keep server-to-server calls working (no Origin header: curl, health checks, cron jobs).
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    const normalizedOrigin = normalizeOrigin(origin);
+
+    if (allowedOrigins.has(normalizedOrigin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`Origin not allowed by CORS: ${origin}`));
+  },
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "256kb" }));
 
 const port = Number(process.env.PORT || process.env.CONTACT_PORT || 3001);

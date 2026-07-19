@@ -30,7 +30,7 @@ const discoveryOptions = [
 const RequiredMark = () => <span className="text-accent"> *</span>;
 
 const QuotePage = () => {
-  const [budget, setBudget] = useState(3000);
+  const [budget, setBudget] = useState(700);
   const budgetInputRef = useRef<HTMLInputElement | null>(null);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -140,6 +140,7 @@ const QuotePage = () => {
       <Navbar />
 
       <main className="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+        <h1 className="sr-only">L'échappée d'Emma - Demande de devis voyage sur-mesure Grand Nord de L'Échappée d'Emma</h1>
         <div className="grid lg:grid-cols-3 gap-12 items-start">
 
         {/* Colonne principale (formulaire) */}
@@ -150,10 +151,10 @@ const QuotePage = () => {
           className="lg:col-span-2"
         >
           {/* Titre */}
-          <h1 className="text-4xl md:text-5xl font-serif text-foreground mb-3">
+          <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-3">
             Dessinons les contours{' '}
             <span className="italic text-accent">de votre échappée</span>
-          </h1>
+          </h2>
           <p className="text-muted-foreground text-base md:text-lg mb-10 leading-relaxed">
             Confiez-moi vos premières envies. Elles sont le point de départ pour concevoir ensemble l'échappée nordique qui vous ressemble.
           </p>
@@ -450,7 +451,7 @@ const QuotePage = () => {
 
               {/* La suite du projet */}
               <p className="text-center text-foreground text-sm leading-relaxed border-t border-dashed border-border pt-5">
-                <strong>La suite de votre projet :</strong> Dès réception de cette esquisse, je vous contacterai<br className="hidden md:block" />
+                <strong>La suite de votre projet :</strong> Dès réception de cette esquisse, je vous contacterai<span className="hidden md:inline"> </span><br className="md:hidden" />
                 pour un échange de 15 minutes afin de faire connaissance et de valider les contours de votre projet.
               </p>
             </div>

@@ -11,45 +11,49 @@ import Marquee from '../components/Marquee';
 const articles = [
   {
     id: 1,
-    title: 'Roadtrip en Laponie : conseils pour un hiver magique',
-    summary: 'Préparez votre aventure dans le Grand Nord avec nos astuces pour un voyage inoubliable sous les aurores boréales.',
-    image: '/gallery/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg',
+    slug: 'lofoten-organiser-votre-echappee-sereine-grand-nord',
+    title: 'Lofoten : Organiser votre échappée sereine dans le Grand Nord',
+    summary: "Besoin de reprendre votre souffle ? Je conçois des échappées sur-mesure aux Lofoten pour vous libérer de la logistique et vous reconnecter à l'essentiel.",
+    image: '/gallery/norvege/vue-panoramique-fjord-coucher-soleil-hauteur.jpg',
     date: '2026-02-15',
-    tags: ['Finlande', 'Hiver', 'Conseils'],
+    tags: ['Lofoten', 'Norvege', 'Conseils'],
   },
   {
     id: 2,
-    title: 'Islande : 5 randonnées à couper le souffle',
-    summary: 'Découvrez les plus beaux sentiers d’Islande, entre volcans, glaciers et cascades spectaculaires.',
-    image: '/gallery/islande/soleil-couchant-plage-diamant-islande.jpg',
+    slug: 'bien-choisir-son-equipement-grand-nord',
+    title: 'Bien choisir son équipement pour le Grand Nord',
+    summary: "Le Grand Nord ne se dompte pas, il s'apprivoise. L'équipement n'est pas qu'une question de confort ; c'est votre allié de sécurité.",
+    image: '/gallery/finlande/riviere-hiver-glace-neige-foret-nordique-paysage.jpg',
     date: '2026-01-28',
-    tags: ['Islande', 'Randonnée'],
+    tags: ['Equipement', 'Conseils'],
   },
   {
     id: 3,
-    title: 'Bien choisir son équipement pour le Nord',
-    summary: 'Nos conseils pour s’équiper sans se ruiner et profiter pleinement de l’expérience nordique.',
-    image: '/gallery/norvege/vue-panoramique-fjord-coucher-soleil-hauteur.jpg',
+    slug: 'randonner-grand-nord-guide-insider',
+    title: "Randonner dans le Grand Nord : le guide de l'insider",
+    summary: 'Les plus belles vues du Grand Nord se méritent. Voici comment aborder ces randonnées avec un esprit serein.',
+    image: '/gallery/norvege/route-panoramique-vallee-verte-ete.jpg',
     date: '2025-12-10',
-    tags: ['Equipement', 'Conseils'],
+    tags: ['Randonnee', 'Conseils'],
   },
 
   {
     id: 4,
-    title: 'Suède secrète : immersion en forêt boréale',
-    summary: 'Partez à la découverte de la Suède sauvage, entre lacs gelés et forêts silencieuses.',
-    image: '/gallery/suede/coucher-soleil-rose-violet-lac-miroir.jpg',
+    slug: 'pourquoi-choisir-la-laponie-parenthese-hivernale',
+    title: 'Pourquoi choisir la Laponie pour votre prochaine parenthèse hivernale ?',
+    summary: "Entre silence, immensités blanches et aurores boréales, la Laponie est une invitation à ralentir.",
+    image: '/gallery/finlande/aurore-boreale-verte-montagnes-enneigees-nuit.jpg',
     date: '2025-11-05',
-    tags: ['Suède', 'Nature'],
+    tags: ['Laponie', 'Hiver'],
   },
-  // 5e card factice pour la démo
   {
     id: 5,
-    title: 'Voyager en Norvège : fjords et liberté',
-    summary: 'Explorez les fjords norvégiens, itinéraires en van, conseils pour un roadtrip nordique inoubliable.',
-    image: '/gallery/norvege/village-maisons-rouges-fjord-norvege.jpg',
+    slug: 'suede-secrete-immersion-foret-boreale',
+    title: 'Suède secrète : immersion en forêt boréale',
+    summary: "Il existe des voyages qui ne se racontent pas, ils se ressentent. Cette échappée en canoë en fait partie.",
+    image: '/gallery/suede/cabane-rouge-bord-lac-canoe.jpg',
     date: '2025-10-20',
-    tags: ['Norvège', 'Fjords', 'Roadtrip'],
+    tags: ['Suede', 'Nature'],
   },
 ];
 
@@ -57,6 +61,9 @@ const articles = [
 const allTags = Array.from(new Set(articles.flatMap(a => a.tags)));
 
 export default function BlogPage() {
+  /* H1 SEO pour la page blog */
+  /* eslint-disable-next-line jsx-a11y/heading-has-content */
+  const h1 = <h1 className="sr-only">L'échappée d'Emma - Blog voyage Grand Nord, conseils, itinéraires et inspirations de L'Échappée d'Emma</h1>;
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const articlesPerPage = 3;
@@ -140,12 +147,6 @@ export default function BlogPage() {
       <section className="max-w-7xl mx-auto px-4 pb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {paginated.map(article => {
-            // Génère un slug SEO-friendly pour l'URL
-            let slug = article.title
-              .toLowerCase()
-              .replace(/[^a-z0-9àâçéèêëîïôûùüÿñæœ\s-]/g, '')
-              .replace(/\s+/g, '-');
-            if (article.id === 1) slug = 'roadtrip-laponie-aurores-boreales';
             // Description SEO pour chaque article
             let seoDescription = '';
             if (article.id === 1) seoDescription = "Conseils pratiques pour organiser un roadtrip en Laponie, voir les aurores boréales, choisir son itinéraire et vivre une expérience nordique authentique.";
@@ -155,7 +156,7 @@ export default function BlogPage() {
             return (
               <Link
                 key={article.id}
-                to={`/blog/${slug}`}
+                to={`/blog/${article.slug}`}
                 className="group"
                 aria-label={article.title}
               >

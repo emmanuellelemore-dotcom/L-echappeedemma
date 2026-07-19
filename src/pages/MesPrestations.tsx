@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { motion, useAnimation } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -48,7 +49,7 @@ const MesPrestations = () => {
   const reasonsList = Array(4).fill(reasons).flat();
   const xRef = useRef(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  const totalDuration = 32; // durée totale pour parcourir toute la liste (plus lent)
+  const totalDuration = 60; // durée totale pour parcourir toute la liste
   const containerRef = useRef<HTMLDivElement>(null);
   const processSectionRef = useRef<HTMLElement | null>(null);
   const reasonsSectionRef = useRef<HTMLElement | null>(null);
@@ -101,9 +102,14 @@ const MesPrestations = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <>
+      <Helmet>
+        <meta name="description" content="Prestations de Travel Planner sur-mesure pour le Grand Nord : accompagnement, organisation, itinéraires personnalisés, conseils d'experte pour un voyage unique en Islande, Norvège, Suède, Finlande." />
+      </Helmet>
+      <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       <section className="w-full bg-white py-[72px] px-4 border-b border-border">
+        <h1 className="sr-only">L'échappée d'Emma - Prestations de Travel Planner sur-mesure Grand Nord avec L'Échappée d'Emma</h1>
         <div className="max-w-5xl mx-auto text-center">
           <MesPrestationsTitle />
           <div className="text-center text-lg">
@@ -158,7 +164,7 @@ const MesPrestations = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <motion.h2 initial={{ opacity: 0, y: -18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }} className="text-3xl md:text-4xl font-serif text-foreground mb-4">Quel est votre besoin de souffle ?</motion.h2>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base mb-2">Parce que chaque <TournantDeVieText /> demande une énergie différente, j'ai conçu six approches pour vous aider à retrouver votre cap.</motion.p>
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-muted-foreground text-base mb-2">Parce que chaque échappée de vie demande une énergie différente, j'ai conçu six approches pour vous aider à retrouver votre cap.</motion.p>
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }} className="text-muted-foreground text-base">C'est vous qui choisissez l'intensité de votre déconnexion.</motion.p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mb-8">
@@ -231,7 +237,7 @@ const MesPrestations = () => {
       </section>
       <Footer />
     </div>
-  );
+  </>);
 };
 
 export default MesPrestations;

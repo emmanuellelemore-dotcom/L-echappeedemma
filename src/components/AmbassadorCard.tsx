@@ -146,7 +146,6 @@ const AmbassadorCard = ({ className = '', compact = false }: AmbassadorCardProps
             />
           </div>
 
-          <p className="mt-5 text-sm italic leading-relaxed text-primary/70">Note : le montant varie en fonction de l'offre.</p>
           <p className="mt-3 text-xs leading-relaxed text-primary/60">
             Offres applicables sur tous les itinéraires sur-mesure (hors offre Étincelle) et non cumulables.
           </p>

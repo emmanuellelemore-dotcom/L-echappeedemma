@@ -3,8 +3,8 @@ import Footer from '../components/Footer';
 
 const rowOne = [
   {
-    type: 'photo',
-    title: 'Photo',
+    type: 'value',
+    title: 'La Contemplation Choisie',
     text: 'Contemplation : Un détail apaisant. Une tasse de café fumante devant une fenêtre de rorbu (cabane de pêcheur), ou un gros plan sur de la mousse et du lichen arctique. Quelque chose de très “statique”.',
   },
   {
@@ -14,8 +14,8 @@ const rowOne = [
     text: "Parce que la vie est courte, chaque instant doit être savouré. Que vous choisissiez la contemplation ou l'énergie d'un road trip, je conçois des parcours qui privilégient l'intensité de l'émotion à la simple accumulation de kilomètres.",
   },
   {
-    type: 'photo',
-    title: 'Photo',
+    type: 'value',
+    title: 'Le Mouvement Juste',
     text: 'Mouvement : Une photo de voyage “en route”. Un van sur une route côtière, ou le pont d’un ferry qui fend l’eau. Quelque chose qui évoque l’itinéraire.',
   },
 ];
@@ -28,8 +28,8 @@ const rowTwo = [
     text: 'Mon travail est au service de votre sérénité. Je mets mon énergie à dénicher pour vous des hébergements et des itinéraires en terre nordique qui favorisent une véritable parenthèse de reconnexion.',
   },
   {
-    type: 'photo',
-    title: 'Photo',
+    type: 'value',
+    title: 'L’Esprit du Refuge',
     text: 'L’idée : Un intérieur “Hygge” ou “Koselig”. Un feu de bois, une main qui tient un carnet de voyage, ou un éclairage doux dans une cabane en bois le soir.',
   },
   {
@@ -41,14 +41,31 @@ const rowTwo = [
 ];
 
 const CharteEchappee = () => {
+  const getCardClassName = (index: number) => {
+    if (index % 3 === 1) {
+      return 'bg-accent text-accent-foreground';
+    }
+
+    return 'bg-primary text-primary-foreground';
+  };
+
+  const getInvertedCardClassName = (index: number) => {
+    if (index % 3 === 1) {
+      return 'bg-primary text-primary-foreground';
+    }
+
+    return 'bg-accent text-accent-foreground';
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
       <main className="pt-32 pb-24 px-4 md:px-6 max-w-7xl mx-auto">
-        <h1 className="text-center text-4xl md:text-5xl font-serif text-foreground mb-8">
+        <h1 className="sr-only">Charte de L'Échappée d'Emma, valeurs et engagements</h1>
+        <h2 className="text-center text-4xl md:text-5xl font-serif text-foreground mb-8">
           La Charte de l’Échappée
-        </h1>
+        </h2>
 
         <div className="max-w-5xl mx-auto text-center text-muted-foreground text-base md:text-lg leading-relaxed mb-12 space-y-2">
           <p>Parce que je connais la valeur d’une parenthèse pour soi, je fonde notre relation sur la transparence et la bienveillance.</p>
@@ -60,7 +77,7 @@ const CharteEchappee = () => {
             {rowOne.map((card, index) => (
               <article
                 key={`${card.title}-${index}`}
-                className={`min-h-[320px] md:min-h-[400px] p-6 md:p-8 flex flex-col justify-start text-center ${card.type === 'value' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'}`}
+                className={`min-h-[320px] md:min-h-[400px] p-6 md:p-8 flex flex-col justify-start text-center ${getCardClassName(index)}`}
               >
                 <h2 className="text-2xl md:text-4xl font-semibold mb-6 font-serif">{card.title}</h2>
                 {card.value && <p className="text-xl md:text-2xl font-semibold mb-6">{card.value}</p>}
@@ -73,7 +90,7 @@ const CharteEchappee = () => {
             {rowTwo.map((card, index) => (
               <article
                 key={`${card.title}-${index}`}
-                className={`min-h-[320px] md:min-h-[400px] p-6 md:p-8 flex flex-col justify-start text-center ${card.type === 'value' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'}`}
+                className={`min-h-[320px] md:min-h-[400px] p-6 md:p-8 flex flex-col justify-start text-center ${getInvertedCardClassName(index)}`}
               >
                 <h2 className="text-2xl md:text-4xl font-semibold mb-6 font-serif">{card.title}</h2>
                 {card.value && <p className="text-xl md:text-2xl font-semibold mb-6">{card.value}</p>}
@@ -93,9 +110,9 @@ const CharteEchappee = () => {
             </article>
 
             <article className="min-h-[320px] md:min-h-[400px] p-6 md:p-8 flex flex-col justify-start text-center bg-accent text-accent-foreground">
-              <h2 className="text-2xl md:text-4xl font-semibold mb-6 font-serif">Photo</h2>
+              <h2 className="text-2xl md:text-4xl font-semibold mb-6 font-serif">Le Nord à Votre Rythme</h2>
               <p className="text-lg md:text-2xl leading-snug font-medium">
-                Un grand paysage norvégien avec une route sinueuse mais vide, ou un fjord embrumé vu de haut.
+                J'imagine des itinéraires qui laissent de l'espace aux détours, aux silences et aux respirations. Le voyage reste structuré, mais jamais verrouillé, pour que vous puissiez vivre le Nord avec souplesse et justesse.
               </p>
             </article>
 
@@ -113,7 +130,6 @@ const CharteEchappee = () => {
         <p className="text-center text-muted-foreground italic font-serif text-base md:text-lg mt-10">
           Une charte pensée pour protéger votre liberté, votre souffle et la qualité de votre expérience.
         </p>
-
       </main>
 
       <Footer />

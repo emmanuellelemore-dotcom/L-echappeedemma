@@ -27,11 +27,11 @@ export const TournantDeVieProvider = ({ children }: { children: React.ReactNode 
     <TournantDeVieContext.Provider value={value}>
       {children}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto bg-white">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-serif">Marquer un tournant, respirer à nouveau</DialogTitle>
+            <DialogTitle className="text-2xl font-serif">Marquer un tournant, respirer plus grand, s’ouvrir à l’ailleurs.</DialogTitle>
             <DialogDescription className="text-base leading-relaxed text-foreground">
-              Le voyage est bien plus qu'une simple découverte géographique ; c'est parfois le seul moyen de mettre de la distance avec ce que l'on laisse derrière soi.
+              Le voyage est bien plus qu’une simple découverte géographique ; c’est une invitation à ralentir, à se reconnecter à l’essentiel et à voir le monde — et soi-même — autrement.
             </DialogDescription>
           </DialogHeader>
 
@@ -39,27 +39,30 @@ export const TournantDeVieProvider = ({ children }: { children: React.ReactNode 
             <div>
               <h3 className="text-foreground font-semibold mb-2">Qu’est-ce qu’un tournant de vie ?</h3>
               <p>
-                C’est ce moment de bascule, souvent intense, où l’on ressent le besoin viscéral de marquer le coup. C’est le point de rencontre entre la fin d’un chapitre et l’incertitude du suivant. Que ce soit une transition choisie ou une épreuve imposée par la vie, c'est l'instant où l'on a besoin de clore une page pour pouvoir enfin en écrire une nouvelle, avec plus de clarté et de sérénité.
+                C’est ce moment charnière où quelque chose évolue en nous. Un instant où l’on ressent l’envie de marquer une étape ou simplement de s’offrir un souffle nouveau.<br />
+                Un tournant de vie, ce n’est pas forcément une rupture ou une tempête. Cela peut aussi être une prise de conscience, une envie de changement, un nouveau départ, ou le besoin d’honorer une étape importante de son parcours.<br />
+                Un tournant de vie peut naître d’un changement, d’un accomplissement, d’une décision importante ou simplement d’un élan intérieur. C’est cette sensation qu’un cap se dessine, qu’un nouvel espace s’ouvre, et qu’il est temps de l’accueillir pleinement.<br />
+                C’est ce point de passage entre ce qui a été… et tout ce qui peut encore s’ouvrir devant soi.
               </p>
             </div>
 
-            <div>
-              <h3 className="text-foreground font-semibold mb-2">Des exemples de ces moments où le besoin de souffle se fait sentir :</h3>
-              <ul className="list-disc pl-5 space-y-2">
+            <div className="rounded-lg p-5">
+              <h3 className="text-foreground font-semibold mb-2">Des exemples de ces instants pour célébrer et se retrouver :</h3>
+              <ul className="list-disc pl-5 space-y-4">
                 <li>
-                  <span className="text-foreground font-medium">Le renouveau après la maladie :</span> Célébrer la fin des soins ou une rémission. Se réapproprier son corps et ses sensations loin des protocoles, pour remplacer le blanc des hôpitaux par le bleu des fjords.
+                  <span className="text-accent font-semibold">Célébrer les liens et les joies :</span> Honorer un mariage, une lune de miel hors du temps, une naissance ou le bonheur de devenir grands-parents. Marquer un anniversaire symbolique pour fêter le chemin parcouru entouré de ceux que l'on aime.
                 </li>
                 <li>
-                  <span className="text-foreground font-medium">Un nouveau départ professionnel :</span> Se retrouver après un burn-out, marquer une reconversion ou savourer l'entrée en retraite pour redéfinir ses propres priorités.
+                  <span className="text-accent font-semibold">Savourer un nouveau départ :</span> Transformer une reconversion professionnelle ou un départ en retraite en une véritable aventure. Redéfinir ses priorités et s'offrir le luxe de l'espace pour imaginer la suite de sa carrière avec enthousiasme.
                 </li>
                 <li>
-                  <span className="text-foreground font-medium">Une transition personnelle :</span> Traverser une séparation, un deuil, ou surmonter le syndrome du "nid vide" pour réapprendre à exister pour soi-même.
+                  <span className="text-accent font-semibold">Honorer une transition personnelle :</span> Traverser un changement de vie (séparation, deuil, syndrome du nid vide) avec douceur. Réapprendre à exister pour soi-même et transformer la solitude en une force tranquille face aux grands espaces.
                 </li>
                 <li>
-                  <span className="text-foreground font-medium">Un changement de cap :</span> Passer un cap d'âge symbolique (30, 40, 50 ans...) et ressentir le besoin de faire le point face à l'immensité pour retrouver son propre cap.
+                  <span className="text-accent font-semibold">Le renouveau après l'épreuve :</span> Célébrer la fin des soins ou une rémission. Se réapproprier son corps et ses sensations loin des protocoles, pour remplacer le blanc des hôpitaux par le bleu profond des fjords et le vert des aurores.
                 </li>
                 <li>
-                  <span className="text-foreground font-medium">L'urgence de vivre :</span> Parce que certaines épreuves nous rappellent que le temps est précieux, et qu'il est temps de réaliser ce rêve de Grand Nord que l'on repoussait sans cesse.
+                  <span className="text-accent font-semibold">L'urgence de vivre :</span> Parce que la vie nous rappelle que le temps est le bien le plus précieux. Ne plus repousser ce rêve de Grand Nord et oser enfin vivre l'immensité pour se sentir intensément vivant.
                 </li>
               </ul>
             </div>

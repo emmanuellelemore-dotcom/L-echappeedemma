@@ -14,6 +14,7 @@ const MentionsLegales = () => {
       <Navbar />
 
       <main className="pt-32 pb-24 px-4 md:px-6 max-w-5xl mx-auto space-y-6">
+        <h1 className="sr-only">Mentions légales L'Échappée d'Emma, Travel Planner</h1>
         <header className="space-y-3">
           <h1 className="text-4xl md:text-5xl font-serif text-foreground">Mentions légales</h1>
           <p className="text-muted-foreground leading-relaxed">
@@ -59,6 +60,12 @@ const MentionsLegales = () => {
           <p>
             Le site a pour objet de présenter les activités de L’échappée d’Emma : création d’itinéraires sur mesure,
             accompagnement au voyage et services de conseil.
+          </p>
+          <p>
+            L’Échappée d’Emma propose un service de conseil en organisation de voyage. À ce titre, l’entreprise n’est pas
+            une agence de voyage et ne procède à aucune réservation au nom et pour le compte de ses clients. Tous les services
+            de réservation (transports, hébergements, activités) sont effectués directement par le client via les liens de
+            réservation fournis dans le carnet de route.
           </p>
           <p>
             Les informations publiées sont fournies à titre indicatif et peuvent évoluer. Malgré le soin apporté à leur rédaction,

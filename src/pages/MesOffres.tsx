@@ -2,19 +2,22 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Gift, ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import AmbassadorCard from '../components/AmbassadorCard';
+
+const MotionLink = motion(Link);
 
 const offers = [
   {
     title: "Offre L'Étincelle",
     need: 'Vous ressentez la nécessité de clarifier vos choix et de lever vos doutes.',
     solution: '1h de visio-conseil pour valider vos choix techniques.',
-    displayPrice: '70 €',
+    displayPrice: '100 €',
     feeNote: 'Honoraires de visio-conseil pour une session dédiée à vos questions prioritaires.',
     detailTitle: 'Format expertise express',
-    detailPrice: '70 €',
+    detailPrice: '100 €',
     items: [
       "1h d’entretien pour lever vos doutes.",
       'Thématique au choix : itinéraire, budget ou logistique.',
@@ -23,13 +26,14 @@ const offers = [
     ],
   },
   {
-    title: "Offre L’Escale",
-    need: "Vous ressentez l'appel du silence et d’une pause immédiate.",
-    solution: 'Un séjour court (4-5 jours) dans un cocon unique et apaisant.',
-    displayPrice: 'À partir de 2 000 € pour 2*',
-    feeNote: 'Dont un minimum de 300 € d’honoraires de création, à adapter selon la durée du séjour.',
+    title: 'Offre L’Emprunte',
+    need: 'Vous aspirez au silence, au repos, ou vous souhaitez ralentir pour vous imprégner pleinement des grands espaces.',
+    solution: 'Un séjour ressourçant conçu autour de refuges chaleureux (dès 4 jours avec 1 cocon, ou pour 7 jours et au-delà, avec la possibilité de combiner 2 cocons différents).',
+    displayPrice: 'À partir de 340 €',
+    feeNote: 'Socle fixe de 180 € + 40 € / jour (tarif dégressif à 35 € / jour à partir du 11ème jour).',
     detailTitle: 'Premières Lueurs d’Islande',
-    detailPrice: 'À partir de 2 000 € pour 2*',
+    detailPrice: 'À partir de 2 040 € pour 2*',
+    detailNote: "exemple d'estimation globale (mes tarifs inclus)",
     items: [
       '4 nuits au cœur des ponts de mai, là où le jour ne finit jamais vraiment.',
       'Vol direct',
@@ -39,29 +43,14 @@ const offers = [
     ],
   },
   {
-    title: "Offre L’Ancrage",
-    need: "Vous ressentez l'envie de ralentir et de vous imprégner d’un lieu.",
-    solution: '7 à 10 jours avec un ou deux hébergements maximum.',
-    displayPrice: 'À partir de 2 500 € pour 2*',
-    feeNote: 'Dont un minimum de 460 € d’honoraires de création, à adapter selon la durée du séjour.',
-    detailTitle: 'Douceur de vivre en Suède',
-    detailPrice: 'À partir de 2 500 € pour 2*',
-    items: [
-      '7 nuits fin juin pour célébrer le solstice.',
-      'Vol direct',
-      'Voiture de location pour explorer les forêts',
-      'Immersion totale dans une maison près du lac',
-      'Temps pour soi : randonnées, lectures et repos',
-    ],
-  },
-  {
-    title: 'Offre Le Boréal',
+    title: 'Offre Boréale',
     need: 'Vous ressentez le désir de vivre la féerie nordique (Aurores, Noël).',
     solution: '5 à 7 jours thématiques avec une logistique arctique sécurisée.',
-    displayPrice: 'À partir de 4 300 € pour 2*',
-    feeNote: 'Dont un minimum de 480 € d’honoraires de création, à adapter selon la durée du séjour.',
+    displayPrice: 'À partir de 430 €',
+    feeNote: 'Socle fixe de 180 € + 50 € / jour.',
     detailTitle: 'La Magie d’Inari',
     detailPrice: 'À partir de 4 300 € pour 2*',
+    detailNote: "exemple d'estimation globale (mes tarifs inclus)",
     items: [
       '5 nuits au début de l’hiver, quand la Finlande revêt son manteau blanc.',
       'Vol avec escale vers le cercle polaire',
@@ -71,29 +60,24 @@ const offers = [
     ],
   },
   {
-    title: 'Offre Le Tracé',
+    title: 'Offre La Traversée',
     need: "Vous ressentez l'appel de la route et de la liberté totale.",
-    solution: 'Un itinéraire de 8 jours ou plus, dédié exclusivement à la Vanlife.',
-    displayPrice: 'À partir de 7 000 € pour 4*',
-    feeNote: 'Dont un minimum de 500 € d’honoraires de création, à adapter selon la durée du séjour.',
+    solution: 'Un itinéraire de 7 jours minimum pensé pour l’exploration libre : véhicule adapté à votre style de voyage, hébergements flexibles, et la route comme fil conducteur.',
+    displayPrice: 'À partir de 600 €',
+    feeNote: 'Socle fixe de 180 € + 60 € à 70 € / jour selon la formule choisie (tarifs dégressifs dès le 11ème jour).',
     detailTitle: 'La Liberté Nomade',
-    detailPrice: 'À partir de 7 000 € pour 4*',
+    detailPrice: 'À partir de 7 100 € pour 4*',
+    detailNote: "exemple d'estimation globale (mes tarifs inclus)",
     items: [
       '3 semaines d’été à travers les fjords du Sud-Ouest de la Norvège.',
       'Van tout confort aménagé pour 4 personnes',
       'Ferry inclus pour traverser les fjords',
       'Activités : vélo sur rail et tyroliennes en famille',
     ],
-  },
-  {
-    title: 'Offre La Traversée',
-    need: "Vous ressentez l'envie d’une immersion longue et de diversité.",
-    solution: 'Un road trip complet de 10 jours ou plus, à votre rythme.',
-    displayPrice: 'À partir de 5 000 € pour 2*',
-    feeNote: 'Dont un minimum de 880 € d’honoraires de création, à adapter selon la durée du séjour.',
-    detailTitle: 'L’Odyssée des Lofoten',
-    detailPrice: 'À partir de 5 000 € pour 2*',
-    items: [
+    secondDetailTitle: 'L’Odyssée des Lofoten',
+    secondDetailPrice: 'À partir de 6 000 € pour 2*',
+    secondDetailNote: "exemple d'estimation globale (mes tarifs inclus)",
+    secondItems: [
       '11 nuits en mai, entre sommets enneigés et mer turquoise.',
       'Vol avec escale',
       'Voiture de location',
@@ -219,9 +203,7 @@ const SnowflakesOverlay = () => (
 );
 
 const MesOffres = () => {
-  const [openOffers, setOpenOffers] = useState<Record<string, boolean>>({
-    [offers[0].title]: true,
-  });
+  const [openOffers, setOpenOffers] = useState<Record<string, boolean>>({});
 
   const isOfferOpen = (title: string) => !!openOffers[title];
 
@@ -233,10 +215,15 @@ const MesOffres = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <meta name="description" content="Découvrez toutes les offres de voyages sur-mesure Grand Nord : conseils, itinéraires, séjours thématiques, accompagnement personnalisé en Islande, Norvège, Suède, Finlande." />
+      </Helmet>
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
 
       <motion.section className="bg-secondary/40 pt-36 pb-24 px-4 md:px-6" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <h1 className="sr-only">L'échappée d'Emma - Offres de voyages sur-mesure Grand Nord et ailleurs de L'Échappée d'Emma</h1>
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-8 md:mb-10">
             <motion.h1 initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.8 }} variants={fadeDown} className="text-4xl md:text-5xl font-serif text-foreground mb-5">
@@ -245,18 +232,24 @@ const MesOffres = () => {
             <motion.p initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.8 }} variants={fadeUp} className="text-muted-foreground text-base md:text-lg leading-relaxed">
               Chaque besoin de reconnexion est unique. Mes offres sont des pages blanches que nous remplissons selon vos envies.
             </motion.p>
-            <motion.p initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.8 }} variants={fadeUp} className="text-muted-foreground text-base md:text-lg mt-2 leading-relaxed">
-              En toute indépendance, je ne perçois aucune commission sur vos réservations.
+            <motion.p
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.8 }}
+              variants={fadeUp}
+              className="mx-auto mt-4 max-w-5xl text-center text-muted-foreground text-base md:text-lg leading-relaxed"
+            >
+              <span className="font-semibold text-primary">Une transparence totale :</span> En tant que Travel Planner, je vous propose un service de conseil exclusif. Je ne suis pas une agence de voyage : je ne perçois aucune commission sur vos réservations et je n&apos;encaisse pas le budget de votre séjour. Vous réservez vos vols, hébergements et activités directement via les liens sélectionnés dans votre carnet de route. Cela vous garantit les meilleurs prix, sans intermédiaire, tout en bénéficiant de mon expertise logistique.
             </motion.p>
           </div>
 
-          <div className="border border-border/70 px-4 py-8 md:p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10 items-start">
+          <div className="px-4 py-8 md:p-8">
+            <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-stretch">
               {offers.map((offer) => (
-                <motion.div key={offer.title} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="relative overflow-hidden text-primary bg-background border border-border/60 rounded-3xl p-6 md:p-7 shadow-sm flex flex-col self-start">
+                <motion.div key={offer.title} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="relative overflow-hidden text-primary bg-background border border-border/60 rounded-3xl p-6 md:p-7 shadow-sm flex flex-col h-full">
                   <SnowflakesOverlay />
 
-                  <div className="relative z-10 flex flex-col">
+                  <div className="relative z-10 flex flex-col h-full">
                     <h3 className="text-3xl font-serif text-primary text-center mb-5">{offer.title}</h3>
                     <ul className="space-y-4 text-[1.05rem] text-primary leading-relaxed mb-6">
                       <li className="flex items-start gap-3">
@@ -276,26 +269,30 @@ const MesOffres = () => {
                       </li>
                     </ul>
 
-                    <button
-                      type="button"
-                      onClick={() => toggleOffer(offer.title)}
-                      className="w-full mb-4 inline-flex justify-center border border-accent text-accent rounded-full py-2.5 px-5 text-base font-medium hover:bg-accent/10 transition-colors"
-                    >
-                      {isOfferOpen(offer.title) ? 'Masquer le détail / exemple' : 'Voir le détail / exemple'}
-                    </button>
+                    <div className="mt-auto">
+                      <button
+                        type="button"
+                        onClick={() => toggleOffer(offer.title)}
+                        className="w-full mb-4 inline-flex justify-center border border-accent text-accent rounded-full py-2.5 px-5 text-base font-medium hover:bg-accent/10 transition-colors"
+                      >
+                        {isOfferOpen(offer.title) ? 'Masquer le détail / exemple' : 'Voir le détail / exemple'}
+                      </button>
 
-                    <AnimatePresence initial={false}>
-                      {isOfferOpen(offer.title) && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 300 }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.25 }}
-                          className="border-t border-border/60 pt-5 mt-1 overflow-hidden"
-                        >
-                          <div className="h-[300px] overflow-y-auto pr-1">
+                      <AnimatePresence initial={false}>
+                        {isOfferOpen(offer.title) && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="border-t border-border/60 pt-5 mt-1 overflow-hidden"
+                          >
+                            <div className="max-h-[180px] sm:max-h-[210px] md:max-h-[260px] overflow-y-auto pr-1 pb-2">
                             <p className="text-center text-primary font-semibold text-lg leading-snug">{offer.detailTitle}</p>
-                            <p className="text-center text-primary/90 font-semibold text-base mt-2 mb-4">{offer.detailPrice}</p>
+                            <p className="text-center text-primary/90 font-semibold text-base mt-2 mb-1">{offer.detailPrice}</p>
+                            {offer.detailNote && (
+                              <p className="text-center text-xs text-muted-foreground mb-3">{offer.detailNote}</p>
+                            )}
                             <ul className="space-y-2 text-[1.02rem] leading-relaxed mb-4">
                               {offer.items.map((item) => (
                                 <li key={item} className="flex items-start gap-3">
@@ -304,20 +301,38 @@ const MesOffres = () => {
                                 </li>
                               ))}
                             </ul>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
 
-                    <Link
-                      to="/devis"
-                      className="w-full inline-flex justify-center bg-accent text-accent-foreground rounded-full py-3 px-5 text-xl font-medium hover:opacity-90 transition-opacity"
-                    >
-                      Débuter mon échappée
-                    </Link>
-                    <p className="mt-3 text-center text-[0.72rem] italic leading-relaxed text-muted-foreground">
-                      Estimation globale (incluant mes honoraires de conseil)
-                    </p>
+                            {offer.secondDetailTitle && offer.secondItems && (
+                              <>
+                                <div className="mt-4 border-t border-border/60 pt-4" />
+                                <p className="text-center text-primary font-semibold text-lg leading-snug">{offer.secondDetailTitle}</p>
+                                <p className="text-center text-primary/90 font-semibold text-base mt-2 mb-1">{offer.secondDetailPrice}</p>
+                                {offer.secondDetailNote && (
+                                  <p className="text-center text-xs text-muted-foreground mb-3">{offer.secondDetailNote}</p>
+                                )}
+                                <ul className="space-y-2 text-[1.02rem] leading-relaxed mb-2">
+                                  {offer.secondItems.map((item) => (
+                                    <li key={item} className="flex items-start gap-3">
+                                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent" />
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </>
+                            )}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      <Link
+                        to="/devis"
+                        className="w-full mt-4 inline-flex justify-center bg-accent text-accent-foreground rounded-full py-3 px-5 text-xl font-medium hover:opacity-90 transition-opacity"
+                      >
+                        Débuter mon échappée
+                      </Link>
+                    </div>
+
                   </div>
                 </motion.div>
               ))}
@@ -327,7 +342,7 @@ const MesOffres = () => {
               <AmbassadorCard />
             </motion.div>
 
-            <div className="mt-12 md:mt-14">
+            <div id="autre-latitudes-experience" className="mt-12 md:mt-14 pt-8 scroll-mt-24">
               <div className="mx-auto max-w-4xl text-center">
                 <h2 className="text-3xl md:text-4xl font-serif text-primary">Parce que votre souffle peut aussi se trouver sous d’autres latitudes...</h2>
                 <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
@@ -421,15 +436,33 @@ const MesOffres = () => {
               pour vous permettre de vous reconnecter à l’essentiel.
             </p>
             <p className="text-center text-muted-foreground text-base md:text-lg mt-8 leading-relaxed">
-              Exemples de budgets globaux incluant mes honoraires de recherche et de conseil, sur la base des premiers tarifs constatés.
+              * Exemples de budgets globaux incluant mes honoraires de recherche et de conseil, sur la base des premiers tarifs constatés.
             </p>
 
             <div className="mt-14 flex justify-center">
-              <Link
+              <MotionLink
                 to="/village-du-pere-noel"
-                className="group relative block w-full max-w-xl transition-transform duration-300 hover:-translate-y-1"
+                className="group relative block w-full max-w-xl"
+                initial="rest"
+                whileHover="hover"
               >
-                <div className="relative overflow-hidden rounded-[1.9rem] border border-primary/10 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(255,249,251,0.98))] px-6 pb-8 pt-10 shadow-[0_24px_55px_rgba(75,36,58,0.14)]">
+                <motion.div
+                  className="relative overflow-hidden rounded-[1.9rem] border border-primary/10 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(255,249,251,0.98))] px-6 pb-8 pt-10 shadow-[0_24px_55px_rgba(75,36,58,0.14)]"
+                  variants={{
+                    rest: { rotate: 0, x: 0, y: 0 },
+                    hover: {
+                      rotate: [0, -0.8, 0.8, -0.6, 0.6, -0.35, 0.35, 0],
+                      x: [0, -2.5, 2.5, -1.8, 1.8, -1, 1, 0],
+                      y: [0, -0.5, 0, -0.5, 0],
+                      transition: {
+                        duration: 0.65,
+                        ease: 'easeInOut',
+                        repeat: Infinity,
+                        repeatDelay: 0.32,
+                      },
+                    },
+                  }}
+                >
                   <div className="absolute inset-0 opacity-90 [background-image:radial-gradient(circle_at_18px_18px,rgba(233,30,99,0.55)_0_2px,transparent_2.5px),radial-gradient(circle_at_42px_22px,rgba(24,120,68,0.5)_0_2px,transparent_2.5px),radial-gradient(circle_at_26px_44px,rgba(246,190,54,0.55)_0_2px,transparent_2.5px),radial-gradient(circle_at_52px_50px,rgba(42,64,125,0.45)_0_2px,transparent_2.5px)] [background-size:72px_72px]" />
                   <div className="absolute inset-x-0 top-[5.35rem] h-4 bg-[linear-gradient(180deg,#d8a537,#b57c14)] shadow-[0_8px_18px_rgba(181,124,20,0.25)]" />
                   <div className="absolute left-1/2 top-0 h-full w-4 -translate-x-1/2 bg-[linear-gradient(180deg,#e5be57,#b67c13)] shadow-[0_8px_18px_rgba(181,124,20,0.2)]" />
@@ -438,18 +471,18 @@ const MesOffres = () => {
                   <div className="absolute left-[calc(50%+0.15rem)] top-[2.35rem] h-11 w-11 rounded-full border-[10px] border-[#c78d1d] border-b-0 border-l-0 bg-transparent -rotate-[10deg]" />
 
                   <div className="relative z-10 text-center">
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.28em] text-primary/60">Idee cadeau</p>
-                    <h3 className="mt-3 text-2xl font-serif text-primary md:text-3xl">Village du Pere Noel</h3>
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.28em] text-primary/60">Idée cadeau</p>
+                    <h3 className="mt-3 text-2xl font-serif text-primary md:text-3xl">L'Échappée de Noël</h3>
                     <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-primary/75 md:text-base">
-                      Une entree cadeau vers une page douce et festive, a peaufiner ensuite dans l'esprit d'une vraie surprise de Noel.
+                      Glissez sous le sapin bien plus qu'un voyage : une promesse d'émerveillement à partager. Offrez la féerie polaire et le bonheur de créer ensemble des souvenirs qui dureront toute une vie, là où le temps s'arrête.
                     </p>
-                    <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(180deg,#d53d4d,#b81f34)] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_20px_rgba(184,31,52,0.28)] transition-transform duration-300 group-hover:scale-[1.02]">
-                      Ouvrir le cadeau
+                    <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(180deg,#d53d4d,#b81f34)] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_20px_rgba(184,31,52,0.28)]">
+                      Entrer dans la féérie
                       <ArrowRight className="h-4 w-4" />
                     </span>
                   </div>
-                </div>
-              </Link>
+                </motion.div>
+              </MotionLink>
             </div>
           </div>
         </div>
@@ -457,7 +490,7 @@ const MesOffres = () => {
 
       <Footer />
     </div>
-  );
+  </>);
 };
 
 export default MesOffres;

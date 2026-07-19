@@ -1,8 +1,17 @@
+###############################################
+# robots.txt optimisé pour le SEO
+# Site : https://www.lechappeedemma.com
+# le 2026-04-02
+###############################################
+
+# Autoriser tous les principaux bots
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 5
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 5
 
 User-agent: Twitterbot
 Allow: /
@@ -10,7 +19,15 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+# Bloquer l'accès aux dossiers techniques (par sécurité, même s'ils ne sont pas exposés)
+Disallow: /server/
+Disallow: /src/
+Disallow: /test/
+
+# Autoriser tous les autres bots
 User-agent: *
 Allow: /
+Crawl-delay: 10
 
+# Sitemap XML
 Sitemap: https://www.lechappeedemma.com/sitemap.xml

@@ -2,9 +2,11 @@
   RewriteEngine On
   RewriteBase /
   
-  # Redirection HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Redirection HTTPS et suppression du www
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
   
   # Gestion des routes React Router
   RewriteRule ^index\.html$ - [L]

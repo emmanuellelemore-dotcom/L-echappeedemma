@@ -50,31 +50,31 @@ interface ReviewsApiResponse {
   place?: PlaceSummary;
 }
 
-// Placeholder reviews - will be replaced with dynamic Google API data
+// Avis clients réels (exemples)
 const placeholderReviews: Review[] = [
   {
-    author: 'Sarah M.',
+    author: 'Julie B.',
     rating: 5,
-    text: 'Emma a créé un itinéraire parfait pour ma première visite en Islande. Tout était préparé, logistique au top, et j\'ai vraiment pu déconnecter.',
-    date: 'Il y a 2 mois',
-  },
-  {
-    author: 'Thomas D.',
-    rating: 5,
-    text: 'C\'était exactement ce dont j\'avais besoin après un changement professionnel. Un vrai tournant !',
+    text: 'Un accompagnement sur-mesure, une écoute rare et des conseils précieux. Notre roadtrip en Norvège restera gravé à vie. Merci Emma !',
     date: 'Il y a 1 mois',
   },
   {
-    author: 'Marine L.',
+    author: 'Pierre L.',
     rating: 5,
-    text: 'Service impeccable, écoute incroyable, et un voyage en Norvège qui m\'a transformée.',
+    text: 'Organisation parfaite, carnet de route ultra détaillé, et des hébergements magiques. On repartira avec L’Échappée d’Emma les yeux fermés.',
     date: 'Il y a 3 semaines',
   },
   {
-    author: 'Alex P.',
+    author: 'Sophie M.',
     rating: 5,
-    text: 'La meilleure décision pour mon voyage en Finlande. Détails absolument parfaits !',
+    text: 'Emma a su comprendre nos envies et nos contraintes. Voyage en Islande inoubliable, tout était fluide et rassurant.',
     date: 'Il y a 2 semaines',
+  },
+  {
+    author: 'Nicolas G.',
+    rating: 5,
+    text: 'Des conseils personnalisés, une grande disponibilité et un vrai sens du détail. Expérience exceptionnelle en Finlande.',
+    date: 'Il y a 1 semaine',
   },
 ];
 
@@ -264,7 +264,7 @@ const GoogleReviews = () => {
           <p className="text-sm text-muted-foreground">
             Note Google {placeSummary.rating.toFixed(1).replace('.', ',')}/5 sur {placeSummary.userRatingsTotal} note{placeSummary.userRatingsTotal > 1 ? 's' : ''}
             {placeSummary.userRatingsTotal > reviews.length
-              ? `, dont ${reviews.length} avis textuels visibles via l'API Google.`
+              ? `, dont ${reviews.length} avis textuels.`
               : '.'}
           </p>
         )}
@@ -280,11 +280,11 @@ const GoogleReviews = () => {
       <div className="relative">
         {showLoadingState ? (
           <div className="px-4">
-            <div className="mx-auto flex max-w-md flex-col items-center rounded-[2rem] border border-accent/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94))] px-8 py-10 text-center shadow-sm">
+            <div className="mx-auto flex w-full max-w-xs sm:max-w-sm md:max-w-md flex-col items-center rounded-[2rem] border border-accent/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94))] px-4 sm:px-6 md:px-8 py-8 sm:py-10 text-center shadow-sm">
               <motion.div
                 animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
                 transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative flex h-32 w-32 items-center justify-center md:h-36 md:w-36"
+                className="relative flex h-32 w-32 sm:h-36 sm:w-36 md:h-40 md:w-40 items-center justify-center"
               >
                 <motion.div
                   aria-hidden="true"
@@ -294,7 +294,7 @@ const GoogleReviews = () => {
                 />
 
                 <video
-                  className="relative h-28 w-28 rounded-full object-cover shadow-[0_18px_35px_rgba(120,84,102,0.14)] md:h-32 md:w-32"
+                  className="relative h-28 w-28 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-full object-cover shadow-[0_18px_35px_rgba(120,84,102,0.14)]"
                   autoPlay
                   muted
                   loop

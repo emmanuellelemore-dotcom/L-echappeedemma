@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [offersMenuOpen, setOffersMenuOpen] = useState(false);
+  // State pour le menu déroulant mobile Mes offres
+  const [mobileOffersOpen, setMobileOffersOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
@@ -19,10 +21,19 @@ const Navbar = () => {
 
   const transparent = isHome && !scrolled && !mobileOpen;
 
+  // Ajout du lien Blog entre Emma et Contact
+
+  // Sous-menu pour "Mes offres"
+  // Sous-menu pour "Mes offres" (deux sections)
+  const offersSubmenu = [
+    { to: '/mes-offres#cap-au-nord', label: 'Cap au Nord' },
+    { to: '/mes-offres#autre-latitudes-experience', label: 'Autre Latitude' },
+  ];
+
   const links = [
     { to: '/', label: 'Accueil' },
     { to: '/mes-prestations', label: 'Description de mes services' },
-    { to: '/mes-offres', label: 'Mes offres' },
+    { to: '/mes-offres', label: 'Mes offres', submenu: offersSubmenu },
     { to: '/emma', label: 'Emma' },
     { to: '/blog', label: 'Blog' },
     { to: '/contact', label: 'Contact' },
@@ -45,24 +56,18 @@ const Navbar = () => {
               transparent ? 'text-primary-foreground' : 'text-foreground'
             }`}
           >
-            <span className="font-logo-main">L'Échappée </span>
+            <span className="font-logo-main">L'échappée </span>
             <span className="font-logo-accent text-[1.22em] leading-none align-middle">d' </span>
             <span className="font-logo-main">Emma</span>
           </Link>
         </div>
 
         {/* Desktop nav */}
-        <div
-          onMouseLeave={() => setHoveredLink(null)}
-          className={`hidden md:flex gap-8 items-center text-sm font-medium ${
+        <div className={`hidden md:flex gap-8 items-center text-sm font-medium ${
           transparent ? 'text-primary-foreground/90' : 'text-muted-foreground'
-        }`}
-        >
+        }`}>
           {links.map((link) => {
             const isHash = link.to.includes('#');
-            const isCurrent = location.pathname === link.to;
-            const isDimmed = hoveredLink !== null && hoveredLink !== link.to;
-
             const handleClick = (e: React.MouseEvent) => {
               if (isHash) {
                 e.preventDefault();
@@ -74,22 +79,93 @@ const Navbar = () => {
                 }
               }
             };
+            // Sous-menu pour "Mes offres"
+            if (link.to === '/mes-offres' && link.submenu) {
+              return (
+                  <div
+                    key={link.to}
+                    className="relative group"
+                    onMouseEnter={() => setOffersMenuOpen(true)}
+                    onMouseLeave={(e) => {
+                      // Ne ferme le menu que si la souris sort vraiment du conteneur (ni sur le menu, ni sur le gap, ni sur le lien, ni sur la flèche)
+                      const related = e.relatedTarget as HTMLElement | null;
+                      if (!related || (!e.currentTarget.contains(related) && !related.closest('.menu-offres-link') && !related.closest('.menu-offres-gap'))) {
+                        setOffersMenuOpen(false);
+                      }
+                    }}
+                  >
+                    <Link
+                      to={link.to}
+                      onClick={handleClick}
+                      className={`menu-offres-link hover:text-accent transition-colors ${
+                        location.pathname === link.to ? 'text-accent font-semibold' : ''
+                      }`}
+                      style={{ position: 'relative', zIndex: 50 }}
+                    >
+                      {link.label}
+                    </Link>
+                    {/* Gap invisible pour éviter la fermeture du menu */}
+                    {/* Gap invisible réduit, mais la flèche n'est plus affectée par ce gap */}
+                    <div
+                      className="menu-offres-gap absolute left-1/2 -translate-x-1/2 mt-0 min-w-[260px] w-[260px] h-44 z-40"
+                      style={{ pointerEvents: offersMenuOpen ? 'auto' : 'none' }}
+                      onMouseEnter={() => setOffersMenuOpen(true)}
+                      onMouseLeave={() => setOffersMenuOpen(false)}
+                    />
+                  {/* Sous-menu */}
+                  <div
+                    className={`absolute left-1/2 -translate-x-1/2 mt-6 min-w-[260px] bg-white border border-[#eab1c6] rounded-2xl shadow-lg py-4 z-50 ${
+                      offersMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+                    }`}
+                    style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.06)' }}
+                    onMouseEnter={() => setOffersMenuOpen(true)}
+                    onMouseLeave={() => setOffersMenuOpen(false)}
+                  >
+                    {/* Flèche dorée animée au-dessus du menu */}
+                    <div
+                      style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', zIndex: 40, pointerEvents: 'none' }}
+                    >
+                      <svg
+                        width="22"
+                        height="12"
+                        viewBox="0 0 22 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ transform: 'rotate(180deg)' }}
+                        className={`transition-opacity duration-300 ease-out ${offersMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+                      >
+                        <path d="M11 12L0 0H22L11 12Z" fill="#fff" stroke="#eab1c6" strokeWidth="1.5"/>
+                      </svg>
+                    </div>
+                    {link.submenu.map((sublink, idx) => (
+                      <Link
+                        key={sublink.to}
+                        to={sublink.to}
+                        className={`group block px-7 pt-4 pb-1 rounded-2xl transition-all duration-150 ${
+                          idx === 0 ? 'mb-2' : ''
+                        } hover:bg-[linear-gradient(135deg,rgba(219,39,119,0.08),rgba(255,255,255,0.96),rgba(244,114,182,0.12))] hover:shadow-[0_4px_24px_rgba(244,114,182,0.10)]`}
+                        style={{ letterSpacing: '0.01em' }}
+                      >
+                        <div className="text-lg font-bold text-accent/90 group-hover:text-accent/90">{sublink.label}</div>
+                        <div className="pb-3 text-xs text-[#1a237e]/40 font-normal group-hover:text-[#1a237e]/40">
+                          {idx === 0
+                            ? 'Pour celles et ceux qui font l’échappée au Nord'
+                            : 'Pour celles et ceux qui veulent une échappée ailleurs que dans le Grand Nord'}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+            // ...autres liens
             return (
               <Link
                 key={link.to}
                 to={link.to}
                 onClick={handleClick}
-                onMouseEnter={() => setHoveredLink(link.to)}
-                className={`transition-all duration-300 ${
-                  isCurrent ? 'text-accent font-semibold' : ''
-                } ${
-                  isDimmed
-                    ? transparent
-                      ? 'opacity-35'
-                      : 'opacity-40'
-                    : 'opacity-100'
-                } ${
-                  hoveredLink === link.to ? 'text-accent' : 'hover:text-accent'
+                className={`hover:text-accent transition-colors ${
+                  location.pathname === link.to ? 'text-accent font-semibold' : ''
                 }`}
               >
                 {link.to === '/mes-prestations' ? (
@@ -130,6 +206,8 @@ const Navbar = () => {
             className="md:hidden bg-background border-t border-border"
           >
             <div className="px-6 py-6 space-y-4">
+
+
               {links.map((link) => {
                 const isHash = link.to.includes('#');
                 const handleClick = (e: React.MouseEvent) => {
@@ -144,6 +222,61 @@ const Navbar = () => {
                     }
                   }
                 };
+                // Ajout du sous-menu pour Mes offres dans le menu mobile avec menu déroulant
+                if (link.to === '/mes-offres' && link.submenu) {
+                  return (
+                    <div key={link.to} className="">
+                      <button
+                        type="button"
+                        onClick={() => setMobileOffersOpen((open) => !open)}
+                        className="w-full flex items-center justify-between text-foreground font-medium py-2 hover:text-accent transition-colors focus:outline-none"
+                        aria-expanded={mobileOffersOpen}
+                        aria-controls="mobile-offres-submenu"
+                      >
+                        <span>{link.label}</span>
+                        <svg
+                          className={`ml-2 h-5 w-5 transition-transform duration-200 ${mobileOffersOpen ? 'rotate-90' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                      {mobileOffersOpen && (
+                        <div id="mobile-offres-submenu" className="ml-4 border-l border-border pl-4">
+                          {link.submenu.map((sublink, idx) => (
+                            <Link
+                              key={sublink.to}
+                              to={sublink.to}
+                              onClick={e => {
+                                setMobileOpen(false);
+                                if (location.pathname === '/mes-offres' && sublink.to.includes('#')) {
+                                  e.preventDefault();
+                                  const hash = sublink.to.split('#')[1];
+                                  setTimeout(() => {
+                                    if (hash === 'cap-au-nord') {
+                                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    } else {
+                                      const el = document.getElementById(hash);
+                                      if (el) {
+                                        el.scrollIntoView({ behavior: 'smooth' });
+                                      }
+                                    }
+                                  }, 50);
+                                }
+                              }}
+                              className="block text-muted-foreground py-1.5 text-[0.98em] hover:text-accent transition-colors"
+                            >
+                              {sublink.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
                 return (
                   <Link
                     key={link.to}

@@ -9,6 +9,9 @@ import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
 const CONTACT_EMAIL = 'hello.lechappeedemma@gmail.com';
 
 const ContactPage = () => {
+  /* H1 SEO pour la page contact */
+  /* eslint-disable-next-line jsx-a11y/heading-has-content */
+  const h1 = <h1 className="sr-only">L'échappée d'Emma - Contactez L'Échappée d'Emma, Travel Planner Grand Nord</h1>;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
