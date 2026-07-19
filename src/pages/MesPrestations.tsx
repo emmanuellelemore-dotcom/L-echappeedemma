@@ -8,6 +8,7 @@ import { TournantDeVieText } from '../components/TournantDeVie';
 import { Link } from 'react-router-dom';
 import FlipCard from '../components/FlipCard';
 import ProcessTimeline from '../components/ProcessTimeline';
+import SEO from '../components/SEO';
 
 // Copie des données et animations depuis Index.tsx
 const reasons = [
@@ -102,6 +103,11 @@ const MesPrestations = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
+      <SEO
+        title="Mes prestations de travel planning dans le Grand Nord | L'échappée d'Emma"
+        description="Découvrez les prestations de travel planning d'Emma : itinéraires sur mesure, transparence budget, accompagnement personnalisé pour un voyage en Islande, Norvège, Suède ou Finlande."
+        canonical="/mes-prestations"
+      />
       <Navbar />
       <section className="w-full bg-white py-[72px] px-4 border-b border-border">
         <div className="max-w-5xl mx-auto text-center">

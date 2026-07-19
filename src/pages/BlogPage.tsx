@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import CurvedLoop from '../components/CurvedLoop';
 import Marquee from '../components/Marquee';
+import SEO from '../components/SEO';
 
 // Mock d'articles pour la démo
 const articles = [
@@ -70,6 +71,12 @@ export default function BlogPage() {
   return (
 
     <div className="min-h-screen bg-secondary/60 relative overflow-x-hidden max-w-full">
+      <SEO
+        title="Blog voyage nordique — Conseils et inspirations Grand Nord | L'échappée d'Emma"
+        description="Découvrez les articles de voyage d'Emma : conseils pratiques, inspirations et itinéraires pour préparer votre aventure en Islande, Norvège, Suède ou Finlande."
+        canonical="/blog"
+        ogImage="/gallery/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg"
+      />
       <Navbar />
 
 

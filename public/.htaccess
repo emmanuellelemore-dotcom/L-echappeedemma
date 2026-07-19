@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Redirection du sous-domaine www vers le domaine canonique
+  RewriteCond %{HTTP_HOST} ^www\.lechappeedemma\.com$ [NC]
+  RewriteRule ^(.*)$ https://lechappeedemma.com/$1 [R=301,L,NE]
   
   # Redirection HTTPS
   RewriteCond %{HTTPS} off

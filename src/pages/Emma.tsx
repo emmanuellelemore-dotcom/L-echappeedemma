@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import PortraitChinois from '../components/PortraitChinois';
 import { Button } from '../components/ui/button';
 import { TournantDeVieText } from '../components/TournantDeVie';
+import SEO from '../components/SEO';
 
 const challenges = [
   "Ne plus avoir l'énergie pour soi ni pour les autres.",
@@ -47,6 +48,12 @@ const stagger = {
 const Emma = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden max-w-full">
+      <SEO
+        title="Emma — Votre travel planner spécialiste du Grand Nord | L'échappée d'Emma"
+        description="Découvrez Emma, fondatrice de L'échappée d'Emma. Travel planner passionnée, elle crée des voyages sur mesure en Islande, Norvège, Suède et Finlande pour vous permettre de reprendre votre souffle."
+        canonical="/emma"
+        ogImage="/Emma.JPG"
+      />
       <Navbar />
 
       <main className="pt-28 relative">

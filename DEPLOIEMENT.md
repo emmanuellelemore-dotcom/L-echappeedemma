@@ -181,6 +181,8 @@ npm run build
 1. Dans OVH Manager, allez dans **"Multisite"**
 2. Vérifiez que votre domaine pointe sur le dossier **`www/`**
 3. Si vous avez plusieurs domaines (.com et .fr), ajoutez-les tous les deux
+4. Ajoutez également `www.lechappeedemma.com` dans le multisite, sur le même dossier **`www/`**
+5. Le fichier `.htaccess` redirige automatiquement `www.lechappeedemma.com` vers `https://lechappeedemma.com`
 
 ### 4.4 - Activer HTTPS/SSL
 

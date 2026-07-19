@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 
 const rowOne = [
   {
@@ -43,6 +44,11 @@ const rowTwo = [
 const CharteEchappee = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="La Charte de l'Échappée — Nos valeurs et engagements | L'échappée d'Emma"
+        description="Découvrez la charte de L'échappée d'Emma : les valeurs, les engagements et la philosophie qui guident chaque voyage sur mesure dans le Grand Nord."
+        canonical="/charte-echappee"
+      />
       <Navbar />
 
       <main className="pt-32 pb-24 px-4 md:px-6 max-w-7xl mx-auto">

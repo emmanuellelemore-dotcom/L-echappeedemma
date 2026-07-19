@@ -20,6 +20,7 @@ import DestinationCard from '../components/DestinationCard';
 import GoogleReviews from '../components/GoogleReviews';
 import ContainerTextFlip from '../components/ContainerTextFlip';
 import { TournantDeVieText } from '../components/TournantDeVie';
+import SEO from '../components/SEO';
 // ...existing code...
 
 // Destinations pour la section Destinations
@@ -198,6 +199,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="L'échappée d'Emma — Travel planner voyage sur mesure dans le Grand Nord"
+        description="Emma crée des voyages sur mesure en Islande, Norvège, Suède et Finlande. Itinéraires personnalisés, transparence budget, accompagnement humain pour vivre le Grand Nord pleinement."
+        canonical="/"
+        ogImage="/gallery/islande/soleil-couchant-plage-diamant-islande.jpg"
+      />
       <Navbar />
 
       {/* Hero */}
