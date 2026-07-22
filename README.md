@@ -1,4 +1,4 @@
-# L'échappée d'Emma v2
+# L'échappée d'Emma v3
 
 > **Travel planner indépendante, spécialiste du voyage sur mesure, du Grand Nord et des expériences uniques.**
 
