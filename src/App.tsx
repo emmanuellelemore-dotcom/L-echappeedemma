@@ -3,7 +3,7 @@ import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 const CookieBanner = React.lazy(() => import("./components/CookieBanner"));
@@ -20,11 +20,7 @@ const VillageDuPereNoel = React.lazy(() => import("./pages/VillageDuPereNoel"));
 const BlogPage = React.lazy(() => import("./pages/BlogPage"));
 const CharteEchappee = React.lazy(() => import("./pages/charte-echappee"));
 const MentionsLegales = React.lazy(() => import("./pages/mentions-legales"));
-const RoadtripLaponieAuroresBoreales = React.lazy(() => import("./pages/blog/roadtrip-laponie-aurores-boreales"));
-const BienChoisirSonEquipementGrandNord = React.lazy(() => import("./pages/blog/bien-choisir-son-equipement-grand-nord"));
-const RandonnerGrandNordGuideInsider = React.lazy(() => import("./pages/blog/randonner-grand-nord-guide-insider"));
-const PourquoiChoisirLaLaponieParentheseHivernale = React.lazy(() => import("./pages/blog/pourquoi-choisir-la-laponie-parenthese-hivernale"));
-const SuedeSecreteImmersionForetBoreale = React.lazy(() => import("./pages/blog/suede-secrete-immersion-foret-boreale"));
+const ArticlePage = React.lazy(() => import("./pages/ArticlePage"));
 const Islande = React.lazy(() => import("./pages/galleries/Islande"));
 const Norvege = React.lazy(() => import("./pages/galleries/Norvege"));
 const Suede = React.lazy(() => import("./pages/galleries/Suede"));
@@ -53,12 +49,10 @@ const App = () => (
               <Route path="/devis" element={<QuotePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/roadtrip-laponie-aurores-boreales" element={<RoadtripLaponieAuroresBoreales />} />
-              <Route path="/blog/lofoten-organiser-votre-echappee-sereine-grand-nord" element={<RoadtripLaponieAuroresBoreales />} />
-              <Route path="/blog/bien-choisir-son-equipement-grand-nord" element={<BienChoisirSonEquipementGrandNord />} />
-              <Route path="/blog/randonner-grand-nord-guide-insider" element={<RandonnerGrandNordGuideInsider />} />
-              <Route path="/blog/pourquoi-choisir-la-laponie-parenthese-hivernale" element={<PourquoiChoisirLaLaponieParentheseHivernale />} />
-              <Route path="/blog/suede-secrete-immersion-foret-boreale" element={<SuedeSecreteImmersionForetBoreale />} />
+              {/* Ancienne adresse de l'article Lofoten : redirigée vers la bonne */}
+              <Route path="/blog/roadtrip-laponie-aurores-boreales" element={<Navigate to="/blog/lofoten-organiser-votre-echappee-sereine-grand-nord" replace />} />
+              {/* Tous les articles, rédigés en Markdown (src/content/blog) */}
+              <Route path="/blog/:slug" element={<ArticlePage />} />
               <Route path="/gallery/islande" element={<Islande />} />
               <Route path="/gallery/norvege" element={<Norvege />} />
               <Route path="/gallery/suede" element={<Suede />} />

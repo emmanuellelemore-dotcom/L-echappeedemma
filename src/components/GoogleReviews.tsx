@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GOOGLE_REVIEWS_SNAPSHOT } from '@/data/googleReviewsSnapshot';
+import type { GooglePlaceSummary, GoogleReview } from '@/data/googleReviewsTypes';
 
 const PLACE_ID = 'ChIJm2NF0mML5kcRXlMfFIy36ew';
 const GOOGLE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${PLACE_ID}`;
-const USE_LIVE_GOOGLE_REVIEWS = true;
 
 const getReviewsApiBase = () => {
   const configuredBase = import.meta.env.VITE_CONTACT_API_URL?.trim();
@@ -30,19 +31,8 @@ const getReviewsApiBase = () => {
   return '';
 };
 
-interface Review {
-  author: string;
-  rating: number;
-  text: string;
-  date: string;
-  id?: string;
-}
-
-interface PlaceSummary {
-  name: string;
-  rating: number;
-  userRatingsTotal: number;
-}
+type Review = GoogleReview;
+type PlaceSummary = GooglePlaceSummary;
 
 interface ReviewsApiResponse {
   ok: boolean;
@@ -50,33 +40,41 @@ interface ReviewsApiResponse {
   place?: PlaceSummary;
 }
 
-// Avis clients réels (exemples)
-const placeholderReviews: Review[] = [
-  {
-    author: 'Julie B.',
-    rating: 5,
-    text: 'Un accompagnement sur-mesure, une écoute rare et des conseils précieux. Notre roadtrip en Norvège restera gravé à vie. Merci Emma !',
-    date: 'Il y a 1 mois',
-  },
-  {
-    author: 'Pierre L.',
-    rating: 5,
-    text: 'Organisation parfaite, carnet de route ultra détaillé, et des hébergements magiques. On repartira avec L’Échappée d’Emma les yeux fermés.',
-    date: 'Il y a 3 semaines',
-  },
-  {
-    author: 'Sophie M.',
-    rating: 5,
-    text: 'Emma a su comprendre nos envies et nos contraintes. Voyage en Islande inoubliable, tout était fluide et rassurant.',
-    date: 'Il y a 2 semaines',
-  },
-  {
-    author: 'Nicolas G.',
-    rating: 5,
-    text: 'Des conseils personnalisés, une grande disponibilité et un vrai sens du détail. Expérience exceptionnelle en Finlande.',
-    date: 'Il y a 1 semaine',
-  },
-];
+const relativeFormatter = new Intl.RelativeTimeFormat('fr', { numeric: 'auto' });
+
+/**
+ * Date relative toujours à jour (« il y a 3 mois »), recalculée depuis la date de
+ * publication Google : la copie des avis reste juste même des mois après le build.
+ */
+const withFreshDate = (review: Review): Review => {
+  const published = review.id ? Date.parse(review.id.replace(/\.\d+Z$/, 'Z')) : Number.NaN;
+  if (Number.isNaN(published)) return review;
+  const days = Math.max(0, Math.floor((Date.now() - published) / 86_400_000));
+  // Même façon de compter que Google (« il y a 2 mois » jusqu'au 3e mois révolu)
+  const [value, unit]: [number, Intl.RelativeTimeFormatUnit] =
+    days < 7
+      ? [days, 'day']
+      : days < 30
+        ? [Math.floor(days / 7), 'week']
+        : days < 365
+          ? [Math.floor(days / 30), 'month']
+          : [Math.floor(days / 365), 'year'];
+  return { ...review, date: relativeFormatter.format(-value, unit) };
+};
+
+const MAX_REVIEWS = 5;
+
+/** Les 5 avis les plus récents, sans doublon (même auteur, même jour) */
+const latestReviews = (...lists: Review[][]): Review[] => {
+  const unique = new Map<string, Review>();
+  for (const review of lists.flat()) {
+    const key = `${review.author}|${String(review.id ?? '').slice(0, 10)}`;
+    if (!unique.has(key)) unique.set(key, review);
+  }
+  return [...unique.values()]
+    .sort((a, b) => String(b.id ?? '').localeCompare(String(a.id ?? '')))
+    .slice(0, MAX_REVIEWS);
+};
 
 const getReviewsPerView = () => {
   if (typeof window === 'undefined') {
@@ -142,11 +140,12 @@ const ReviewCard = ({ review, index }: { review: Review; index: number }) => (
 );
 
 const GoogleReviews = () => {
-  const [reviews, setReviews] = useState<Review[]>(USE_LIVE_GOOGLE_REVIEWS ? [] : placeholderReviews);
+  // Les 5 avis Google les plus récents, copiés au build : affichés tout de suite, puis mis à jour en direct
+  const [reviews, setReviews] = useState<Review[]>(() => latestReviews(GOOGLE_REVIEWS_SNAPSHOT.reviews).map(withFreshDate));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [loadFailed, setLoadFailed] = useState(false);
-  const [placeSummary, setPlaceSummary] = useState<PlaceSummary | null>(null);
+  const [placeSummary, setPlaceSummary] = useState<PlaceSummary | null>(GOOGLE_REVIEWS_SNAPSHOT.place);
   const [reviewsPerView, setReviewsPerView] = useState(getReviewsPerView);
 
   useEffect(() => {
@@ -171,13 +170,6 @@ const GoogleReviews = () => {
   }, [reviews.length, reviewsPerView]);
 
   useEffect(() => {
-    if (!USE_LIVE_GOOGLE_REVIEWS) {
-      setReviews(placeholderReviews);
-      setIsLoading(false);
-      setLoadFailed(false);
-      return;
-    }
-
     const controller = new AbortController();
 
     const fetchGoogleReviews = async () => {
@@ -198,18 +190,16 @@ const GoogleReviews = () => {
         }
 
         if (data.ok && Array.isArray(data.reviews) && data.reviews.length > 0) {
-          setReviews(data.reviews);
-          setCurrentIndex(0);
+          setReviews((current) => latestReviews(data.reviews.map(withFreshDate), current));
           return;
         }
 
+        // Pas de nouveaux avis : on garde la copie des vrais avis déjà affichée
         setLoadFailed(true);
-        setReviews(placeholderReviews);
       } catch (error) {
         if ((error as Error).name !== 'AbortError') {
           console.error('Error fetching reviews:', error);
           setLoadFailed(true);
-          setReviews(placeholderReviews);
         }
       } finally {
         setIsLoading(false);
@@ -242,7 +232,7 @@ const GoogleReviews = () => {
 
   const totalGroups = Math.ceil(reviews.length / reviewsPerView);
   const currentGroup = Math.floor(currentIndex / reviewsPerView) + 1;
-  const showLoadingState = USE_LIVE_GOOGLE_REVIEWS && isLoading && reviews.length === 0;
+  const showLoadingState = isLoading && reviews.length === 0;
   const gridClassName =
     reviewsPerView === 1
       ? 'grid-cols-1'
@@ -262,17 +252,17 @@ const GoogleReviews = () => {
         </p>
         {placeSummary && (
           <p className="text-sm text-muted-foreground">
-            Note Google {placeSummary.rating.toFixed(1).replace('.', ',')}/5 sur {placeSummary.userRatingsTotal} note{placeSummary.userRatingsTotal > 1 ? 's' : ''}
+            Note Google {placeSummary.rating.toFixed(1).replace('.', ',')}/5 sur {placeSummary.userRatingsTotal} avis
             {placeSummary.userRatingsTotal > reviews.length
-              ? `, dont ${reviews.length} avis textuels.`
+              ? ` · voici les ${reviews.length} plus récents.`
               : '.'}
           </p>
         )}
-        {USE_LIVE_GOOGLE_REVIEWS && isLoading && (
+        {showLoadingState && (
           <p className="text-sm text-muted-foreground">Chargement des avis Google...</p>
         )}
-        {loadFailed && (
-          <p className="text-sm text-muted-foreground">Les avis Google mettent plus de temps que prévu à se charger. Affichage temporaire des témoignages de secours.</p>
+        {loadFailed && reviews.length === 0 && (
+          <p className="text-sm text-muted-foreground">Les avis Google sont momentanément indisponibles.</p>
         )}
       </div>
 
@@ -280,7 +270,7 @@ const GoogleReviews = () => {
       <div className="relative">
         {showLoadingState ? (
           <div className="px-4">
-            <div className="mx-auto flex w-full max-w-xs sm:max-w-sm md:max-w-md flex-col items-center rounded-[2rem] border border-accent/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94))] px-4 sm:px-6 md:px-8 py-8 sm:py-10 text-center shadow-sm">
+            <div className="mx-auto flex w-full max-w-xs sm:max-w-sm md:max-w-md flex-col items-center rounded-[2rem] border border-accent/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),hsl(var(--mist)/0.94))] px-4 sm:px-6 md:px-8 py-8 sm:py-10 text-center shadow-sm">
               <motion.div
                 animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
                 transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
@@ -294,7 +284,7 @@ const GoogleReviews = () => {
                 />
 
                 <video
-                  className="relative h-28 w-28 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-full object-cover shadow-[0_18px_35px_rgba(120,84,102,0.14)]"
+                  className="relative h-28 w-28 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-full object-cover shadow-[0_18px_35px_hsl(var(--shadow-mauve)/0.14)]"
                   autoPlay
                   muted
                   loop
@@ -394,7 +384,7 @@ const GoogleReviews = () => {
           href={GOOGLE_REVIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
+          className="btn-dark btn-lg"
         >
           Laisser un avis Google
         </a>

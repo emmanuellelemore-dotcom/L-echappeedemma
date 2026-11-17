@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { Resend } from "resend";
+import { fetchGoogleReviews } from "./googleReviews.js";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config();
@@ -74,43 +75,14 @@ app.get("/api/reviews", async (_req, res) => {
   }
 
   try {
-    const response = await fetch(`https://places.googleapis.com/v1/places/${googlePlaceId}?languageCode=fr`, {
-      headers: {
-        "X-Goog-Api-Key": googlePlacesApiKey,
-        "X-Goog-FieldMask": "displayName,rating,userRatingCount,reviews",
-      },
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(502).json({
-        ok: false,
-        error: data.error?.message || `Google Places request failed (${response.status}).`,
-      });
-    }
-
-    const reviews = Array.isArray(data.reviews)
-      ? data.reviews.map((review, index) => ({
-          id: String(review.publishTime || index),
-          author: review.authorAttribution?.displayName || "Voyageur",
-          rating: Number(review.rating || 0),
-          text: review.text?.text || "",
-          date: review.relativePublishTimeDescription || "Récemment",
-        }))
-      : [];
-
+    const { place, reviews } = await fetchGoogleReviews({ apiKey: googlePlacesApiKey, placeId: googlePlaceId });
     res.setHeader("Cache-Control", "public, max-age=900");
-    return res.json({
-      ok: true,
-      place: {
-        name: data.displayName?.text || "L'échappée d'Emma",
-        rating: Number(data.rating || 0),
-        userRatingsTotal: Number(data.userRatingCount || 0),
-      },
-      reviews,
-    });
+    return res.json({ ok: true, place, reviews });
   } catch (error) {
     console.error("Google Places error", error);
+    if (error.status === 502) {
+      return res.status(502).json({ ok: false, error: error.message });
+    }
     return res.status(500).json({ ok: false, error: "Unable to fetch Google reviews." });
   }
 });

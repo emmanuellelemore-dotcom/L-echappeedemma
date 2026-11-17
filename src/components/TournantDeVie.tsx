@@ -73,11 +73,17 @@ export const TournantDeVieProvider = ({ children }: { children: React.ReactNode 
   );
 };
 
-export const TournantDeVieText = ({ className = '' }: { className?: string }) => {
+export const TournantDeVieText = ({
+  className = '',
+  label = 'tournant de vie',
+}: {
+  className?: string;
+  label?: string;
+}) => {
   const context = useContext(TournantDeVieContext);
 
   if (!context) {
-    return <span className={className}>tournant de vie</span>;
+    return <span className={className}>{label}</span>;
   }
 
   return (
@@ -86,7 +92,7 @@ export const TournantDeVieText = ({ className = '' }: { className?: string }) =>
       onClick={context.openDefinition}
       className={`inline font-semibold text-accent hover:text-accent/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-sm transition-colors ${className}`}
     >
-      tournant de vie
+      {label}
     </button>
   );
 };

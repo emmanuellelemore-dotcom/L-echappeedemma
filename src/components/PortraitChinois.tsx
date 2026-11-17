@@ -2,33 +2,33 @@ import React from 'react';
 import { BlurIn } from './BlurIn';
 
 const colonneGauche = [
-  { text: 'Chocolat', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Chocolat', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Lève-tard', style: '' },
-  { text: 'Introvertie', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Introvertie', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Plage', style: '' },
-  { text: 'Salé', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
-  { text: 'Chien', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
-  { text: 'Coucher de soleil', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Salé', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
+  { text: 'Chien', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
+  { text: 'Coucher de soleil', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Hôtel de luxe', style: '' },
   { text: 'J’ai toujours chaud', style: '' },
-  { text: 'Maniaque', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
-  { text: 'Jus de fruit', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Maniaque', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
+  { text: 'Jus de fruit', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Talons', style: '' },
 ];
 
 const colonneDroite = [
   { text: 'Café', style: '' },
-  { text: 'Lève-tôt', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Lève-tôt', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Extravertie', style: '' },
-  { text: 'Rando', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Rando', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Sucré', style: '' },
   { text: 'Chat', style: '' },
   { text: 'Lever de soleil', style: '' },
-  { text: 'Van', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
-  { text: 'J’ai toujours froid', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Van', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
+  { text: 'J’ai toujours froid', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
   { text: 'Bordélique', style: '' },
   { text: 'Verre de vin', style: '' },
-  { text: 'Baskets', style: 'italic font-bold text-pink-400 underline underline-offset-4 decoration-pink-200', blur: true },
+  { text: 'Baskets', style: 'italic font-bold text-blush-400 underline underline-offset-4 decoration-blush-200', blur: true },
 ];
 
 const PortraitChinois: React.FC = () => (

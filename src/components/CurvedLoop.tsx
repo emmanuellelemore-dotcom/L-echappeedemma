@@ -29,7 +29,10 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   const [offset, setOffset] = useState(0)
   const uid = useId()
   const pathId = `curve-${uid}`
-  const pathD = `M-100,40 Q500,${40 + curveAmount} 1540,40`
+  // La zone dessinée englobe toute la courbe : le titre reste entier quelle que soit la taille d'écran
+  const TOP = 72
+  const pathD = `M-100,${TOP} Q720,${TOP + curveAmount} 1540,${TOP}`
+  const viewBoxHeight = TOP + curveAmount / 2 + 40
 
   const dragRef = useRef(false)
   const lastXRef = useRef(0)
@@ -152,7 +155,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   // Remove the hardcoded text size from svg element and apply className to both measure and display text
   return (
     <div
-      className="min-h-screen flex items-center justify-center w-full"
+      className="flex w-full items-center justify-center"
       onPointerDown={onPointerDown}
       onPointerLeave={endDrag}
       onPointerMove={onPointerMove}
@@ -160,10 +163,10 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
       style={{ visibility: ready ? "visible" : "hidden", cursor: cursorStyle }}
     >
       <svg
-        aria-label="Curved text"
-        className="select-none w-full overflow-visible block aspect-[100/12] font-bold uppercase leading-none"
+        aria-label={marqueeText}
+        className="block w-full select-none overflow-visible font-bold uppercase leading-none"
         role="img"
-        viewBox="0 0 1440 120"
+        viewBox={`0 0 1440 ${viewBoxHeight}`}
       >
         {/* Measurement text - apply same className to ensure accurate measurement */}
         <text

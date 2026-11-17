@@ -53,14 +53,14 @@ const CookieBanner = () => {
             <button
               type="button"
               onClick={() => handleChoice("rejected")}
-              className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted"
+              className="btn-outline btn-sm"
             >
               Refuser
             </button>
             <button
               type="button"
               onClick={() => handleChoice("accepted")}
-              className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90"
+              className="btn-primary btn-sm"
             >
               Accepter
             </button>

@@ -54,6 +54,80 @@
     --cream-dark: 35 25% 93%;
     --teal: 185 40% 40%;
 
+    /* ------------------------------------------------------------------
+       Palette étendue — valeurs exactes des anciennes couleurs écrites
+       en dur dans les composants (aucun changement visuel).
+       Usage : bg-navy-soft, text-blush-400, ou hsl(var(--x) / 0.5)
+       ------------------------------------------------------------------ */
+    /* Bleus */
+    --navy-soft: 214.2 52% 24.5%;          /* #1e3a5f — cartes « besoin de souffle », chouette */
+    --navy-soft-hover: 217.8 49.7% 28.8%;  /* #25406e */
+    --ink: 234.6 65.8% 29.8%;              /* #1a237e — sous-menu */
+
+    /* Roses */
+    --blush-50: 340 100% 98.8%;
+    --blush-75: 337.5 36.4% 95.7%;
+    --blush-100: 333.8 42.1% 92.5%;
+    --blush-200: 325.9 84.6% 89.8%;
+    --blush-300: 337.9 57.6% 80.6%;        /* #eab1c6 — bordure sous-menu */
+    --blush-400: 328.6 85.5% 70.2%;
+    --blush-500: 330.4 81.2% 60.4%;
+    --blush-600: 333.3 71.4% 50.6%;
+    --blush-700: 335.1 77.6% 42%;
+
+    /* Neutres froids (fonds d'articles de blog) */
+    --mist: 210 40% 98%;
+    --frost: 198.5 61.9% 95.9%;
+    --frost-strong: 197.6 68% 95.1%;
+
+    /* Teintes d'ombres colorées */
+    --shadow-navy: 228.7 42.4% 24.5%;
+    --shadow-mauve: 330 17.6% 40%;
+    --shadow-plum: 326.2 35.1% 21.8%;
+    --gallery-ink: 222.9 46.7% 14.7%;
+
+    /* Ruban dégradé de la page Emma */
+    --wave-1: 333.6 59.1% 75.1%;
+    --wave-2: 330.9 59.7% 68.8%;
+    --wave-3: 308.5 47.4% 62%;
+    --wave-4: 255.6 44.2% 67.6%;
+    --wave-5: 225.5 35.3% 53.9%;
+    --wave-6: 220.3 40.4% 29.6%;
+    --wave-mid: 288.5 42.2% 66.1%;
+
+    /* Glace (boutons) */
+    --ice: 200 60% 96%;
+    --ice-shadow: 198 70% 55%;
+    --frost-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+    /* Fissures de glace (survol des boutons) */
+    --ice-crack: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='xMidYMid slice'%3E%3Cg fill='none' stroke='black' stroke-width='1' stroke-linejoin='miter' stroke-linecap='round'%3E%3Cpath d='M150 30 132 22 118 25 96 12 80 15 58 4 40 6M150 30 128 36 110 33 92 46 70 44 52 58M150 30 168 20 185 23 204 8 222 11 240 0M150 30 172 38 190 35 210 50 232 47 250 60M150 30 146 12 150 0M150 30 154 46 149 60M118 25 112 38 100 40M185 23 192 34 206 33M110 33 104 22 92 24M190 35 196 22 210 20M96 12 90 0M210 50 216 60M80 15 70 26M222 11 232 22M58 4 44 16M232 47 246 38'/%3E%3Cpath stroke-width='0.7' d='M141 26 146 21 156 22 161 29 157 37 146 38 140 33Z'/%3E%3C/g%3E%3C/svg%3E");
+
+    /* Aurore boréale (arrière-plan de la page Emma) */
+    --aurora-green: 152 78% 50%;
+    --aurora-teal: 174 72% 44%;
+    --aurora-violet: 268 62% 62%;
+    --aurora-pink: 330 78% 68%;
+    --aurora-cyan: 188 85% 52%;
+    --aurora-blue: 222 80% 60%;
+
+    /* Univers de Noël (village + carte cadeau) */
+    --noel-night: 210 63.2% 7.5%;
+    --noel-abyss: 210 80% 3.9%;
+    --noel-red: 353.7 64.4% 53.7%;
+    --noel-red-deep: 351.8 71.2% 42.2%;
+    --noel-gold: 42.1 62.7% 59%;
+    --noel-glow-ice: 194.2 100% 81.8%;
+    --noel-glow-warm: 50 100% 88.2%;
+    --gift-gold-light: 43.5 73.2% 62%;
+    --gift-gold: 41 67.4% 53.1%;
+    --gift-gold-mid: 39.5 74.6% 44.7%;
+    --gift-gold-deep: 38.7 81.1% 39.4%;
+    --confetti-pink: 339.6 82.2% 51.6%;
+    --confetti-green: 147.5 66.7% 28.2%;
+    --confetti-gold: 42.5 91.4% 58.8%;
+    --confetti-blue: 224.1 49.7% 32.7%;
+
     font-family: 'DM Sans', system-ui, sans-serif;
   }
 
@@ -102,6 +176,246 @@
   }
 }
 
+/* ------------------------------------------------------------------
+   Boutons « glace gelée » — style unique pour tout le site
+   .btn-primary   : glace rose (action principale)
+   .btn-dark      : glace marine
+   .btn-outline   : glace claire (action secondaire sur fond clair)
+   .btn-light     : glace givrée sur photo ou fond sombre
+   Tailles : .btn-sm / .btn-lg — pleine largeur : .btn-block
+   Icônes : .btn-icon (étoile, flocon) — .btn-arrow (flèche qui glisse)
+
+   Le texte est toujours plein et contrasté ; l'effet de glace est porté
+   par le fond, les bords givrés et une fine texture (::before).
+   ------------------------------------------------------------------ */
+@layer components {
+  .btn,
+  .btn-primary,
+  .btn-dark,
+  .btn-outline,
+  .btn-light {
+    --ice-bg: hsl(var(--ice));
+    --ice-rim: rgba(255, 255, 255, 0.85);
+    --ice-frost: rgba(255, 255, 255, 0.6);
+    --ice-glow: hsl(var(--ice-shadow) / 0.35);
+    --crack-color: hsl(var(--ice-shadow) / 0.6);
+    --ice-texture-opacity: 0.55;
+
+    @apply relative isolate inline-flex items-center justify-center gap-3 overflow-hidden rounded-full border px-8 py-[0.95rem] text-center font-sans text-[0.78rem] font-semibold uppercase leading-snug tracking-[0.2em];
+    @apply transition-[transform,box-shadow,background-color] duration-300 ease-out;
+    @apply hover:-translate-y-px active:translate-y-0 active:scale-[0.98];
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+    @apply disabled:pointer-events-none disabled:opacity-60;
+    -webkit-tap-highlight-color: transparent;
+
+    border-color: var(--ice-rim);
+    background-color: var(--ice-bg);
+    /* Bords givrés à l'intérieur, reflet sur le dessus, ombre bleutée de glace */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+      inset 0 0 14px 2px var(--ice-frost),
+      0 6px 16px -8px var(--ice-glow);
+  }
+
+  /* Surface gelée : grain de givre + fines stries de glace + reflet en haut */
+  .btn::before,
+  .btn-primary::before,
+  .btn-dark::before,
+  .btn-outline::before,
+  .btn-light::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0 -z-10 rounded-[inherit] transition-opacity duration-300;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 45%, rgba(255, 255, 255, 0) 55%),
+      repeating-linear-gradient(115deg, transparent 0 22px, rgba(255, 255, 255, 0.14) 22px 23px, transparent 23px 41px),
+      var(--frost-texture);
+    opacity: var(--ice-texture-opacity);
+  }
+
+  .btn:hover,
+  .btn-primary:hover,
+  .btn-dark:hover,
+  .btn-outline:hover,
+  .btn-light:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+      inset 0 0 18px 4px var(--ice-frost),
+      0 10px 22px -10px var(--ice-glow);
+  }
+
+  .btn:hover::before,
+  .btn-primary:hover::before,
+  .btn-dark:hover::before,
+  .btn-outline:hover::before,
+  .btn-light:hover::before {
+    opacity: 1;
+  }
+
+  /* Fissures : elles partent du centre et se propagent vers les bords au survol */
+  .btn::after,
+  .btn-primary::after,
+  .btn-dark::after,
+  .btn-outline::after,
+  .btn-light::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 rounded-[inherit];
+    z-index: -5; /* au-dessus de la glace, sous le texte */
+    background-color: var(--crack-color);
+    /* Fissures nettes vers les bords, estompées dans la bande du texte */
+    -webkit-mask:
+      var(--ice-crack) center / cover no-repeat,
+      linear-gradient(to bottom, black 18%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.2) 60%, black 82%);
+    -webkit-mask-composite: source-in;
+    mask:
+      var(--ice-crack) center / cover no-repeat,
+      linear-gradient(to bottom, black 18%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.2) 60%, black 82%);
+    mask-composite: intersect;
+    clip-path: circle(0% at 50% 55%);
+    opacity: 0;
+    transition:
+      clip-path 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.2s ease;
+  }
+
+  .btn:hover::after,
+  .btn-primary:hover::after,
+  .btn-dark:hover::after,
+  .btn-outline:hover::after,
+  .btn-light:hover::after {
+    clip-path: circle(150% at 50% 55%);
+    opacity: 1;
+  }
+
+  /* Petit sursaut au moment où la glace craque */
+  .btn:hover,
+  .btn-primary:hover,
+  .btn-dark:hover,
+  .btn-outline:hover,
+  .btn-light:hover {
+    animation: ice-crack-jolt 0.4s ease-out;
+  }
+
+  /* Glace rose : action principale, texte marine */
+  .btn-primary {
+    --ice-bg: hsl(var(--accent));
+    --ice-rim: rgba(255, 255, 255, 0.7);
+    --ice-frost: rgba(255, 255, 255, 0.5);
+    --ice-glow: hsl(var(--accent) / 0.55);
+    --crack-color: rgba(255, 255, 255, 0.95);
+    @apply text-primary;
+  }
+
+  /* Glace marine : texte crème */
+  .btn-dark {
+    --ice-bg: hsl(var(--primary));
+    --ice-rim: rgba(255, 255, 255, 0.35);
+    --ice-frost: hsl(var(--ice) / 0.28);
+    --ice-glow: hsl(var(--navy-deep) / 0.6);
+    --crack-color: hsl(var(--ice) / 0.7);
+    --ice-texture-opacity: 0.35;
+    @apply text-primary-foreground;
+  }
+
+  /* Glace claire : action secondaire sur fond clair, texte marine */
+  .btn-outline {
+    --ice-bg: hsl(var(--ice));
+    --ice-rim: hsl(var(--ice-shadow) / 0.35);
+    @apply text-primary;
+  }
+
+  /* Glace givrée sur photo : opaque et claire pour que le texte reste lisible */
+  .btn-light {
+    --ice-bg: hsl(var(--ice) / 0.82);
+    --ice-rim: rgba(255, 255, 255, 0.9);
+    --ice-glow: hsl(var(--navy-deep) / 0.45);
+    @apply text-primary backdrop-blur-md;
+  }
+
+  /* Tailles */
+  .btn-sm {
+    @apply gap-2 px-5 py-2.5 text-[0.68rem] tracking-[0.18em];
+  }
+
+  .btn-lg {
+    @apply px-10 py-[1.1rem] text-[0.82rem];
+  }
+
+  .btn-block {
+    @apply w-full;
+  }
+
+  /* Petits écrans : lettres un peu moins espacées pour tenir sur une ligne */
+  @media (max-width: 480px) {
+    .btn,
+    .btn-primary,
+    .btn-dark,
+    .btn-outline,
+    .btn-light {
+      @apply gap-2.5 px-5 tracking-[0.12em];
+    }
+
+    .btn-lg {
+      @apply px-5 py-4 text-[0.74rem];
+    }
+  }
+
+  /* Icônes */
+  .btn-icon {
+    @apply h-[1.1em] w-[1.1em] flex-none;
+  }
+
+  .btn-arrow {
+    @apply h-4 w-4 flex-none transition-transform duration-300 ease-out;
+  }
+
+  .btn:hover .btn-arrow,
+  .btn-primary:hover .btn-arrow,
+  .btn-dark:hover .btn-arrow,
+  .btn-outline:hover .btn-arrow,
+  .btn-light:hover .btn-arrow {
+    @apply translate-x-1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn-primary:hover,
+    .btn-dark:hover,
+    .btn-outline:hover,
+    .btn-light:hover {
+      animation: none;
+    }
+
+    .btn,
+    .btn-primary,
+    .btn-dark,
+    .btn-outline,
+    .btn-light,
+    .btn::after,
+    .btn-primary::after,
+    .btn-dark::after,
+    .btn-outline::after,
+    .btn-light::after,
+    .btn::before,
+    .btn-primary::before,
+    .btn-dark::before,
+    .btn-outline::before,
+    .btn-light::before,
+    .btn-arrow {
+      transition: none;
+    }
+  }
+}
+
+/* Sursaut très léger : un simple frémissement de la glace */
+@keyframes ice-crack-jolt {
+  0% { translate: 0 0; }
+  30% { translate: -0.5px 0; }
+  60% { translate: 0.4px 0; }
+  100% { translate: 0 0; }
+}
+
 @layer utilities {
   .font-serif {
     font-family: 'Playfair Display', Georgia, serif;
@@ -120,28 +434,90 @@
   }
 }
 
-/* Transparent scrollbar */
+/* ------------------------------------------------------------------
+   Barre de défilement : fond transparent, curseur fin et arrondi
+   qui flotte au-dessus de la page, marine discret puis rose au survol.
+   ------------------------------------------------------------------ */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
   background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background-color: hsl(var(--primary) / 0.22);
+  background-clip: padding-box;
+  border: 3px solid transparent; /* marge transparente : le curseur paraît flotter */
   border-radius: 999px;
+  min-height: 48px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background-color: hsl(var(--accent) / 0.85);
+  border-width: 2px;
 }
 
-/* Firefox */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+::-webkit-scrollbar-thumb:active {
+  background-color: hsl(var(--accent));
+}
+
+/* Firefox (ne lit pas les règles ci-dessus) */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.28) transparent;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Aurore de la page Emma : chaque calque est flouté une seule fois,
+   puis seuls son opacité et sa position sont animées (très léger).
+   ------------------------------------------------------------------ */
+.aurora-trail svg {
+  will-change: opacity, transform;
+}
+
+.aurora-trail .aurora-glow {
+  filter: blur(22px);
+  animation: aurora-breathe 8s ease-in-out infinite;
+}
+
+.aurora-trail .aurora-veil {
+  filter: blur(2px);
+  animation: aurora-flicker 5s ease-in-out infinite;
+}
+
+.aurora-trail .aurora-strands {
+  filter: blur(0.6px);
+  animation: aurora-drift 11s ease-in-out infinite;
+}
+
+@keyframes aurora-breathe {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+@keyframes aurora-flicker {
+  0%, 100% { opacity: 0.7; transform: translateX(0); }
+  35% { opacity: 1; transform: translateX(4px); }
+  70% { opacity: 0.55; transform: translateX(-3px); }
+}
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.9; }
+  50% { transform: translate(6px, -4px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-trail .aurora-glow,
+  .aurora-trail .aurora-veil,
+  .aurora-trail .aurora-strands {
+    animation: none;
+  }
 }
 
 #images {

@@ -1,13 +1,16 @@
+// Mosaïque d'une tuile de 1522 × 1238 (répétée à l'infini).
+// Aucune photo ne se chevauche, et les marges aux bords laissent un espace
+// régulier aux raccords entre deux tuiles.
 export const gridData = [
-  { x: 71, y: 58, w: 400, h: 270 },
-  { x: 211, y: 255, w: 540, h: 360 },
-  { x: 631, y: 158, w: 400, h: 270 },
-  { x: 1191, y: 245, w: 260, h: 195 },
-  { x: 351, y: 687, w: 260, h: 290 },
-  { x: 751, y: 824, w: 205, h: 154 },
-  { x: 911, y: 540, w: 260, h: 350 },
-  { x: 1051, y: 803, w: 400, h: 300 },
-  { x: 71, y: 922, w: 350, h: 260 },
+  { x: 60, y: 60, w: 420, h: 290 },
+  { x: 560, y: 120, w: 460, h: 310 },
+  { x: 1100, y: 60, w: 360, h: 250 },
+  { x: 120, y: 450, w: 330, h: 420 },
+  { x: 530, y: 540, w: 300, h: 220 },
+  { x: 900, y: 480, w: 520, h: 350 },
+  { x: 60, y: 960, w: 400, h: 230 },
+  { x: 540, y: 860, w: 420, h: 300 },
+  { x: 1040, y: 900, w: 380, h: 260 },
 ];
 
 export const originalSize = { w: 1522, h: 1238 };
@@ -77,22 +80,22 @@ const finlandeFiles = [
 export const galleryConfigs = {
   islande: {
     title: "Islande",
-    basePath: "/gallery/islande",
+    basePath: "/images/galeries/islande",
     sources: buildSources(islandeFiles, islandeKeywords),
   },
   norvege: {
     title: "Norvège",
-    basePath: "/gallery/norvege",
+    basePath: "/images/galeries/norvege",
     sources: buildSources(norvegeFiles, norvegeKeywords),
   },
   suede: {
     title: "Suède",
-    basePath: "/gallery/suede",
+    basePath: "/images/galeries/suede",
     sources: buildSources(suedeFiles, suedeKeywords),
   },
   finlande: {
     title: "Finlande",
-    basePath: "/gallery/finlande",
+    basePath: "/images/galeries/finlande",
     sources: buildSources(finlandeFiles, finlandeKeywords),
   },
 };

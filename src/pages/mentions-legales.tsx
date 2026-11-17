@@ -1,5 +1,7 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="bg-card border border-border rounded-2xl p-6 md:p-8 space-y-3">
@@ -11,10 +13,10 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 const MentionsLegales = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo title={PAGES.mentions.title} description={PAGES.mentions.description} path={PAGES.mentions.path} />
       <Navbar />
 
       <main className="pt-32 pb-24 px-4 md:px-6 max-w-5xl mx-auto space-y-6">
-        <h1 className="sr-only">Mentions légales L'Échappée d'Emma, Travel Planner</h1>
         <header className="space-y-3">
           <h1 className="text-4xl md:text-5xl font-serif text-foreground">Mentions légales</h1>
           <p className="text-muted-foreground leading-relaxed">

@@ -1,5 +1,5 @@
-import { useState, type MouseEvent as ReactMouseEvent } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useHaloPointer } from '@/hooks/use-halo-pointer';
 
 type AmbassadorCardProps = {
   className?: string;
@@ -12,48 +12,6 @@ type AmbassadorBenefitCardProps = {
   description: string;
 };
 
-const useHaloPointer = (haloSize: number) => {
-  const [active, setActive] = useState(false);
-  const pointerX = useMotionValue(-haloSize);
-  const pointerY = useMotionValue(-haloSize);
-  const x = useSpring(pointerX, { stiffness: 240, damping: 30, mass: 0.18 });
-  const y = useSpring(pointerY, { stiffness: 240, damping: 30, mass: 0.18 });
-
-  const getPointerPosition = (event: ReactMouseEvent<HTMLElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-
-    return {
-      x: event.clientX - bounds.left - haloSize / 2,
-      y: event.clientY - bounds.top - haloSize / 2,
-    };
-  };
-
-  const enterPointer = (event: ReactMouseEvent<HTMLElement>) => {
-    const nextPointer = getPointerPosition(event);
-
-    pointerX.jump(nextPointer.x);
-    pointerY.jump(nextPointer.y);
-    x.jump(nextPointer.x);
-    y.jump(nextPointer.y);
-    setActive(true);
-  };
-
-  const updatePointer = (event: ReactMouseEvent<HTMLElement>) => {
-    const nextPointer = getPointerPosition(event);
-
-    pointerX.set(nextPointer.x);
-    pointerY.set(nextPointer.y);
-
-    if (!active) {
-      setActive(true);
-    }
-  };
-
-  const hidePointer = () => setActive(false);
-
-  return { active, x, y, enterPointer, updatePointer, hidePointer };
-};
-
 const AmbassadorBenefitCard = ({ eyebrow, title, description }: AmbassadorBenefitCardProps) => {
   const halo = useHaloPointer(144);
 
@@ -64,7 +22,7 @@ const AmbassadorBenefitCard = ({ eyebrow, title, description }: AmbassadorBenefi
       onMouseLeave={halo.hidePointer}
       whileHover={{ y: -4 }}
       transition={{ duration: 0.22, ease: 'easeOut' }}
-      className="group relative overflow-hidden rounded-[1.6rem] border border-accent/20 bg-[linear-gradient(145deg,rgba(255,255,255,0.88),rgba(244,228,235,0.92),rgba(248,240,243,0.84))] p-5 shadow-[0_18px_45px_rgba(36,46,89,0.08)]"
+      className="group relative overflow-hidden rounded-[1.6rem] border border-accent/20 bg-[linear-gradient(145deg,rgba(255,255,255,0.88),hsl(var(--blush-100)/0.92),hsl(var(--blush-75)/0.84))] p-5 shadow-[0_18px_45px_hsl(var(--shadow-navy)/0.08)]"
     >
       <motion.div
         aria-hidden="true"
@@ -73,7 +31,7 @@ const AmbassadorBenefitCard = ({ eyebrow, title, description }: AmbassadorBenefi
         transition={{ duration: 0.14, ease: 'easeOut' }}
       >
         <motion.div
-          className="absolute h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(244,114,182,0.28)_0%,rgba(244,114,182,0.12)_42%,rgba(244,114,182,0)_72%)] blur-2xl"
+          className="absolute h-36 w-36 rounded-full bg-[radial-gradient(circle,hsl(var(--blush-400)/0.28)_0%,hsl(var(--blush-400)/0.12)_42%,hsl(var(--blush-400)/0)_72%)] blur-2xl"
           style={{ x: halo.x, y: halo.y }}
         />
       </motion.div>
@@ -105,7 +63,7 @@ const AmbassadorCard = ({ className = '', compact = false }: AmbassadorCardProps
       onMouseEnter={halo.enterPointer}
       onMouseMove={halo.updatePointer}
       onMouseLeave={halo.hidePointer}
-      className={`relative overflow-hidden rounded-3xl border border-accent/30 bg-[linear-gradient(135deg,rgba(219,39,119,0.08),rgba(255,255,255,0.96),rgba(244,114,182,0.12))] p-6 md:p-8 shadow-sm ${className}`.trim()}
+      className={`relative overflow-hidden rounded-3xl border border-accent/30 bg-[linear-gradient(135deg,hsl(var(--blush-600)/0.08),rgba(255,255,255,0.96),hsl(var(--blush-400)/0.12))] p-6 md:p-8 shadow-sm ${className}`.trim()}
     >
       <motion.div
         aria-hidden="true"
@@ -114,7 +72,7 @@ const AmbassadorCard = ({ className = '', compact = false }: AmbassadorCardProps
         transition={{ duration: 0.16, ease: 'easeOut' }}
       >
         <motion.div
-          className="absolute h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(244,114,182,0.24)_0%,rgba(244,114,182,0.12)_35%,rgba(244,114,182,0)_72%)] blur-2xl"
+          className="absolute h-48 w-48 rounded-full bg-[radial-gradient(circle,hsl(var(--blush-400)/0.24)_0%,hsl(var(--blush-400)/0.12)_35%,hsl(var(--blush-400)/0)_72%)] blur-2xl"
           style={{ x: halo.x, y: halo.y }}
         />
       </motion.div>

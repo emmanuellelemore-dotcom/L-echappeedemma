@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { motion, useAnimation } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -9,6 +8,8 @@ import { TournantDeVieText } from '../components/TournantDeVie';
 import { Link } from 'react-router-dom';
 import FlipCard from '../components/FlipCard';
 import ProcessTimeline from '../components/ProcessTimeline';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 // Copie des données et animations depuis Index.tsx
 const reasons = [
@@ -103,13 +104,10 @@ const MesPrestations = () => {
 
   return (
     <>
-      <Helmet>
-        <meta name="description" content="Prestations de Travel Planner sur-mesure pour le Grand Nord : accompagnement, organisation, itinéraires personnalisés, conseils d'experte pour un voyage unique en Islande, Norvège, Suède, Finlande." />
-      </Helmet>
+      <Seo title={PAGES.prestations.title} description={PAGES.prestations.description} path={PAGES.prestations.path} />
       <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       <section className="w-full bg-white py-[72px] px-4 border-b border-border">
-        <h1 className="sr-only">L'échappée d'Emma - Prestations de Travel Planner sur-mesure Grand Nord avec L'Échappée d'Emma</h1>
         <div className="max-w-5xl mx-auto text-center">
           <MesPrestationsTitle />
           <div className="text-center text-lg">
@@ -172,16 +170,16 @@ const MesPrestations = () => {
               <motion.div key={need.number} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, delay: index * 0.1 }} className="flex flex-col items-center relative">
                 <FlipCard
                   recto={
-                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px] relative">
+                    <div className="bg-navy-soft text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px] relative">
                       <h3 className="text-base sm:text-lg font-bold mb-2 text-center break-words">{need.title}</h3>
                       <p className="text-xs sm:text-base text-center mb-4 text-white/90 font-medium break-words">{need.subtitle}</p>
-                      <span className="block sm:hidden absolute bottom-3 left-1/2 -translate-x-1/2 text-center text-xs font-semibold text-pink-500 animate-pulse">
+                      <span className="block sm:hidden absolute bottom-3 left-1/2 -translate-x-1/2 text-center text-xs font-semibold text-blush-500 animate-pulse">
                         Touchez pour retourner
                       </span>
                     </div>
                   }
                   verso={
-                    <div className="bg-[#1e3a5f] text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px]">
+                    <div className="bg-navy-soft text-white rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center justify-center w-full h-full min-h-[220px]">
                       <div className="mb-4 w-full flex flex-col items-center">
                         <span className="font-semibold block mb-2 text-center">L'esprit :</span>
                         <span className="block text-white/80 leading-relaxed text-xs sm:text-sm mb-4 text-center break-words">{need.spirit}</span>
@@ -213,7 +211,7 @@ const MesPrestations = () => {
             ))}
           </div>
           <div className="flex justify-center mt-4">
-            <a href="/devis" className="bg-accent hover:bg-accent/80 text-accent-foreground font-bold py-3 px-10 rounded-full text-lg shadow transition">Prendre son souffle</a>
+            <a href="/devis" className="btn-primary btn-lg">Prendre son souffle</a>
           </div>
         </div>
       </motion.section>
@@ -230,7 +228,7 @@ const MesPrestations = () => {
       <section className="py-10 px-6 text-center">
         <Link
           to="/mes-offres"
-          className="inline-block bg-accent text-accent-foreground px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
+          className="btn-primary btn-lg"
         >
           Voir mes offres
         </Link>
