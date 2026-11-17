@@ -6,67 +6,18 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import CurvedLoop from '../components/CurvedLoop';
 import Marquee from '../components/Marquee';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
+import { VISIBLE_ARTICLES } from '@/blog/visibility';
 
-// Mock d'articles pour la démo
-const articles = [
-  {
-    id: 1,
-    slug: 'lofoten-organiser-votre-echappee-sereine-grand-nord',
-    title: 'Lofoten : Organiser votre échappée sereine dans le Grand Nord',
-    summary: "Besoin de reprendre votre souffle ? Je conçois des échappées sur-mesure aux Lofoten pour vous libérer de la logistique et vous reconnecter à l'essentiel.",
-    image: '/gallery/norvege/vue-panoramique-fjord-coucher-soleil-hauteur.jpg',
-    date: '2026-02-15',
-    tags: ['Lofoten', 'Norvege', 'Conseils'],
-  },
-  {
-    id: 2,
-    slug: 'bien-choisir-son-equipement-grand-nord',
-    title: 'Bien choisir son équipement pour le Grand Nord',
-    summary: "Le Grand Nord ne se dompte pas, il s'apprivoise. L'équipement n'est pas qu'une question de confort ; c'est votre allié de sécurité.",
-    image: '/gallery/finlande/riviere-hiver-glace-neige-foret-nordique-paysage.jpg',
-    date: '2026-01-28',
-    tags: ['Equipement', 'Conseils'],
-  },
-  {
-    id: 3,
-    slug: 'randonner-grand-nord-guide-insider',
-    title: "Randonner dans le Grand Nord : le guide de l'insider",
-    summary: 'Les plus belles vues du Grand Nord se méritent. Voici comment aborder ces randonnées avec un esprit serein.',
-    image: '/gallery/norvege/route-panoramique-vallee-verte-ete.jpg',
-    date: '2025-12-10',
-    tags: ['Randonnee', 'Conseils'],
-  },
-
-  {
-    id: 4,
-    slug: 'pourquoi-choisir-la-laponie-parenthese-hivernale',
-    title: 'Pourquoi choisir la Laponie pour votre prochaine parenthèse hivernale ?',
-    summary: "Entre silence, immensités blanches et aurores boréales, la Laponie est une invitation à ralentir.",
-    image: '/gallery/finlande/aurore-boreale-verte-montagnes-enneigees-nuit.jpg',
-    date: '2025-11-05',
-    tags: ['Laponie', 'Hiver'],
-  },
-  {
-    id: 5,
-    slug: 'suede-secrete-immersion-foret-boreale',
-    title: 'Suède secrète : immersion en forêt boréale',
-    summary: "Il existe des voyages qui ne se racontent pas, ils se ressentent. Cette échappée en canoë en fait partie.",
-    image: '/gallery/suede/cabane-rouge-bord-lac-canoe.jpg',
-    date: '2025-10-20',
-    tags: ['Suede', 'Nature'],
-  },
-];
+const articles = VISIBLE_ARTICLES;
 
 
 const allTags = Array.from(new Set(articles.flatMap(a => a.tags)));
 
 export default function BlogPage() {
-  /* H1 SEO pour la page blog */
-  /* eslint-disable-next-line jsx-a11y/heading-has-content */
-  const h1 = <h1 className="sr-only">L'échappée d'Emma - Blog voyage Grand Nord, conseils, itinéraires et inspirations de L'Échappée d'Emma</h1>;
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const articlesPerPage = 3;
 
   const filtered = selectedTag
     ? articles.filter(a => a.tags.includes(selectedTag))
@@ -77,6 +28,7 @@ export default function BlogPage() {
   return (
 
     <div className="min-h-screen bg-secondary/60 relative overflow-x-hidden max-w-full">
+      <Seo title={PAGES.blog.title} description={PAGES.blog.description} path={PAGES.blog.path} />
       <Navbar />
 
 
@@ -85,13 +37,13 @@ export default function BlogPage() {
         <div className="block lg:hidden w-full bg-secondary/60 py-3 mt-[104px] border-b border-border">
           <Marquee text="Le Blog du Grand Nord" />
         </div>
-        <div className="hidden lg:block w-full mt-[-300px] mb-0 h-[550px] overflow-hidden bg-secondary/60">
-          <div className="max-w-7xl mx-auto px-4">
+        <div className="hidden lg:block w-full overflow-hidden bg-secondary/60 pt-20 pb-3">
+          <div className="mx-auto max-w-[1600px]">
             <CurvedLoop
               marqueeText="Le Blog du Grand Nord"
               speed={1}
               className="text-primary text-7xl font-serif"
-              curveAmount={400}
+              curveAmount={260}
               direction="left"
               interactive={true}
             />
@@ -101,14 +53,27 @@ export default function BlogPage() {
       {/* Présentation immersive à deux colonnes */}
       <section className="w-full bg-white py-16 px-4 border-b border-border">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          {/* Image immersive à gauche */}
-          <div className="flex justify-center items-center min-h-[120px] text-muted-foreground text-lg font-medium">
-            pas de photo pour le moment
-          </div>
+          {/* Photo d'Emma sur le terrain */}
+          <figure className="mx-auto w-full max-w-sm">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-25px_hsl(var(--navy-deep)/0.45)]">
+              <img
+                src="/images/emma-travel-planner-grand-nord-falaise.webp"
+                alt="Emma, travel planner, assise au sommet d'une falaise au-dessus d'une mer turquoise dans le Grand Nord"
+                width={960}
+                height={1200}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <figcaption className="mt-4 text-center text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-muted-foreground">
+              Emma, sur le terrain
+            </figcaption>
+          </figure>
           {/* Texte d'accueil à droite */}
           <div className="text-center md:text-left">
-            <h2 className="uppercase text-accent font-bold text-lg mb-2 tracking-widest">Bienvenue sur</h2>
-            <span className="block text-4xl font-serif font-extrabold text-accent mb-4 italic">le blog&nbsp;!</span>
+            <h1 className="mb-4">
+              <span className="block uppercase text-accent font-bold text-lg mb-2 tracking-widest">Bienvenue sur</span>{' '}
+              <span className="block text-4xl font-serif font-extrabold text-accent italic">le blog&nbsp;!</span>
+            </h1>
             <p className="text-lg text-foreground mb-4 leading-relaxed">
               Retrouvez ici des conseils et inspirations pour préparer votre aventure dans le Grand Nord&nbsp;: Islande, Norvège, Suède, Finlande…
               <br />
@@ -147,15 +112,9 @@ export default function BlogPage() {
       <section className="max-w-7xl mx-auto px-4 pb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {paginated.map(article => {
-            // Description SEO pour chaque article
-            let seoDescription = '';
-            if (article.id === 1) seoDescription = "Conseils pratiques pour organiser un roadtrip en Laponie, voir les aurores boréales, choisir son itinéraire et vivre une expérience nordique authentique.";
-            if (article.id === 2) seoDescription = "Top randonnées en Islande : volcans, glaciers, cascades. Itinéraires, conseils et spots secrets pour randonner dans le Grand Nord islandais.";
-            if (article.id === 3) seoDescription = "Guide équipement Grand Nord : vêtements, matériel, astuces pour voyager en Islande, Norvège, Finlande ou Suède sans se ruiner.";
-            if (article.id === 4) seoDescription = "Voyage en Suède boréale : immersion en forêt, lacs gelés, hébergements insolites et conseils pour explorer la nature sauvage du Nord.";
             return (
               <Link
-                key={article.id}
+                key={article.slug}
                 to={`/blog/${article.slug}`}
                 className="group"
                 aria-label={article.title}
@@ -169,11 +128,15 @@ export default function BlogPage() {
                 >
                   <img
                     src={article.image}
-                    alt={article.title}
+                    alt={article.imageAlt}
+                    loading="lazy"
                     className="h-80 w-full object-cover"
                   />
                   <div className="flex-1 flex flex-col p-5">
-                    <span className="text-xs text-muted-foreground mb-2">{new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    {article.status === 'brouillon' && (
+                      <span className="mb-2 self-start rounded-full bg-accent/15 px-2.5 py-0.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-accent">Brouillon</span>
+                    )}
+                    <span className="text-xs text-muted-foreground mb-2">{new Date(article.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                     <h2 className="text-lg font-bold text-foreground mb-2 leading-snug">{article.title}</h2>
                   </div>
                 </motion.div>
@@ -187,7 +150,7 @@ export default function BlogPage() {
           <div className="flex justify-center mt-10">
             <button
               onClick={() => setPage(p => p + 1)}
-              className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold text-lg shadow hover:opacity-90 transition-opacity"
+              className="btn-dark"
             >
               Charger plus d’articles
             </button>

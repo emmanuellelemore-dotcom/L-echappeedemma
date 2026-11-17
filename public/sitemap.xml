@@ -1,78 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://www.lechappeedemma.com/</loc>
+    <loc>https://lechappeedemma.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/emma</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/mes-prestations</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/mes-offres</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/village-du-pere-noel</loc>
+    <loc>https://lechappeedemma.com/emma</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/charte-echappee</loc>
+    <loc>https://lechappeedemma.com/mes-prestations</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/mentions-legales</loc>
+    <loc>https://lechappeedemma.com/mes-offres</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/village-du-pere-noel</loc>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/devis</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.lechappeedemma.com/blog/roadtrip-laponie-aurores-boreales</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/gallery/islande</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://lechappeedemma.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/devis</loc>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/gallery/norvege</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://lechappeedemma.com/contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/gallery/suede</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://lechappeedemma.com/charte-echappee</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://www.lechappeedemma.com/gallery/finlande</loc>
+    <loc>https://lechappeedemma.com/mentions-legales</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/gallery/islande</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/interieur-grotte-glace-bleue.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/lagune-glaciaire-icebergs-soleil.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/montagne-enneigee-glacier-islande.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/riviere-bleue-paysage-hiver-islande.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/riviere-glacee-canyon-islande.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/rocher-basalte-plage-enneigee.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/soleil-couchant-plage-diamant-islande.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/source-chaude-vapeur-soleil-hiver.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/islande/texture-glace-bleue-islande.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/gallery/norvege</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/grande-cascade-ete-riviere-rochers.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/eglise-bois-debout-stave-church-norvege.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/maison-cabane-jardin-fleur-toit-norvege.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/forgerons-forge-historique-viking.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/reflet-coucher-soleil-nuages-lac-calme.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/mouton-traversant-route-montagne-toundra.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/route-panoramique-vallee-verte-ete.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/village-maisons-rouges-fjord-norvege.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/vue-panoramique-fjord-coucher-soleil-hauteur.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/gallery/suede</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/balade-canoe-lac-calme-crepuscule.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/vue-proue-canoe-coucher-soleil-lac.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/coucher-soleil-rose-violet-lac-miroir.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/rayons-soleil-foret-pins-matin.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/grand-feu-camp-foret-nuit.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/lac-paisible-rochers-crepuscule.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/cabane-rouge-bord-lac-canoe.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/nenuphars-lac-reflet-foret.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/camping-foret-feu-camp-guimauves.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/gallery/finlande</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/riviere-gelee-brume-hiver-laponie-paysage-nordique.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/riviere-hiver-glace-neige-foret-nordique-paysage.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/paysage-hiver-lever-soleil-riviere-gelee-laponie.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/peche-sur-glace-lac-gele-coucher-soleil-hiver.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/aurore-boreale-verte-montagnes-enneigees-nuit.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/nourrir-renne-laponie-hiver-experience-nordique.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/renne-laponie-tourisme-hiver-photo-souvenir.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/renne-laponie-neige-animaux-sauvages-hiver.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/cabane-laponie-feu-de-bois-diner-hiver-ambiance.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/blog/lofoten-organiser-votre-echappee-sereine-grand-nord</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/vue-panoramique-fjord-coucher-soleil-hauteur.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/blog/bien-choisir-son-equipement-grand-nord</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/riviere-hiver-glace-neige-foret-nordique-paysage.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/blog/randonner-grand-nord-guide-insider</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/norvege/route-panoramique-vallee-verte-ete.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/blog/pourquoi-choisir-la-laponie-parenthese-hivernale</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/finlande/aurore-boreale-verte-montagnes-enneigees-nuit.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://lechappeedemma.com/blog/suede-secrete-immersion-foret-boreale</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://lechappeedemma.com/images/galeries/suede/cabane-rouge-bord-lac-canoe.jpg</image:loc>
+    </image:image>
   </url>
 </urlset>

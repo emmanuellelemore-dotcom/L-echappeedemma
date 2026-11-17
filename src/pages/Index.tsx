@@ -5,8 +5,8 @@ import heroTravel from '@/assets/hero-travel.webp';
 // Ajoutez vos images personnalisées ici
 const heroImages = [
   heroTravel,
-  '/gallery/suede/coucher-soleil-rose-violet-lac-miroir.jpg',
-  '/gallery/islande/soleil-couchant-plage-diamant-islande.jpg',
+  '/images/galeries/suede/coucher-soleil-rose-violet-lac-miroir.jpg',
+  '/images/galeries/islande/soleil-couchant-plage-diamant-islande.jpg',
   // Ajoutez d'autres chemins d'images ici
 ];
 import destIslande from '../assets/dest-islande.jpg';
@@ -15,12 +15,12 @@ import destSuede from '../assets/dest-suede.jpg';
 import destFinlande from '../assets/dest-finlande.jpg';
 
 import Navbar from '../components/Navbar';
-import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import DestinationCard from '../components/DestinationCard';
 import GoogleReviews from '../components/GoogleReviews';
 import ContainerTextFlip from '../components/ContainerTextFlip';
 import { TournantDeVieText } from '../components/TournantDeVie';
+import VelocityMarquee from '../components/VelocityMarquee';
 // ...existing code...
 
 // Destinations pour la section Destinations
@@ -66,6 +66,8 @@ import {
 } from 'lucide-react';
 
 import { GradualSpacing } from '../components/GradualSpacing';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 
 
@@ -199,15 +201,13 @@ const Index = () => {
 
   return (
     <>
-      <Helmet>
-        <meta name="description" content="Voyages sur-mesure Grand Nord : Islande, Norvège, Suède, Finlande. Itinéraires personnalisés, conseils d'experte, accompagnement humain et transparent. Cap au Nord pour un nouveau souffle !" />
-      </Helmet>
+      <Seo description={PAGES.home.description} path={PAGES.home.path} />
       <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-10 sm:pt-24 sm:pb-16">
-        <h1 className="sr-only">L'échappée d'Emma - Cap au Nord pour un Nouveau Souffle avec L'Échappée d'Emma</h1>
+        <h1 className="sr-only">Cap au Nord pour un nouveau souffle</h1>
         <div className="absolute inset-0 overflow-hidden">
           {heroImages.length > 0 ? (
             <img
@@ -254,38 +254,44 @@ const Index = () => {
               )}
             />
           </div>
-          <div className="flex justify-center mb-6">
-            <Link
-              to="/devis"
-              className="bg-accent hover:bg-accent/80 text-accent-foreground px-6 py-3 rounded-full font-bold text-base shadow-lg flex items-center gap-2 transition-colors duration-200 w-full max-w-xs justify-center"
-            >
+          <div className="mb-7 mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <Link to="/devis" className="btn-primary btn-lg w-full max-w-xs whitespace-nowrap sm:w-auto sm:max-w-none">
               Débuter mon échappée
-              <span><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 24 24'><path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/></svg></span>
+            </Link>
+            <Link to="/mes-offres" className="btn-light btn-lg w-full max-w-xs whitespace-nowrap sm:w-auto sm:max-w-none">
+              Découvrir mes offres
             </Link>
           </div>
           <div className="flex flex-col items-center gap-3">
-            <div className="flex flex-wrap justify-center gap-2">
-              <Link to="/gallery/norvege" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Norvège</Link>
-              <Link to="/gallery/islande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Islande</Link>
-              <Link to="/gallery/suede" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Suède</Link>
-              <Link to="/gallery/finlande" className="border border-white/80 text-white px-4 py-2 rounded-full text-sm hover:bg-white/10 transition opacity-70 hover:opacity-90">Finlande</Link>
-              <button
-                onClick={() => setShowExtraDests(v => !v)}
-                className="border border-white/80 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-white/10 transition focus:outline-none opacity-70 hover:opacity-90"
-                aria-expanded={showExtraDests}
-                aria-controls="extra-dests"
-              >
-                Destinations exotiques
-                <span className={`transition-transform duration-200 ${showExtraDests ? 'rotate-90' : ''}`}>{showExtraDests ? '▲' : '▼'}</span>
-              </button>
-            </div>
+            {/* Destinations proposées : simple liste, non cliquable */}
+            <ul className="flex flex-wrap justify-center gap-2" aria-label="Destinations proposées">
+              {['Norvège', 'Islande', 'Suède', 'Finlande'].map((dest) => (
+                <li key={dest} className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">
+                  {dest}
+                </li>
+              ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => setShowExtraDests(v => !v)}
+                  className="border border-white/80 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-white/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 opacity-70 hover:opacity-90"
+                  aria-expanded={showExtraDests}
+                  aria-controls="extra-dests"
+                >
+                  Destinations exotiques
+                  <ChevronDown size={14} className={`transition-transform duration-200 ${showExtraDests ? 'rotate-180' : ''}`} aria-hidden="true" />
+                </button>
+              </li>
+            </ul>
 
             {showExtraDests && (
-              <div id="extra-dests" className="flex flex-wrap justify-center gap-2 animate-fade-in">
-                <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Égypte</span>
-                <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Thaïlande</span>
-                <span className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">Polynésie FR</span>
-              </div>
+              <ul id="extra-dests" className="flex flex-wrap justify-center gap-2 animate-fade-in">
+                {['Égypte', 'Bali', 'Polynésie FR'].map((dest) => (
+                  <li key={dest} className="border border-white/80 text-white px-4 py-2 rounded-full text-sm opacity-70 cursor-default select-none">
+                    {dest}
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </div>
@@ -311,12 +317,39 @@ const Index = () => {
 
 
       {/* Texte de bienvenue entre hero et Introduction */}
-      <div className="w-full my-1">
-        <span
-          className="block w-full overflow-x-auto whitespace-nowrap px-4 py-3 text-center text-[11px] font-serif font-bold text-blue-900 sm:text-xs md:text-sm lg:text-base"
-        >
-          Architecte de vos voyages sur-mesure dans les grands espaces nordiques. Une invitation à vivre l'immensité ensemble, à savourer chaque instant et à retrouver le plaisir de l'essentiel, à votre rythme.
-        </span>
+      <div className="w-full">
+        {/* Texte complet pour les lecteurs d'écran et le SEO (les bandeaux animés sont décoratifs) */}
+        <p className="sr-only">
+          Oubliez les circuits tout faits ! Architecte de vos voyages sur-mesure dans les grands espaces nordiques, je dessine votre échappée. Une invitation à vous laisser porter par la magie du Nord, à savourer chaque instant et à retrouver le plaisir de l'essentiel, à votre rythme.
+        </p>
+
+        {/* Bandeau 1 : marine, serif italique, défile vers la gauche */}
+        <VelocityMarquee baseVelocity={-0.5} className="bg-primary py-4 md:py-5">
+          {[
+            'Oubliez les circuits tout faits !',
+            'Architecte de vos voyages sur-mesure dans les grands espaces nordiques',
+            'Je dessine votre échappée',
+          ].map((phrase) => (
+            <span key={phrase} className="flex items-center">
+              <span className="font-serif text-xl italic text-primary-foreground md:text-3xl">{phrase}</span>
+              <span className="mx-6 text-sm text-accent-light md:mx-10 md:text-base">✦</span>
+            </span>
+          ))}
+        </VelocityMarquee>
+
+        {/* Bandeau 2 : crème, petites capitales espacées, défile vers la droite */}
+        <VelocityMarquee baseVelocity={0.7/*  */} className="border-b border-border bg-secondary py-3 md:py-4">
+          {[
+            'Une invitation à vous laisser porter par la magie du Nord',
+            'Savourer chaque instant',
+            "Retrouver le plaisir de l'essentiel, à votre rythme",
+          ].map((phrase) => (
+            <span key={phrase} className="flex items-center">
+              <span className="font-sans text-xs font-medium uppercase tracking-[0.3em] text-primary/80 md:text-sm">{phrase}</span>
+              <span className="mx-6 text-[0.6rem] text-accent md:mx-10">✦</span>
+            </span>
+          ))}
+        </VelocityMarquee>
       </div>
 
       {/* Introduction - Bienvenue et histoire */}
@@ -330,11 +363,10 @@ const Index = () => {
             />
           </div>
           <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-8">Comment est née L'Échappée d'Emma?</h2>
-          <p className="font-sans font-bold text-muted-foreground text-base md:text-lg mb-6">Je suis convaincue qu'à un <TournantDeVieText />, on a besoin de ralentir pour se retrouver.</p>
-          <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">C'est de cette conviction qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>
-          <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">Après avoir moi-même cherché ce souffle dans les grands espaces nordiques,</p>
-          <p className="font-sans text-muted-foreground text-base md:text-lg mb-2">je conçois aujourd'hui pour vous des itinéraires où je m'occupe de toute la logistique.</p>
-          <p className="font-sans text-muted-foreground text-base md:text-lg">Mon objectif : vous laisser, simplement, respirer et vous reconnecter à l'essentiel.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg mb-6"><span className="font-bold">À un <TournantDeVieText label="tournant de ma vie" className="font-bold" />, j'ai ressenti le besoin de ralentir, de prendre du recul et de me retrouver.</span> C'est de cette envie de renouveau qu'est née <span className="font-bold">L'Échappée d'Emma</span>.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg mb-6">Les grands espaces nordiques m'ont permis de retrouver mon souffle et de renouer avec l'essentiel.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg mb-6">Aujourd'hui, j'ai à cœur de vous aider à créer votre propre échappée, en prenant en charge uniquement les aspects de votre voyage que vous souhaitez me déléguer.</p>
+          <p className="font-sans text-muted-foreground text-base md:text-lg">Mon objectif : vous alléger l'esprit, vous faire gagner du temps et vous permettre de profiter pleinement de l'essentiel : le plaisir de voyager et de savourer chaque instant.</p>
         </div>
       </section>
 
@@ -343,21 +375,24 @@ const Index = () => {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-5">Je suis Emma</p>
-            <h2 className="text-center text-3xl md:text-4xl font-serif text-foreground mb-6">Votre Travel Planner (concepteur de voyages sur-mesure) spécialiste du Grand Nord & de l'itinérance.</h2>
+            <h2 className="text-center text-3xl md:text-4xl font-serif text-foreground mb-6">Votre Travel Planner (architecte de voyages sur-mesure) spécialiste du Grand Nord.</h2>
             <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">
-              Je conçois des itinéraires uniques pour tous les amoureux de nature sauvage, avec une sensibilité particulière pour ceux qui cherchent à marquer un nouveau départ.
+              Je conçois des itinéraires uniques pour tous les amoureux de nature sauvage, de grands espaces et d'aventures authentiques.
             </p>
-            <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">Mon approche : écoute, simplicité et nature.</p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">
+              Mon approche : vous faire découvrir la magie du Grand Nord, à travers des itinéraires qui vous ressemblent, avec une attention particulière portée à vos envies de liberté, de déconnexion et parfois de renouveau.
+            </p>
+            <p className="font-sans text-muted-foreground text-lg leading-relaxed mb-6">Écoute, simplicité et nature sont au cœur de chaque échappée.</p>
+            <div className="flex flex-col flex-wrap gap-4 sm:flex-row">
               <Link
                 to="/emma"
-                className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity"
+                className="btn-outline btn-lg whitespace-nowrap"
               >
                 Découvrir mon histoire
               </Link>
               <Link
                 to="/devis"
-                className="border border-border px-8 py-3 rounded-full font-semibold text-foreground hover:border-accent hover:text-accent transition-colors"
+                className="btn-primary btn-lg whitespace-nowrap"
               >
                 Débuter mon échappée
               </Link>
@@ -405,7 +440,7 @@ const Index = () => {
       <section className="py-8 px-6 text-center">
         <Link
           to="/mes-prestations"
-          className="inline-block bg-accent text-accent-foreground px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg mb-8"
+          className="btn-dark btn-lg mb-8"
         >
           Voir toutes mes prestations
         </Link>
@@ -436,13 +471,13 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="bg-accent text-accent-foreground px-10 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
+                className="btn-outline btn-lg"
               >
                 Me contacter
               </Link>
               <Link
                 to="/devis"
-                className="bg-primary text-primary-foreground px-10 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
+                className="btn-primary btn-lg"
               >
                 Débuter mon échappée
               </Link>

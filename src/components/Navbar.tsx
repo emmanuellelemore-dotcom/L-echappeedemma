@@ -49,7 +49,7 @@ const Navbar = () => {
     >
       <div className="w-full px-8 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Logo L'échappée d'Emma" className="w-8 h-8 object-contain" loading="lazy" width="32" height="32" />
+          <img src="/logo-navbar.png" alt="Logo L'échappée d'Emma" className="w-8 h-8 object-contain" loading="lazy" width="32" height="32" />
           <Link
             to="/"
             className={`text-3xl tracking-tight transition-colors ${
@@ -114,7 +114,7 @@ const Navbar = () => {
                     />
                   {/* Sous-menu */}
                   <div
-                    className={`absolute left-1/2 -translate-x-1/2 mt-6 min-w-[260px] bg-white border border-[#eab1c6] rounded-2xl shadow-lg py-4 z-50 ${
+                    className={`absolute left-1/2 -translate-x-1/2 mt-6 min-w-[260px] bg-white border border-blush-300 rounded-2xl shadow-lg py-4 z-50 ${
                       offersMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
                     }`}
                     style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.06)' }}
@@ -134,7 +134,7 @@ const Navbar = () => {
                         style={{ transform: 'rotate(180deg)' }}
                         className={`transition-opacity duration-300 ease-out ${offersMenuOpen ? 'opacity-100' : 'opacity-0'}`}
                       >
-                        <path d="M11 12L0 0H22L11 12Z" fill="#fff" stroke="#eab1c6" strokeWidth="1.5"/>
+                        <path d="M11 12L0 0H22L11 12Z" className="fill-white stroke-blush-300" strokeWidth="1.5"/>
                       </svg>
                     </div>
                     {link.submenu.map((sublink, idx) => (
@@ -143,11 +143,11 @@ const Navbar = () => {
                         to={sublink.to}
                         className={`group block px-7 pt-4 pb-1 rounded-2xl transition-all duration-150 ${
                           idx === 0 ? 'mb-2' : ''
-                        } hover:bg-[linear-gradient(135deg,rgba(219,39,119,0.08),rgba(255,255,255,0.96),rgba(244,114,182,0.12))] hover:shadow-[0_4px_24px_rgba(244,114,182,0.10)]`}
+                        } hover:bg-[linear-gradient(135deg,hsl(var(--blush-600)/0.08),rgba(255,255,255,0.96),hsl(var(--blush-400)/0.12))] hover:shadow-[0_4px_24px_hsl(var(--blush-400)/0.10)]`}
                         style={{ letterSpacing: '0.01em' }}
                       >
                         <div className="text-lg font-bold text-accent/90 group-hover:text-accent/90">{sublink.label}</div>
-                        <div className="pb-3 text-xs text-[#1a237e]/40 font-normal group-hover:text-[#1a237e]/40">
+                        <div className="pb-3 text-xs text-ink/40 font-normal">
                           {idx === 0
                             ? 'Pour celles et ceux qui font l’échappée au Nord'
                             : 'Pour celles et ceux qui veulent une échappée ailleurs que dans le Grand Nord'}
@@ -181,7 +181,7 @@ const Navbar = () => {
           })}
           <Link
             to="/devis"
-            className="bg-accent text-accent-foreground px-6 py-2.5 rounded-full text-sm font-bold hover:opacity-90 transition-opacity"
+            className="btn-primary btn-sm"
           >
             Débuter mon échappée
           </Link>
@@ -292,7 +292,7 @@ const Navbar = () => {
               <Link
                 to="/devis"
                 onClick={() => setMobileOpen(false)}
-                className="block bg-accent text-accent-foreground px-6 py-3 rounded-full text-center font-bold"
+                className="btn-primary btn-block"
               >
                 Débuter mon échappée
               </Link>

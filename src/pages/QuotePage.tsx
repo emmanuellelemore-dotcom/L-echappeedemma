@@ -6,18 +6,14 @@ import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 const offerOptions = [
   { value: '', label: 'Choisir une offre...' },
   { value: 'je_ne_sais_pas', label: 'Je ne sais pas encore (Je me laisse guider)' },
-  { value: 'etincelle', label: "L'Étincelle (Visio-conseil 1h)" },
-  { value: 'escale', label: "L'Escale (Séjour court 4-5 jours)" },
-  { value: 'ancrage', label: "L'Ancrage (7 à 10 jours – Je pose mes valises)" },
-  { value: 'horizon', label: "L'Horizon (Destination citadine ou ensoleillée)" },
-  { value: 'inconnue', label: "L'Inconnue (Destination lointaine ou atypique)" },
-  { value: 'trace', label: 'Le Tracé (Itinéraire Vanlife)' },
-  { value: 'traversee', label: 'La Traversée (Itinérance 10 j ou plus)' },
-  { value: 'boreal', label: 'Le Boréal (Séjour thématique hiver/aurores)' },
+  { value: 'etincelle', label: "L'Étincelle (Visio-conseil 1h – 100 €)" },
+  { value: 'echappee', label: "L'Échappée (Voyage conçu sur mesure – dès 250 €)" },
 ];
 
 const discoveryOptions = [
@@ -137,10 +133,10 @@ const QuotePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo title={PAGES.devis.title} description={PAGES.devis.description} path={PAGES.devis.path} />
       <Navbar />
 
       <main className="pt-32 pb-24 px-6 max-w-7xl mx-auto">
-        <h1 className="sr-only">L'échappée d'Emma - Demande de devis voyage sur-mesure Grand Nord de L'Échappée d'Emma</h1>
         <div className="grid lg:grid-cols-3 gap-12 items-start">
 
         {/* Colonne principale (formulaire) */}
@@ -151,15 +147,15 @@ const QuotePage = () => {
           className="lg:col-span-2"
         >
           {/* Titre */}
-          <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-3">
+          <h1 className="text-4xl md:text-5xl font-serif text-foreground mb-3">
             Dessinons les contours{' '}
             <span className="italic text-accent">de votre échappée</span>
-          </h2>
+          </h1>
           <p className="text-muted-foreground text-base md:text-lg mb-10 leading-relaxed">
             Confiez-moi vos premières envies. Elles sont le point de départ pour concevoir ensemble l'échappée nordique qui vous ressemble.
           </p>
 
-          <div className="mb-10 rounded-3xl border border-accent/20 bg-[linear-gradient(135deg,rgba(219,39,119,0.06),rgba(255,255,255,0.96),rgba(244,114,182,0.1))] p-6 md:p-8 shadow-sm">
+          <div className="mb-10 rounded-3xl border border-accent/20 bg-[linear-gradient(135deg,hsl(var(--blush-600)/0.06),rgba(255,255,255,0.96),hsl(var(--blush-400)/0.1))] p-6 md:p-8 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent/90">Votre fidélité récompensée</p>
             <p className="mt-4 text-base md:text-lg leading-relaxed text-primary/90">
               Parce que votre confiance est le plus beau moteur de L'Échappée d'Emma. Que vous repartiez pour une nouvelle aventure ou que vous fassiez découvrir mon univers à vos proches, profitez du programme « Gratitude & Bienvenue ».
@@ -460,7 +456,7 @@ const QuotePage = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-accent text-accent-foreground font-bold py-5 rounded-2xl shadow-lg hover:opacity-90 transition-opacity active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+              className="btn-primary btn-lg btn-block"
             >
               {isSubmitting ? 'Envoi en cours...' : 'Transmettre mon esquisse'}
             </button>

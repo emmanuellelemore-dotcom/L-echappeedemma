@@ -5,13 +5,12 @@ import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import emailjs, { EMAILJS_CONFIG } from '../lib/emailjs';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 const CONTACT_EMAIL = 'hello.lechappeedemma@gmail.com';
 
 const ContactPage = () => {
-  /* H1 SEO pour la page contact */
-  /* eslint-disable-next-line jsx-a11y/heading-has-content */
-  const h1 = <h1 className="sr-only">L'échappée d'Emma - Contactez L'Échappée d'Emma, Travel Planner Grand Nord</h1>;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -63,6 +62,7 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo title={PAGES.contact.title} description={PAGES.contact.description} path={PAGES.contact.path} />
       <Navbar />
 
       <main className="pt-32 pb-24 px-6 max-w-5xl mx-auto">
@@ -187,7 +187,7 @@ const ContactPage = () => {
             type="submit"
             disabled={isSubmitting}
             aria-busy={isSubmitting}
-            className="w-full bg-accent text-accent-foreground font-bold py-5 rounded-2xl shadow-lg hover:opacity-90 transition-opacity active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
+            className="btn-primary btn-lg btn-block"
           >
             {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
           </button>

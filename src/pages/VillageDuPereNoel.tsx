@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Gift, ArrowLeft, Sparkles, Volume2, VolumeX, Play } from 'lucide-react';
+import { Gift, ArrowLeft, Volume2, VolumeX, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 const VillageDuPereNoel = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -70,7 +72,8 @@ const VillageDuPereNoel = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#07131f] text-white">
+    <div className="min-h-screen overflow-x-hidden bg-noel-night text-white">
+      <Seo title={PAGES.village.title} description={PAGES.village.description} path={PAGES.village.path} image="/pere_noel_secours.PNG" imageAlt="Traîneau du Père Noël dans un paysage enneigé de Laponie" />
       <Navbar />
       <audio ref={audioRef} src="/Jingle-bells-Version2.mp3" loop preload="auto" />
 
@@ -91,8 +94,8 @@ const VillageDuPereNoel = () => {
           >
             <source src="/Traineau_du_pere_noel.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,10,18,0.35),rgba(4,10,21,0.58),rgba(7,19,31,0.82))]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(162,233,255,0.18),rgba(162,233,255,0)_30%),radial-gradient(circle_at_80%_12%,rgba(255,245,195,0.18),rgba(255,245,195,0)_22%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--noel-abyss)/0.35),hsl(var(--noel-abyss)/0.58),hsl(var(--noel-night)/0.82))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--noel-glow-ice)/0.18),hsl(var(--noel-glow-ice)/0)_30%),radial-gradient(circle_at_80%_12%,hsl(var(--noel-glow-warm)/0.18),hsl(var(--noel-glow-warm)/0)_22%)]" />
         </div>
 
         <button
@@ -109,7 +112,7 @@ const VillageDuPereNoel = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: 'easeOut' }}
-            className="mr-auto overflow-hidden rounded-[2.15rem] border border-white/10 bg-[linear-gradient(180deg,rgba(7,20,33,0.34),rgba(7,20,33,0.18))] shadow-[0_22px_56px_rgba(3,10,18,0.24)] backdrop-blur-[4px] md:max-w-[34rem]"
+            className="mr-auto overflow-hidden rounded-[2.15rem] border border-white/10 bg-[linear-gradient(180deg,hsl(var(--noel-night)/0.34),hsl(var(--noel-night)/0.18))] shadow-[0_22px_56px_hsl(var(--noel-abyss)/0.24)] backdrop-blur-[4px] md:max-w-[34rem]"
           >
             <div
               className="relative px-5 py-10 md:px-8 md:py-11"
@@ -120,8 +123,8 @@ const VillageDuPereNoel = () => {
               }}
             >
               <div className="relative mx-auto max-w-xl text-center">
-                <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#d8b155]">Ambiance feerique</p>
-                <h1 className="mt-3 text-3xl font-serif text-white md:text-4xl">L'échappée d'Emma - Bienvenue au cœur de la féerie polaire, village du père Noël fait par L'Échappée d'Emma</h1>
+                <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-noel-gold">Ambiance feerique</p>
+                <h1 className="mt-3 text-3xl font-serif text-white md:text-4xl">Bienvenue au cœur de la féerie polaire</h1>
                 <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/82 md:text-base">
                   Laissez-vous porter par le crépitement du feu et le silence de la neige... Ici, la magie de Noël n'est pas qu'une date, c'est un voyage qui commence dès maintenant. Prenez le temps d'explorer cet univers où les souvenirs d'enfance prennent vie.
                 </p>
@@ -133,7 +136,7 @@ const VillageDuPereNoel = () => {
                       event.stopPropagation();
                       void startMusic();
                     }}
-                    className="mx-auto mt-6 inline-flex items-center gap-3 rounded-full bg-[linear-gradient(180deg,#d53d4d,#b81f34)] px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_rgba(184,31,52,0.35)] transition-transform duration-300 hover:scale-[1.02]"
+                    className="mx-auto mt-6 inline-flex items-center gap-3 rounded-full bg-[linear-gradient(180deg,hsl(var(--noel-red)),hsl(var(--noel-red-deep)))] px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_hsl(var(--noel-red-deep)/0.35)] transition-transform duration-300 hover:scale-[1.02]"
                   >
                     <Play className="h-4 w-4 fill-current" />
                     Lancer la musique
@@ -147,7 +150,6 @@ const VillageDuPereNoel = () => {
                     className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/90 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      <Sparkles className="h-4 w-4 text-[#d8b155]" />
                       <span>Bienvenue au Village</span>
                     </span>
                   </button>
@@ -164,7 +166,6 @@ const VillageDuPereNoel = () => {
                     className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/90 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      <Sparkles className="h-4 w-4 text-[#d8b155]" />
                       <span>Des souvenirs à partager.</span>
                     </span>
                   </button>
@@ -181,7 +182,6 @@ const VillageDuPereNoel = () => {
                     className="rounded-[1.1rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] px-4 py-3 text-sm leading-relaxed text-white/90 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      <Sparkles className="h-4 w-4 text-[#d8b155]" />
                       <span>L'aventure sur-mesure</span>
                     </span>
                   </button>
@@ -203,7 +203,7 @@ const VillageDuPereNoel = () => {
                   </Link>
                   <Link
                     to="/devis"
-                    className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(180deg,#d53d4d,#b81f34)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                    className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(180deg,hsl(var(--noel-red)),hsl(var(--noel-red-deep)))] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                   >
                     Glisser l'échappée sous le sapin
                     <Gift className="h-4 w-4" />

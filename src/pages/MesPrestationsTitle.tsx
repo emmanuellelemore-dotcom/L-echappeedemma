@@ -8,8 +8,7 @@ export const MesPrestationsTitle = () => {
   };
   return (
     <>
-      <h1 className="sr-only">Prestations de Travel Planner Grand Nord</h1>
-      <h2
+      <h1
         className="text-4xl font-serif text-center mb-10"
         onMouseEnter={handleHover}
         style={{ cursor: 'pointer' }}
@@ -36,7 +35,7 @@ export const MesPrestationsTitle = () => {
         >
           Mes Prestations
         </TextRoll>
-      </h2>
+      </h1>
     </>
   );
 };

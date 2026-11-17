@@ -38,6 +38,7 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          light: "hsl(var(--gold-light))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -64,6 +65,31 @@ export default {
         navy: {
           DEFAULT: "hsl(var(--navy))",
           deep: "hsl(var(--navy-deep))",
+          soft: "hsl(var(--navy-soft))",
+          "soft-hover": "hsl(var(--navy-soft-hover))",
+        },
+        ink: "hsl(var(--ink))",
+        blush: {
+          50: "hsl(var(--blush-50))",
+          75: "hsl(var(--blush-75))",
+          100: "hsl(var(--blush-100))",
+          200: "hsl(var(--blush-200))",
+          300: "hsl(var(--blush-300))",
+          400: "hsl(var(--blush-400))",
+          500: "hsl(var(--blush-500))",
+          600: "hsl(var(--blush-600))",
+          700: "hsl(var(--blush-700))",
+        },
+        mist: "hsl(var(--mist))",
+        frost: {
+          DEFAULT: "hsl(var(--frost))",
+          strong: "hsl(var(--frost-strong))",
+        },
+        noel: {
+          night: "hsl(var(--noel-night))",
+          red: "hsl(var(--noel-red))",
+          "red-deep": "hsl(var(--noel-red-deep))",
+          gold: "hsl(var(--noel-gold))",
         },
         cream: {
           DEFAULT: "hsl(var(--cream))",

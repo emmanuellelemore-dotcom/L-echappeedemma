@@ -1,5 +1,7 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
 
 const rowOne = [
   {
@@ -59,13 +61,13 @@ const CharteEchappee = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo title={PAGES.charte.title} description={PAGES.charte.description} path={PAGES.charte.path} />
       <Navbar />
 
       <main className="pt-32 pb-24 px-4 md:px-6 max-w-7xl mx-auto">
-        <h1 className="sr-only">Charte de L'Échappée d'Emma, valeurs et engagements</h1>
-        <h2 className="text-center text-4xl md:text-5xl font-serif text-foreground mb-8">
+        <h1 className="text-center text-4xl md:text-5xl font-serif text-foreground mb-8">
           La Charte de l’Échappée
-        </h2>
+        </h1>
 
         <div className="max-w-5xl mx-auto text-center text-muted-foreground text-base md:text-lg leading-relaxed mb-12 space-y-2">
           <p>Parce que je connais la valeur d’une parenthèse pour soi, je fonde notre relation sur la transparence et la bienveillance.</p>

@@ -68,22 +68,22 @@ const FAQ_SECTIONS: FAQSection[] = [
     ],
   },
   {
-    title: "Mes Offres & Votre Accompagnement",
+    title: "Mes offres & votre accompagnement",
     items: [
       {
-        question: "Qu’est-ce que la Parenthèse Inspiration ?",
+        question: "Qu’est-ce que l’offre L’Étincelle ?",
         answer:
-          "C’est une heure de visio-conseil pour ceux qui ont déjà organisé une partie de leur voyage ou qui veulent garder une part d’improvisation (notamment en van). Je valide votre projet et réponds à vos questions techniques. Vous repartez avec un PDF Boussole incluant mes cartes mémos.",
+          "C’est une heure de visio-conseil (100 €) pour celles et ceux qui ont déjà organisé une partie de leur voyage ou qui veulent garder une part d’improvisation (notamment en van). Je valide vos choix et réponds à vos questions sur l’itinéraire, le budget ou la logistique. Vous repartez avec un PDF récapitulatif de nos échanges.",
       },
       {
-        question: "Qu’est-ce que la Parenthèse Sérénité ?",
+        question: "Qu’est-ce que l’offre L’Échappée ?",
         answer:
-          "C’est la création de votre itinéraire de A à Z. Je conçois un programme sur-mesure et vous fournis un carnet de voyage PDF détaillé avec votre programme jour par jour et tous vos liens de réservation.",
+          "C’est la conception de votre voyage sur mesure, selon vos envies et ce que vous souhaitez me déléguer : itinéraire, hébergements, transports, activités… Vous recevez un carnet de route détaillé avec votre programme jour par jour et tous vos liens de réservation. À partir de 250 €, selon la durée, la complexité du voyage et les prestations confiées.",
       },
       {
         question: "Est-il possible de ne déléguer qu’une partie du voyage ?",
         answer:
-          "Oui. Si vous avez déjà vos vols, je peux intervenir uniquement sur la recherche des hébergements et des activités pour compléter votre Parenthèse Sérénité.",
+          "Oui, c’est tout l’esprit de L’Échappée : vous ne me confiez que ce que vous souhaitez. Si vous avez déjà vos vols, je peux par exemple intervenir uniquement sur la recherche des hébergements et des activités.",
       },
       {
         question: "Combien de modifications puis-je demander sur mon projet ?",
@@ -118,7 +118,7 @@ const FAQ_SECTIONS: FAQSection[] = [
       {
         question: "Pour un séjour en van, ai-je besoin d’un Travel Planner ?",
         answer:
-          "Tout dépend de votre besoin de cadre. Pour une première expérience, déléguer la logistique (ferries, spots, gabarit) est rassurant. Si vous voulez conserver un maximum de liberté, la Parenthèse Inspiration est souvent le meilleur compromis.",
+          "Tout dépend de votre besoin de cadre. Pour une première expérience, déléguer la logistique (ferries, spots, gabarit) est rassurant. Si vous voulez conserver un maximum de liberté, l’offre L’Étincelle est souvent le meilleur compromis.",
       },
       {
         question: "Proposez-vous des voyages de dernière minute ou des grands week-ends ?",
@@ -233,7 +233,7 @@ const FeedbackWidget = () => {
             className="fixed bottom-6 right-6 z-[60] cursor-pointer group"
             onClick={openModal}
           >
-            <div className="relative bg-white rounded-2xl shadow-lg border border-[#1e3a5f] bg-[#1e3a5f]/10 overflow-hidden flex flex-col items-center hover:shadow-xl transition-shadow w-[130px]">
+            <div className="relative bg-white rounded-2xl shadow-lg border border-navy-soft bg-navy-soft/10 overflow-hidden flex flex-col items-center hover:shadow-xl transition-shadow w-[130px]">
               {/* Close button */}
               <button
                 onClick={(e) => {
@@ -247,9 +247,9 @@ const FeedbackWidget = () => {
               </button>
 
               {/* Image fills the entire top */}
-              <div className="w-full bg-[#1e3a5f]/10">
+              <div className="w-full bg-navy-soft/10">
                 <img
-                  src="/chouette_avis.webp"
+                  src="/chouette_bonjour.webp"
                   alt="Donnez votre avis"
                   className="w-full h-auto object-cover"
                 />
@@ -275,7 +275,7 @@ const FeedbackWidget = () => {
             style={{ pointerEvents: 'auto' }}
             onClick={() => { setShowModal(true); setMinimized(false); }}
           >
-            <div className="bg-[#1e3a5f] font-serif font-bold px-2 py-2 rounded-l-2xl shadow-lg border border-[#1e3a5f] text-base tracking-wide hover:bg-[#25406e] transition-all flex flex-col items-center select-none" style={{letterSpacing: 0}}>
+            <div className="bg-navy-soft font-serif font-bold px-2 py-2 rounded-l-2xl shadow-lg border border-navy-soft text-base tracking-wide hover:bg-navy-soft-hover transition-all flex flex-col items-center select-none" style={{letterSpacing: 0}}>
               <span className="text-accent" style={{lineHeight: '1.1'}}>F</span>
               <span className="text-accent" style={{lineHeight: '1.1'}}>A</span>
               <span className="text-accent" style={{lineHeight: '1.1'}}>Q</span>
@@ -308,7 +308,7 @@ const FeedbackWidget = () => {
               <div className="w-[92vw] max-w-3xl bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto pointer-events-auto">
                 {/* Header */}
                 <div className="flex justify-between items-center p-3 pb-0">
-                  <h2 className="text-xl font-bold text-pink-500">FAQ</h2>
+                  <h2 className="text-xl font-bold text-blush-500">FAQ</h2>
                   <button
                     onClick={() => dismiss(true)}
                     className="text-sm text-gray-500 hover:text-gray-800 flex items-center gap-1 transition-colors"
@@ -319,7 +319,7 @@ const FeedbackWidget = () => {
                 <div className="px-6 pb-6 pt-2 space-y-6">
                   {FAQ_SECTIONS.map((section, sectionIndex) => (
                     <div key={section.title} className="space-y-2">
-                      <h3 className="text-lg font-bold text-[#1e3a5f]">{section.title}</h3>
+                      <h3 className="text-lg font-bold text-navy-soft">{section.title}</h3>
                       {section.intro && <p className="text-sm text-gray-600">{section.intro}</p>}
 
                       <div className="space-y-2">
@@ -334,7 +334,7 @@ const FeedbackWidget = () => {
                           return (
                             <div key={itemId} className="border-b border-gray-200 py-2">
                               <button
-                                className="w-full flex justify-between items-center text-left font-semibold text-gray-800 focus:outline-none focus:text-pink-600 transition-colors"
+                                className="w-full flex justify-between items-center text-left font-semibold text-gray-800 focus:outline-none focus:text-blush-600 transition-colors"
                                 onClick={() => setOpenId(isOpen ? null : itemId)}
                                 aria-expanded={isOpen}
                                 aria-controls={`faq-panel-${itemId}`}
@@ -368,7 +368,7 @@ const FeedbackWidget = () => {
                                     {isLongAnswer && (
                                       <button
                                         type="button"
-                                        className="text-pink-600 font-semibold hover:text-pink-700 transition-colors"
+                                        className="text-blush-600 font-semibold hover:text-blush-700 transition-colors"
                                         onClick={() =>
                                           setExpandedAnswers((prev) => ({
                                             ...prev,

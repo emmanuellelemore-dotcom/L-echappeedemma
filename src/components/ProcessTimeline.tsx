@@ -1,112 +1,174 @@
-import { MessageCircle, Search, Calendar, Sparkles, BookOpen } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useRef, useState, type ReactNode } from 'react';
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
+import { MessageCircle, PenLine, Compass, Sparkles, BookOpen } from 'lucide-react';
 
 interface ProcessStep {
-  number: number;
   title: string;
+  verb: string;
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }
 
 const processSteps: ProcessStep[] = [
   {
-    number: 1,
     title: "L'Esquisse",
-    description:
-      "Je vous écoute : un temps d'échange offert pour faire connaissance et valider la faisabilité de votre projet.",
-    icon: <MessageCircle size={32} />,
+    verb: 'Je vous écoute',
+    description: "Un temps d'échange offert pour faire connaissance et valider la faisabilité de votre projet.",
+    icon: <MessageCircle className="h-5 w-5" strokeWidth={1.5} />,
   },
   {
-    number: 2,
     title: "L'Engagement",
-    description:
-      "Je formalise : signature du contrat, règlement et envoi de votre pack de bienvenue pour lancer l'aventure.",
-    icon: <Search size={32} />,
+    verb: 'Je formalise',
+    description: "Signature du contrat, règlement et envoi de votre pack de bienvenue pour lancer l'aventure.",
+    icon: <PenLine className="h-5 w-5" strokeWidth={1.5} />,
   },
   {
-    number: 3,
-    title: "Le Socle",
+    title: 'Le Socle',
+    verb: 'Je bâtis',
     description:
-      "Je bâtis : je sélectionne transports et hébergements. Vous validez vos coups de cœur puis réservez en direct, sans commission.",
-    icon: <Calendar size={32} />,
+      'Je sélectionne transports et hébergements. Vous validez vos coups de cœur puis réservez en direct, sans commission.',
+    icon: <Compass className="h-5 w-5" strokeWidth={1.5} />,
   },
   {
-    number: 4,
-    title: "La Création",
-    description:
-      "Je dessine : conception de votre itinéraire sur-mesure, jour par jour, pour une itinérance fluide, rythmée par vos envies.",
-    icon: <Sparkles size={32} />,
+    title: 'La Création',
+    verb: 'Je dessine',
+    description: 'Conception de votre itinéraire sur-mesure, jour par jour, pour une itinérance fluide, rythmée par vos envies.',
+    icon: <Sparkles className="h-5 w-5" strokeWidth={1.5} />,
   },
   {
-    number: 5,
-    title: "Votre Carnet",
-    description:
-      "Je vous accompagne : remise de votre carnet de route digital et personnalisé. Votre échappée peut enfin commencer.",
-    icon: <BookOpen size={32} />,
+    title: 'Votre Carnet',
+    verb: 'Je vous accompagne',
+    description: 'Remise de votre carnet de route digital et personnalisé. Votre échappée peut enfin commencer.',
+    icon: <BookOpen className="h-5 w-5" strokeWidth={1.5} />,
   },
 ];
 
-const ProcessTimeline = () => {
-  return (
-    <div className="w-full">
-      <div className="max-w-7xl 2xl:max-w-[90rem] mx-auto px-4 lg:px-6 xl:px-8">
-        {/* Timeline Container */}
-        <div className="relative py-10 md:py-14 lg:py-20 xl:py-24">
-          {/* Steps */}
-          <div className="relative z-10 lg:px-2 xl:px-4">
-            {/* Main Dotted Line - Desktop */}
-            <div className="absolute left-[9%] right-[9%] top-10 hidden lg:block z-0 xl:left-[8%] xl:right-[8%] 2xl:left-[7.5%] 2xl:right-[7.5%]">
-              <svg width="100%" height="2" preserveAspectRatio="none">
-                <line
-                  x1="0"
-                  y1="1"
-                  x2="100%"
-                  y2="1"
-                  stroke="hsl(var(--primary))"
-                  strokeWidth="2"
-                  strokeDasharray="8,6"
-                />
-              </svg>
-            </div>
+const LAST = processSteps.length - 1;
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-y-14 lg:gap-x-6 xl:gap-x-8 relative z-10">
-            {processSteps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 30 }}
+/**
+ * Frise « de l'idée à l'échappée » : une ligne lumineuse se trace au défilement
+ * et allume chaque étape à son passage. Horizontale sur grand écran, verticale sur mobile.
+ */
+const ProcessTimeline = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  // Grand écran : la ligne arrive au bout quand le haut de la frise atteint le quart
+  // supérieur de l'écran (les étapes sont encore visibles).
+  // Mobile : la frise est verticale, on suit toute sa hauteur.
+  const [isWide] = useState(() => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: isWide ? ['start 90%', 'start 40%'] : ['start 75%', 'end 75%'],
+  });
+  const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.35 });
+  const lineScale = useTransform(progress, [0, 1], [0, 1]);
+  const [reached, setReached] = useState(prefersReducedMotion ? LAST : -1);
+
+  useMotionValueEvent(progress, 'change', (value) => {
+    if (prefersReducedMotion) return;
+    // Une étape s'allume quand la ligne arrive à sa hauteur
+    setReached(Math.min(LAST, Math.floor(value * LAST + 0.15)));
+  });
+
+  return (
+    <div ref={sectionRef} className="relative w-full">
+      {/* Lueurs d'ambiance */}
+      <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-accent/10 blur-[90px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-primary/10 blur-[100px]" />
+
+      <div className="relative mx-auto max-w-7xl px-2 py-8 md:py-12 lg:px-4">
+        {/* Ligne horizontale (grand écran) */}
+        <div aria-hidden="true" className="absolute left-[10%] right-[10%] top-[5.5rem] hidden h-px lg:block">
+          <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,hsl(var(--primary)/0.25)_0_6px,transparent_6px_14px)]" />
+          <motion.div
+            className="absolute inset-0 origin-left bg-gradient-to-r from-accent via-accent to-primary shadow-[0_0_12px_hsl(var(--accent)/0.8)]"
+            style={{ scaleX: prefersReducedMotion ? 1 : lineScale }}
+          />
+        </div>
+
+        <ol className="relative grid gap-8 lg:grid-cols-5 lg:gap-5 xl:gap-7">
+          {processSteps.map((step, index) => {
+            const active = index <= reached;
+            return (
+              <motion.li
+                key={step.title}
+                initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`flex flex-col items-center text-center ${
-                  index === processSteps.length - 1
-                    ? 'md:col-span-2 md:max-w-[320px] md:mx-auto lg:col-span-1 lg:max-w-none'
-                    : ''
-                }`}
+                transition={{ duration: 0.8, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative flex gap-5 lg:flex-col lg:items-center lg:gap-0 lg:text-center"
               >
-                {/* Step Circle - On the line */}
-                <div className="relative mb-8 lg:mb-12">
-                  <div className="w-16 h-16 xl:w-20 xl:h-20 rounded-full bg-accent flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow relative z-20">
-                    <span className="text-2xl xl:text-3xl font-bold text-primary">{step.number}</span>
+                {/* Segment vertical vers l'étape suivante (mobile / tablette) */}
+                {index < LAST && (
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-[2.125rem] top-[2.125rem] -bottom-[4.125rem] w-px md:left-10 md:top-10 md:-bottom-[4.5rem] lg:hidden"
+                  >
+                    <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,hsl(var(--primary)/0.25)_0_6px,transparent_6px_14px)]" />
+                    <motion.div
+                      className="absolute inset-0 origin-top bg-gradient-to-b from-accent to-primary shadow-[0_0_10px_hsl(var(--accent)/0.7)]"
+                      initial={false}
+                      animate={{ scaleY: index < reached ? 1 : 0 }}
+                      transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
+                    />
+                  </div>
+                )}
+
+                {/* Pastille de l'étape */}
+                <div className="relative z-10 flex-none self-start lg:mb-8 lg:self-auto">
+                  <motion.span
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full bg-accent/40 blur-md"
+                    animate={{ opacity: active ? 1 : 0, scale: active ? 1.35 : 0.8 }}
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                  />
+                  <div
+                    className={`relative flex h-[4.25rem] w-[4.25rem] items-center justify-center rounded-full border transition-all duration-700 md:h-20 md:w-20 ${
+                      active
+                        ? 'border-accent bg-accent text-accent-foreground shadow-[0_14px_30px_-12px_hsl(var(--accent))]'
+                        : 'border-primary/20 bg-background text-primary/60'
+                    }`}
+                  >
+                    <span className="font-serif text-2xl italic md:text-[1.7rem]">{String(index + 1).padStart(2, '0')}</span>
                   </div>
                 </div>
 
-                {/* Icon */}
-                <div className="mb-4 text-primary">
-                  {step.icon}
+                {/* Carte de l'étape */}
+                <div
+                  className={`relative w-full overflow-hidden rounded-[1.75rem] border bg-background/80 p-6 backdrop-blur-sm transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_30px_50px_-30px_hsl(var(--navy-deep)/0.5)] lg:min-h-[17rem] xl:p-7 ${
+                    active ? 'border-accent/35 shadow-[0_24px_44px_-34px_hsl(var(--navy-deep)/0.45)]' : 'border-border'
+                  }`}
+                >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/15 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
+                  />
+                  <div
+                    className={`relative mx-0 mb-4 flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-500 lg:mx-auto ${
+                      active ? 'bg-accent/15 text-accent' : 'bg-muted text-primary/60'
+                    } group-hover:bg-primary group-hover:text-primary-foreground`}
+                  >
+                    {step.icon}
+                  </div>
+                  <p className="relative text-[0.64rem] font-semibold uppercase tracking-[0.26em] text-accent">{step.verb}</p>
+                  <h3 className="relative mt-2 font-serif text-2xl text-primary xl:text-[1.65rem]">{step.title}</h3>
+                  <div
+                    aria-hidden="true"
+                    className="relative mx-0 my-4 h-px w-10 bg-gradient-to-r from-accent to-transparent transition-all duration-700 group-hover:w-20 lg:mx-auto lg:bg-gradient-to-r lg:from-transparent lg:via-accent lg:to-transparent"
+                  />
+                  <p className="relative text-sm leading-relaxed text-muted-foreground md:text-[0.95rem]">{step.description}</p>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-lg md:text-xl xl:text-[2rem] font-normal text-primary mb-4">{step.title}</h3>
-
-                {/* Description */}
-                <p className="text-sm md:text-base xl:text-[1.05rem] text-muted-foreground leading-relaxed max-w-[280px] xl:max-w-[300px] mx-auto">
-                  {step.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-          </div>
-        </div>
+              </motion.li>
+            );
+          })}
+        </ol>
       </div>
     </div>
   );

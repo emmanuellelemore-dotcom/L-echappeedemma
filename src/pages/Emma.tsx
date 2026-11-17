@@ -1,50 +1,40 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PortraitChinois from '../components/PortraitChinois';
-import { TournantDeVieText } from '../components/TournantDeVie';
+import AuroraTrail from '../components/AuroraTrail';
+import Seo from '@/components/Seo';
+import { PAGES } from '@/seo/pages';
+import { aboutPageJsonLd } from '@/seo/schema';
 
 const challenges = [
   {
-    title: "L'épuisement relationnel",
-    description: "Ne plus avoir l’énergie pour soi, ni pour ceux que l'on aime."
+    title: "Le besoin de respirer",
+    description: "Prendre de la distance avec un quotidien parfois trop chargé."
   },
   {
-    title: "Le sommeil impossible",
-    description: "Dormir sans jamais réussir à reposer son esprit."
+    title: "L'envie de ralentir",
+    description: "Retrouver du temps pour soi et savourer les choses simples."
   },
   {
-    title: "La perte d'identité",
-    description: "Ne plus se reconnaître dans son propre reflet."
+    title: "Le besoin de déconnexion",
+    description: "S'éloigner du bruit, des sollicitations et des habitudes."
   },
   {
-    title: "Le chaos intérieur",
-    description: "Avoir la sensation que tout nous échappe."
+    title: "L'envie de renouveau",
+    description: "Changer d'horizon, découvrir de nouveaux paysages et ouvrir une nouvelle page."
   },
   {
-    title: "La charge mentale",
-    description: "Se sentir au bout du rouleau, sans savoir par où recommencer."
+    title: "La recherche de liberté",
+    description: "Retrouver le plaisir de choisir son rythme et de suivre ses envies."
   },
   {
-    title: "La peur de l'avenir",
-    description: "Ne pas savoir ce que l'on va devenir et redouter chaque lendemain."
+    title: "Le besoin de se retrouver",
+    description: "S'accorder une parenthèse pour faire le point et se reconnecter à l'essentiel."
   },
   {
-    title: "Le désintérêt",
-    description: "Perdre le plaisir des choses les plus simples."
-  },
-  {
-    title: "Le poids physique",
-    description: "Sentir son corps s'alourdir sous une pression invisible."
-  },
-  {
-    title: "L'isolement émotionnel",
-    description: "Se sentir incompris(e) même entouré(e)."
-  },
-  {
-    title: "La perte de confiance",
-    description: "Douter de ses propres capacités et décisions."
+    title: "L'envie d'aventure",
+    description: "Sortir de ses habitudes et vivre des expériences qui marquent les souvenirs."
   },
 ];
 
@@ -78,62 +68,16 @@ const stagger = {
   show: { transition: { staggerChildren: 0.12 } },
 };
 
-const EmmaWaveRibbon = () => {
-  const { scrollY } = useScroll();
-  const growProgress = useTransform(scrollY, [90, 210, 360, 440], [0, 0.38, 0.88, 1]);
-  const opacity = useTransform(scrollY, [0, 90, 150, 430, 560], [0, 0, 0.94, 0.94, 0]);
-  const mainPathLength = useTransform(growProgress, [0, 1], [0, 1]);
-
-  return (
-    <motion.div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-x-[-18%] top-[13%] z-0 hidden h-[19rem] overflow-hidden md:block lg:top-[15%]"
-      style={{ opacity }}
-    >
-      <svg viewBox="0 0 1720 280" className="h-full w-[128%] min-w-[1050px]" fill="none" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="emma-wave-gradient" x1="18" y1="58" x2="1688" y2="214" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="rgba(229, 154, 187, 0.98)" />
-            <stop offset="18%" stopColor="rgba(223, 128, 174, 0.98)" />
-            <stop offset="36%" stopColor="rgba(204, 112, 191, 0.97)" />
-            <stop offset="56%" stopColor="rgba(155, 136, 209, 0.97)" />
-            <stop offset="76%" stopColor="rgba(96, 116, 179, 0.98)" />
-            <stop offset="100%" stopColor="rgba(45, 65, 106, 0.98)" />
-          </linearGradient>
-          <linearGradient id="emma-wave-underpaint" x1="-12" y1="48" x2="1674" y2="222" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="rgba(229, 154, 187, 0.34)" />
-            <stop offset="46%" stopColor="rgba(191, 132, 205, 0.3)" />
-            <stop offset="100%" stopColor="rgba(45, 65, 106, 0.3)" />
-          </linearGradient>
-        </defs>
-
-        <motion.path
-          d="M-64 16C4 16 64 20 124 34C184 48 238 78 288 112C338 146 390 182 446 194C502 206 560 202 618 188C676 174 732 152 786 146C840 140 892 146 944 158C996 170 1046 184 1098 188C1150 192 1198 184 1248 174C1298 164 1348 160 1398 168C1448 176 1498 194 1546 212C1594 230 1638 250 1678 266C1718 282 1744 294 1768 300"
-          stroke="url(#emma-wave-underpaint)"
-          strokeWidth="34"
-          strokeLinecap="butt"
-          style={{ opacity: 0.18, pathLength: mainPathLength, pathOffset: 0 }}
-          filter="blur(7px)"
-        />
-        <motion.path
-          d="M-64 16C4 16 64 20 124 34C184 48 238 78 288 112C338 146 390 182 446 194C502 206 560 202 618 188C676 174 732 152 786 146C840 140 892 146 944 158C996 170 1046 184 1098 188C1150 192 1198 184 1248 174C1298 164 1348 160 1398 168C1448 176 1498 194 1546 212C1594 230 1638 250 1678 266C1718 282 1744 294 1768 300"
-          stroke="url(#emma-wave-gradient)"
-          strokeWidth="18"
-          strokeLinecap="round"
-          style={{ pathLength: mainPathLength, pathOffset: 0 }}
-        />
-      </svg>
-    </motion.div>
-  );
-};
-
 const Emma = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden max-w-full">
+    <div className="min-h-screen bg-background relative overflow-x-clip max-w-full">
+      <Seo title={PAGES.emma.title} description={PAGES.emma.description} path={PAGES.emma.path} jsonLd={aboutPageJsonLd()} image="/Emma.JPG" imageAlt="Portrait d'Emma, travel planner du Grand Nord" />
       <Navbar />
 
-      <main className="pt-28 relative">
-        <h1 className="sr-only">L'échappée d'Emma - Emma, Travel Planner Grand Nord, créatrice d’itinéraires sur-mesure de L'Échappée d'Emma</h1>
+      <main className="pt-28 relative isolate">
+        {/* Lueur d'aurore boréale qui suit le défilement */}
+        <AuroraTrail />
+
         <motion.div
           aria-hidden="true"
           initial={{ opacity: 0 }}
@@ -160,11 +104,9 @@ const Emma = () => {
           whileInView="show"
           viewport={{ once: false, amount: 0 }}
         >
-          <EmmaWaveRibbon />
-
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col lg:flex-row lg:gap-32 gap-8 items-center px-2 sm:px-6">
             <motion.div variants={slideRight} className="w-full lg:w-3/5">
-              <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6">Qui suis-je ?</h2>
+              <h1 className="text-3xl md:text-4xl font-serif text-foreground mb-6">Qui suis-je ?</h1>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Bonjour, moi c’est Emma.
               </p>
@@ -181,15 +123,13 @@ const Emma = () => {
                 De cette renaissance est née ”L’Échappée d’Emma”.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Mon rôle est d’accompagner ceux qui traversent un <TournantDeVieText />, qu’ils célèbrent un nouveau départ ou qu’ils aient besoin de reprendre leur souffle.
-                Je conçois pour vous des itinéraires où la logistique s'efface pour vous offrir le luxe de vous réapproprier votre temps. En vous libérant de chaque contrainte, je crée l'espace nécessaire pour ralentir,
-                savourer la simplicité des lieux et redevenir l'acteur principal de votre propre histoire. En tant qu’architecte de voyage, je dessine une parenthèse sur-mesure, fluide et sereine.
+                Aujourd'hui, j'ai à cœur de vous faire découvrir la magie du Grand Nord à travers des itinéraires sur-mesure, pensés selon vos envies et votre façon de voyager.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Je vous décharge totalement de l'organisation car la vraie liberté, c’est de n’avoir rien d'autre à vivre que l'instant présent.
+                En tant qu'architecte de voyage, je conçois des échappées qui vous ressemblent, en prenant en charge les aspects de l'organisation que vous souhaitez me confier, pour vous permettre de profiter pleinement de chaque instant.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Il est temps de vous reconnecter à ce qui compte vraiment.
+                Il est temps de vous offrir votre propre échappée.
               </p>
             </motion.div>
 
@@ -205,8 +145,7 @@ const Emma = () => {
               />
               <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mt-2">Portrait d'Emma</p>
               <p className="text-sm text-muted-foreground mt-4 text-center">
-                Ma passion pour cette liberté de mouvement est telle que je recevrai mon propre van cet été.<br />
-                Je prendrai la route à la fin de la saison pour continuer de dénicher de nouveaux spots secrets, afin de nourrir vos futures échappées.
+                Mon van Uggla est devenu mon compagnon d'exploration. Après six semaines à parcourir l'Islande à son bord, je poursuivrai mes aventures nordiques au fil de mes escapades, toujours à la recherche de nouveaux lieux et d'inspirations pour vos futures échappées.
               </p>
             </motion.div>
           </div>
@@ -221,7 +160,7 @@ const Emma = () => {
 
         {/* Moi aussi */}
         <motion.section
-          className="bg-secondary/60 px-6 py-20"
+          className="bg-gradient-to-b from-transparent via-secondary/50 to-secondary/60 px-6 py-20"
           variants={stagger}
           initial="hidden"
           whileInView="show"
@@ -229,18 +168,24 @@ const Emma = () => {
         >
           <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
             <motion.h2 variants={fadeDown} className="text-3xl md:text-4xl font-serif text-foreground mb-6">
-              Moi aussi je suis passée par là...
+              Moi aussi, j'ai ressenti ce besoin de m'évader…
             </motion.h2>
+            <motion.p variants={fadeUp} className="text-muted-foreground mb-4">
+              Le besoin de prendre du recul, de ralentir, de sortir du quotidien ou simplement de retrouver le plaisir de vivre autre chose.
+            </motion.p>
             <motion.p variants={fadeUp} className="text-muted-foreground mb-10">
-              Ces sensations, je les ai connues. C'est pour cela que je crée des itinéraires qui
-              redonnent de l'air.
+              C'est cette conviction qui m'anime : chacun mérite de s'offrir une parenthèse qui lui ressemble.
             </motion.p>
             <motion.div variants={stagger} className="grid sm:grid-cols-2 gap-4 text-left">
-              {challenges.map((item) => (
+              {challenges.map((item, index) => (
                 <motion.div
                   key={item.title}
                   variants={fadeUp}
-                  className="bg-background border border-border rounded-2xl p-5 text-sm text-muted-foreground"
+                  className={`bg-background border border-border rounded-2xl p-5 text-sm text-muted-foreground ${
+                    challenges.length % 2 === 1 && index === challenges.length - 1
+                      ? 'sm:col-span-2 sm:w-1/2 sm:justify-self-center'
+                      : ''
+                  }`}
                   whileHover={{ y: -4 }}
                 >
                   <span className="font-semibold text-foreground block mb-1">{item.title}</span>
@@ -264,7 +209,7 @@ const Emma = () => {
               Une échappée qui commence par une conversation
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Racontez-moi votre besoin de souffle, je m'occupe du reste.
+              Racontez-moi vos envies, vos rêves, votre façon de voyager… Créons ensemble une échappée qui vous ressemble.
             </p>
                 {/* CTA supprimée */}
           </div>

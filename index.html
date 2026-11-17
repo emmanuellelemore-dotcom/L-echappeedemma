@@ -2,68 +2,71 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <!-- Preload Google Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64 128x128" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400;700&family=Caveat:wght@400;700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400;700&family=Caveat:wght@400;700&display=swap" />
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
     <meta name="google-site-verification" content="6U9KdL10DB2OqdqcoUM1e6fHL-z01Xz047zcWI_eQc0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'échappée d'Emma — Travel planner nord, travel planner grand nord, sur mesure en Islande, Norvège, Suède, Finlande</title>
-    <meta name="description" content="L'échappée d'Emma, travel planner nord et travel planner grand nord, agence de voyage à Sucy-en-Brie, spécialiste du voyage sur mesure, du nord, du grand nord, des voyages dernière minute, des week-ends, et des destinations nordiques : Islande, Norvège, Suède, Finlande. Travel planner nord, travel planner grand nord, simply voyage, l'échappée, l'échappée d'Emma, grand nord, travel, agence travel." />
     <meta name="author" content="L'échappée d'Emma" />
-    <meta name="keywords" content="travel planner nord, travel planner grand nord, travel planner, voyage dernière minute, travel, agence travel, simply voyage, l'échappée, grand nord, voyage weekend dernière minute, l'échappée d'emma, Sucy-en-brie, voyage sur mesure, Islande, Norvège, Suède, Finlande, Travel Planer, voyage nordique, aurore boréale, fjord" />
-    <link rel="canonical" href="https://lechappeedemma.com/" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="L'échappée d'Emma — Voyage sur mesure nordique" />
-    <meta property="og:description" content="Travel Planer sur mesure spécialisée Islande, Norvège, Suède et Finlande. Créez votre itinéraire personnalisé." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://lechappeedemma.com/" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content="L'échappée d'Emma" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="L'échappée d'Emma — Voyage sur mesure" />
-    <meta name="twitter:description" content="Travel Planer sur mesure spécialisée dans les destinations nordiques." />
-
-    <!-- Geo -->
     <meta name="geo.region" content="FR-94" />
     <meta name="geo.placename" content="Sucy-en-Brie" />
 
-    <!-- Robots -->
-    <meta name="robots" content="index, follow" />
+    <!-- seo:start — valeurs par défaut, remplacées page par page (composant Seo + pré-génération au build) -->
+    <title>L'échappée d'Emma · Travel planner Grand Nord, voyages sur mesure</title>
+    <meta data-default-seo name="description" content="Travel planner indépendante, Emma conçoit votre voyage sur mesure en Islande, Norvège, Suède et Finlande : itinéraire, hébergements, aurores boréales et road trips." />
+    <meta data-default-seo property="og:type" content="website" />
+    <meta data-default-seo property="og:site_name" content="L'échappée d'Emma" />
+    <meta data-default-seo property="og:locale" content="fr_FR" />
+    <meta data-default-seo property="og:title" content="L'échappée d'Emma · Travel planner Grand Nord, voyages sur mesure" />
+    <meta data-default-seo property="og:description" content="Travel planner indépendante, Emma conçoit votre voyage sur mesure en Islande, Norvège, Suède et Finlande : itinéraire, hébergements, aurores boréales et road trips." />
+    <meta data-default-seo property="og:image" content="https://lechappeedemma.com/og-image.jpg" />
+    <meta data-default-seo property="og:image:alt" content="Aurore boréale verte au-dessus des montagnes enneigées de Laponie" />
+    <meta data-default-seo name="twitter:card" content="summary_large_image" />
+    <meta data-default-seo name="twitter:image" content="https://lechappeedemma.com/og-image.jpg" />
+    <!-- seo:end -->
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Fiche de l'entreprise pour les moteurs de recherche (schema.org) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "TravelAgency",
-      "name": "L'échappée d'Emma",
-      "url": "https://lechappeedemma.com",
-      "telephone": "06 78 21 88 23",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Sucy-en-Brie",
-        "postalCode": "94370",
-        "addressCountry": "FR"
-      },
-      "description": "Travel Planer sur mesure spécialisée dans les destinations nordiques : Islande, Norvège, Suède et Finlande.",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "bestRating": "5",
-        "ratingCount": "3"
-      }
+      "@graph": [
+        {
+          "@type": "TravelAgency",
+          "@id": "https://lechappeedemma.com/#agence",
+          "name": "L'échappée d'Emma",
+          "url": "https://lechappeedemma.com/",
+          "logo": "https://lechappeedemma.com/logo.png",
+          "image": "https://lechappeedemma.com/og-image.jpg",
+          "description": "Travel planner indépendante spécialisée dans les voyages sur mesure dans le Grand Nord : Islande, Norvège, Lofoten, Suède et Finlande.",
+          "telephone": "+33678218823",
+          "email": "hello.lechappeedemma@gmail.com",
+          "priceRange": "€€",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sucy-en-Brie",
+            "postalCode": "94370",
+            "addressRegion": "Île-de-France",
+            "addressCountry": "FR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 48.7697,
+            "longitude": 2.5236
+          },
+          "areaServed": { "@type": "Country", "name": "France" },
+          "founder": { "@type": "Person", "name": "Emma", "url": "https://lechappeedemma.com/emma" },
+          "sameAs": ["https://www.instagram.com/lechappee_demma"],
+          "knowsAbout": ["Voyage sur mesure", "Islande", "Norvège", "Lofoten", "Suède", "Finlande", "Laponie", "Aurores boréales", "Road trip en van"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://lechappeedemma.com/#site",
+          "name": "L'échappée d'Emma",
+          "url": "https://lechappeedemma.com/",
+          "inLanguage": "fr-FR",
+          "publisher": { "@id": "https://lechappeedemma.com/#agence" }
+        }
+      ]
     }
     </script>
   </head>
